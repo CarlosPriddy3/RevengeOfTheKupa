@@ -11,6 +11,7 @@ public class MenuButton : Button
 {
 	// Label for the button.
 	private Text label;
+	public Image icon;
 
 	// Colors used for displaying selected/non-selected buttons.
 	public Color def_text_color = new Color(0.961f, 0.961f, 0.961f, 1.0f);
@@ -25,6 +26,10 @@ public class MenuButton : Button
 		if (label == null)
 		{
 			Debug.LogError("Label not found");
+		}
+		if (icon == null)
+		{
+			Debug.LogError("Icon not found");
 		}
 		setDefaultColors();
 	}
@@ -44,6 +49,8 @@ public class MenuButton : Button
 	/// </summary>
 	private void setSelectedColors()
 	{
+		icon.color = Color.white;
+		label.color = select_text_color;
 		ColorBlock block = new ColorBlock();
 		block.disabledColor = no_color;
 		block.highlightedColor = def_text_color;
@@ -52,7 +59,6 @@ public class MenuButton : Button
 		block.colorMultiplier = 1f;
 		block.fadeDuration = 0.1f;
 		colors = block;
-		label.color = select_text_color;
 	}
 
 	/// <summary>
@@ -60,6 +66,8 @@ public class MenuButton : Button
 	/// </summary>
 	private void setDefaultColors()
 	{
+		label.color = def_text_color;
+		icon.color = no_color;
 		ColorBlock block = new ColorBlock();
 		block.disabledColor = no_color;
 		block.highlightedColor = no_color;
@@ -68,6 +76,5 @@ public class MenuButton : Button
 		block.colorMultiplier = 1f;
 		block.fadeDuration = 0.1f;
 		colors = block;
-		label.color = def_text_color;
 	}
 }
