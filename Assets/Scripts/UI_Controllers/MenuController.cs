@@ -5,11 +5,13 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 /// <summary>
-/// Class that contains on-click methods for the start menu buttons.
+/// Class that contains on-click methods for the menu buttons.
 /// </summary>
-public class StartMenuController : MonoBehaviour {
+public class MenuController : MonoBehaviour {
 
+	public string title_scene_name;
 	public string play_scene_name;
+	public string end_scene_name;
 	public string credits_scene_name;
 
 	/// <summary>
@@ -18,6 +20,34 @@ public class StartMenuController : MonoBehaviour {
 	public void play()
 	{
 		SceneManager.LoadSceneAsync(play_scene_name);
+		GameState.state = State.PLAY;
+	}
+
+	/// <summary>
+	/// Returns to the title screen.
+	/// </summary>
+	public void toTitle()
+	{
+		SceneManager.LoadSceneAsync(title_scene_name);
+		GameState.state = State.START;
+	}
+
+	/// <summary>
+	/// Takes to the game loss screen.
+	/// </summary>
+	public void loseGame()
+	{
+		SceneManager.LoadSceneAsync(end_scene_name);
+		GameState.state = State.LOSS;
+	}
+
+	/// <summary>
+	/// Go to the game win screen.
+	/// </summary>
+	public void winGame()
+	{
+		SceneManager.LoadSceneAsync(end_scene_name);
+		GameState.state = State.WIN;
 	}
 
 	/// <summary>
