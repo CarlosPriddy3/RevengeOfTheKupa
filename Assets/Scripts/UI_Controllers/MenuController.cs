@@ -14,6 +14,14 @@ public class MenuController : MonoBehaviour {
 	public string end_scene_name;
 	public string credits_scene_name;
 
+	private PauseButton pauser;
+
+	// Get pausing component if it exists.
+	void Start()
+	{
+		pauser = GetComponent<PauseButton>();
+	}
+
 	/// <summary>
 	/// Starts the actual gameplay.
 	/// </summary>
@@ -21,6 +29,14 @@ public class MenuController : MonoBehaviour {
 	{
 		SceneManager.LoadSceneAsync(play_scene_name);
 		GameState.state = State.PLAY;
+	}
+
+	/// <summary>
+	/// Unpauses the game.
+	/// </summary>
+	public void unpause()
+	{
+		pauser.unpause();
 	}
 
 	/// <summary>
