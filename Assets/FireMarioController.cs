@@ -5,7 +5,8 @@ using UnityEngine.AI;
 
 [RequireComponent(typeof(NavMeshAgent))]
 [RequireComponent(typeof(Animator))]
-public class MarioController : MonoBehaviour {
+public class FireMarioController : MonoBehaviour
+{
 
     public enum AIState
     {
@@ -21,10 +22,11 @@ public class MarioController : MonoBehaviour {
     public Animator anim;
 
     public GameObject movingTarget;
-    public VelocityReporter movingTargetScript; 
+    public VelocityReporter movingTargetScript;
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         aiState = AIState.Patrol;
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
@@ -33,19 +35,21 @@ public class MarioController : MonoBehaviour {
 
         movingTargetScript = movingTarget.GetComponent<VelocityReporter>();
     }
-    
+
     // Update is called once per frame
-    void Update () {
+    void Update()
+    {
         switch (aiState)
-        {            
+        {
             case AIState.Patrol:
-                if (!agent.pathPending && agent.remainingDistance == 0) {
+                if (!agent.pathPending && agent.remainingDistance == 0)
+                {
                     float dist1 = (movingTarget.transform.position - agent.transform.position).magnitude;
                     if (dist1 <= 50) // agent close enough to Koopa, chase Koopa
                     {
                         aiState = AIState.Chase;
                         break;
-                    }                  
+                    }
 
                     setNextWaypoint();
                 }
@@ -67,8 +71,10 @@ public class MarioController : MonoBehaviour {
         }
     }
 
-    private void setNextWaypoint() {
-        if (waypoints.Length == 0) {
+    private void setNextWaypoint()
+    {
+        if (waypoints.Length == 0)
+        {
             return;
         }
         currWaypoint = (currWaypoint + 1) % waypoints.Length;
