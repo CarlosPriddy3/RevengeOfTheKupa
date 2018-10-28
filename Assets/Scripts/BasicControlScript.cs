@@ -51,10 +51,10 @@ public class BasicControlScript : MonoBehaviour
         if (inputForward < 0f)
             inputTurn = -inputTurn;
         
-        rbody.MovePosition(rbody.position + this.transform.forward * inputForward * Time.deltaTime * forwardMaxSpeed);
-        rbody.MoveRotation(rbody.rotation * Quaternion.AngleAxis(inputTurn * Time.deltaTime * turnMaxSpeed, Vector3.up));
+        //rbody.MovePosition(rbody.position + this.transform.forward * inputForward * Time.deltaTime * forwardMaxSpeed);
+        //rbody.MoveRotation(rbody.rotation * Quaternion.AngleAxis(inputTurn * Time.deltaTime * turnMaxSpeed, Vector3.up));
 
-        anim.SetFloat("vely", inputForward);
-        anim.SetBool("isFalling", !isGrounded);
+        //anim.SetFloat("vely", inputForward);
+        //anim.SetBool("isFalling", !isGrounded);
     }
 }
