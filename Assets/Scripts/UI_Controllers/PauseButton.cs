@@ -36,6 +36,7 @@ public class PauseButton : MonoBehaviour {
 
 	public void pause()
 	{
+		GameState.paused = true;
 		pause_menu.enabled = true;
 		Time.timeScale = 0f;
 		is_paused = true;
@@ -44,6 +45,7 @@ public class PauseButton : MonoBehaviour {
 
 	public void unpause()
 	{
+		GameState.paused = false;
 		pause_menu.enabled = false;
 		Time.timeScale = 1f;
 		is_paused = false;

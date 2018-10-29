@@ -39,35 +39,38 @@ public class FireMarioController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        switch (aiState)
+        if (!GameState.paused)
         {
-            case AIState.Patrol:
-                if (!agent.pathPending && agent.remainingDistance == 0)
-                {
-                    float dist1 = (movingTarget.transform.position - agent.transform.position).magnitude;
-                    if (dist1 <= 50) // agent close enough to Koopa, chase Koopa
+            switch (aiState)
+            {
+                case AIState.Patrol:
+                    if (!agent.pathPending && agent.remainingDistance == 0)
                     {
-                        aiState = AIState.Chase;
-                        break;
+                        float dist1 = (movingTarget.transform.position - agent.transform.position).magnitude;
+                        if (dist1 <= 50) // agent close enough to Koopa, chase Koopa
+                        {
+                            aiState = AIState.Chase;
+                            break;
+                        }
+
+                        setNextWaypoint();
+                    }
+                    break;
+
+                case AIState.Chase:
+                    float dist2 = (movingTarget.transform.position - agent.transform.position).magnitude;
+                    float lookAheadT = dist2 / agent.speed;
+                    Vector3 futureTarget = movingTarget.transform.position + lookAheadT * movingTargetScript.velocity;
+                    agent.SetDestination(futureTarget);
+
+                    if (dist2 > 50) // agent far enough from Koopa, go back to patrolling
+                    {
+                        aiState = AIState.Patrol;
+                        setNextWaypoint();
                     }
 
-                    setNextWaypoint();
-                }
-                break;
-
-            case AIState.Chase:
-                float dist2 = (movingTarget.transform.position - agent.transform.position).magnitude;
-                float lookAheadT = dist2 / agent.speed;
-                Vector3 futureTarget = movingTarget.transform.position + lookAheadT * movingTargetScript.velocity;
-                agent.SetDestination(futureTarget);
-
-                if (dist2 > 50) // agent far enough from Koopa, go back to patrolling
-                {
-                    aiState = AIState.Patrol;
-                    setNextWaypoint();
-                }
-
-                break;
+                    break;
+            }
         }
     }
 

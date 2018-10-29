@@ -19,4 +19,5 @@ public enum State
 public class GameState : MonoBehaviour
 {
 	public static State state = State.START;
+	public static bool paused = false;
 }
