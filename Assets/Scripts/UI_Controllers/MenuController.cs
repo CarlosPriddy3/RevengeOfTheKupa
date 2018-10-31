@@ -27,7 +27,10 @@ public class MenuController : MonoBehaviour {
 	/// </summary>
 	public void play()
 	{
-		pauser.unpause();
+		if (pauser != null)
+		{
+			pauser.unpause();
+		}
 		SceneManager.LoadSceneAsync(play_scene_name);
 		GameState.state = State.PLAY;
 	}
@@ -37,7 +40,10 @@ public class MenuController : MonoBehaviour {
 	/// </summary>
 	public void unpause()
 	{
-		pauser.unpause();
+		if (pauser != null)
+		{
+			pauser.unpause();
+		}
 	}
 
 	/// <summary>
