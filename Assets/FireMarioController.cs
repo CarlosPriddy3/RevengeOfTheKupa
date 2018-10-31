@@ -44,7 +44,7 @@ public class FireMarioController : MonoBehaviour
             switch (aiState)
             {
                 case AIState.Patrol:
-                    if (!agent.pathPending && agent.remainingDistance == 0)
+                    if (!agent.pathPending && agent.remainingDistance == 0 && movingTarget != null)
                     {
                         float dist1 = (movingTarget.transform.position - agent.transform.position).magnitude;
                         if (dist1 <= 50) // agent close enough to Koopa, chase Koopa
