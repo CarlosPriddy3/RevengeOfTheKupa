@@ -54,18 +54,20 @@ public class MarioController : MonoBehaviour {
                     break;
 
                 case AIState.Chase:
-                    float dist2 = (movingTarget.transform.position - agent.transform.position).magnitude;
-                    float speed = (agent.speed == 0) ? 1 : agent.speed;
-                    float lookAheadT = dist2 / agent.speed;
-                    Vector3 futureTarget = movingTarget.transform.position + lookAheadT * movingTargetScript.velocity;
-                    agent.SetDestination(futureTarget);
-
-                    if (dist2 > 50) // agent far enough from Koopa, go back to patrolling
+                    if(movingTarget != null)
                     {
-                        aiState = AIState.Patrol;
-                        setNextWaypoint();
-                    }
+                        float dist2 = (movingTarget.transform.position - agent.transform.position).magnitude;
+                        float speed = (agent.speed == 0) ? 1 : agent.speed;
+                        float lookAheadT = dist2 / agent.speed;
+                        Vector3 futureTarget = movingTarget.transform.position + lookAheadT * movingTargetScript.velocity;
+                        agent.SetDestination(futureTarget);
 
+                        if (dist2 > 50) // agent far enough from Koopa, go back to patrolling
+                        {
+                            aiState = AIState.Patrol;
+                            setNextWaypoint();
+                        }
+                    }
                     break;
             }
         }

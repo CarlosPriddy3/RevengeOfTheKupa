@@ -7,7 +7,7 @@ public class PlayerMove : MonoBehaviour {
     public float turnScalar = 150f;
     public float distToGround = 7.5f;
     public float distToGroundForGrounded = 3.605f;
-    public float JumpHeight = 1400;
+    public float JumpHeight = 3;
     public float GravityStrength = -60f;
     public float shootStrength = 2000f;
     public float dynFric = 0.1f;
