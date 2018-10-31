@@ -15,6 +15,7 @@ public class MarioAttack : MonoBehaviour {
 
     public void BackToMainMenu()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadSceneAsync("GameEnd");
+		GameState.state = State.LOSS;
     }
 }
