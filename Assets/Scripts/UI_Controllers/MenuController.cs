@@ -27,6 +27,7 @@ public class MenuController : MonoBehaviour {
 	/// </summary>
 	public void play()
 	{
+		pauser.unpause();
 		SceneManager.LoadSceneAsync(play_scene_name);
 		GameState.state = State.PLAY;
 	}
