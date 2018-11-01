@@ -13,12 +13,9 @@ public class VictoryListener : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        GameObject[] gos = GameObject.FindGameObjectsWithTag("Player");
-        foreach (GameObject go in gos)
-        {
-            Debug.Log(go.name);
-        }
-        if (Vector3.Distance(gos[0].transform.position, this.transform.position) < winDistance)
+        GameObject[] gos = GameObject.FindGameObjectsWithTag("Kupa");
+        
+        if (gos.Length > 0 && Vector3.Distance(gos[0].transform.position, this.transform.position) < winDistance)
         {
             SceneManager.LoadSceneAsync("GameEnd");
             GameState.state = State.WIN;

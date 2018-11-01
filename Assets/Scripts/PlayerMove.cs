@@ -7,9 +7,9 @@ public class PlayerMove : MonoBehaviour {
     public float turnScalar = 150f;
     public float distToGround = 7.5f;
     public float distToGroundForGrounded = 3.605f;
-    public float JumpHeight = 3;
+    public float JumpHeight = 1700;
     public float GravityStrength = -60f;
-    public float shootStrength = 2000f;
+    public float shootStrength = 1000f;
     public float dynFric = 0.1f;
     public float shellBounce = 3f;
     public float stopSpinVel = 2f;
@@ -17,6 +17,9 @@ public class PlayerMove : MonoBehaviour {
     public bool isSpinning;
     public bool shooting;
     public bool hasShot;
+    public float spinPowerTimer;
+    private float jumpCooldown = 1f;
+    private float jumpTimer;
     private bool walking;
     private Vector3 prevPos;
     public Vector3 velocity;
@@ -24,7 +27,9 @@ public class PlayerMove : MonoBehaviour {
     private Rigidbody rb;
     private Animator anim;
     private Vector3 down;
-    private KupaState kupaState;
+    private GameObject kupaArrow;
+    public KupaState kupaState;
+    private Color defaultArrowColor;
     
     
 	// Use this for initialization
@@ -32,8 +37,10 @@ public class PlayerMove : MonoBehaviour {
         anim = this.gameObject.GetComponent<Animator>();
         rb = this.GetComponent<Rigidbody>();
         
+        
         Vector3 gravityS = new Vector3(0, GravityStrength, 0);
         Physics.gravity = gravityS;
+        jumpTimer = 0f;
         anim.SetBool("isGrounded", true);
         down = this.transform.up * -1;
         walking = false;
@@ -41,6 +48,13 @@ public class PlayerMove : MonoBehaviour {
         isSpinning = false;
         kupaState = KupaState.NotSpinning;
         shooting = false;
+        spinPowerTimer = 0f;
+
+        //Arrow
+        
+        kupaArrow = GameObject.FindGameObjectWithTag("KupaArrow");
+        kupaArrow.SetActive(false);
+        defaultArrowColor =  kupaArrow.GetComponent<Renderer>().material.GetColor("_Color");
     }
     private void Start()
     {
@@ -53,12 +67,18 @@ public class PlayerMove : MonoBehaviour {
         velocity = (this.transform.position - prevPos) / Time.deltaTime;
         prevPos = this.transform.position;
         velocityMag = velocity.magnitude;
+        float h = Input.GetAxisRaw("Horizontal");
+        if (jumpTimer < 3f)
+        {
+            jumpTimer += Time.deltaTime;
+        }
+        
         switch (kupaState)
         {
             case KupaState.NotSpinning:
                 this.gameObject.GetComponent<CapsuleCollider>().material.dynamicFriction = 0.6f; // default friction;
                 this.gameObject.GetComponent<CapsuleCollider>().material.bounciness = 0f; // default bounciness;
-                float h = Input.GetAxisRaw("Horizontal");
+                
                 float v = Input.GetAxisRaw("Vertical");
                 Move(v);
                 Turn(h);
@@ -73,7 +93,12 @@ public class PlayerMove : MonoBehaviour {
                 anim.SetBool("isGrounded", isGrounded);
                 if (isGrounded && (Input.GetKey(KeyCode.Space) || isGrounded && Input.GetButtonDown("Fire1")))
                 {
-                    Jump();
+                    if (jumpTimer > jumpCooldown)
+                    {
+                        Jump();
+                        jumpTimer = 0f;
+                    }
+                    
                 }
                 if (isGrounded && (Input.GetKey(KeyCode.LeftShift) || isGrounded && Input.GetButtonDown("Fire3")))
                 {
@@ -81,54 +106,87 @@ public class PlayerMove : MonoBehaviour {
                     anim.Play("DropIntoShell");
                     anim.SetBool("isSpinning", true);
                     hasShot = false;
+                    spinPowerTimer = 0f;
+                    kupaArrow.SetActive(true);
                 }
                 break;
             case KupaState.Spinning:
+                Color lerpedColor = Color.Lerp(defaultArrowColor, Color.red, spinPowerTimer / 5f);
+                kupaArrow.GetComponent<Renderer>().material.SetColor("_Color", lerpedColor);
+
+                //Limit Spin Power
+                if (spinPowerTimer <= 5f)
+                {
+                    spinPowerTimer += Time.deltaTime;
+                }
+
+                //Ability to turn in shell form
+                Turn(h);
                 shooting = velocity.magnitude > stopSpinVel;
                 Debug.Log("SHOOTING " + shooting);
-                if ((!hasShot && !shooting && isGrounded && !(Input.GetButton("Fire3"))))
+                if ((!hasShot && !shooting && isGrounded && (Input.GetButton("Fire3"))))
+                {
+                    kupaArrow.SetActive(true);
+                }
+                    if ((!hasShot && !shooting && isGrounded && !(Input.GetButton("Fire3"))))
                 {
                     //Shoot Forward
                     Debug.Log("SHOOT");
                     this.gameObject.GetComponent<CapsuleCollider>().material.dynamicFriction = dynFric;
                     this.gameObject.GetComponent<CapsuleCollider>().material.bounciness = shellBounce;
-                    rb.AddForce(this.gameObject.transform.forward * shootStrength);
+                    rb.AddForce(this.gameObject.transform.forward * shootStrength * spinPowerTimer);
                     hasShot = true;
                     shooting = true;
+                    kupaArrow.SetActive(false);
+                    kupaArrow.GetComponent<Renderer>().material.SetColor("_Color", defaultArrowColor);
                 }
                 if (!shooting && hasShot)
                 {
                     anim.Play("Idle");
                     kupaState = KupaState.NotSpinning;
                     anim.SetBool("isSpinning", false);
+                    kupaArrow.GetComponent<Renderer>().material.SetColor("_Color", defaultArrowColor);
+                }
+                if (isGrounded && (Input.GetKey(KeyCode.Space) || isGrounded && Input.GetButtonDown("Fire1")))
+                {
+                    anim.Play("Idle");
+                    kupaState = KupaState.NotSpinning;
+                    anim.SetBool("isSpinning", false);
+                    kupaArrow.SetActive(false);
+                    kupaArrow.GetComponent<Renderer>().material.SetColor("_Color", defaultArrowColor);
                 }
                 break;
         }
-        
-
-        /* else
-        {
-            anim.applyRootMotion = true;
-        }*/
     }
 
     void Jump()
     {
         anim.Play("Launch");
         anim.applyRootMotion = false;
-        rb.AddForce(0, JumpHeight, 0);
+        Debug.DrawRay(this.transform.position, velocity * 10, Color.red);
+        rb.AddForce((velocity * 10) + new Vector3(0, JumpHeight, 0));
         isGrounded = false;
         anim.SetBool("isGrounded", false);
     }
 
     void Move(float v)
     {
-        //movement.Set(0f, 0f, v);
-        //movement = movement.normalized * moveScalar * Time.deltaTime;
-        //koopaRigidBody.MovePosition(transform.position + movement);
-        this.transform.Translate(Vector3.forward * v * moveScalar * Time.deltaTime);
         float velz = Input.GetAxis("Vertical");
         anim.SetFloat("velz", velz);
+        float airRes = 1f;
+        if (!isGrounded)
+        {
+            airRes = 0.5f;
+        }
+        if (v > 0.5f)
+        {
+            this.transform.Translate(Vector3.forward * v * moveScalar * airRes * Time.deltaTime);
+        } else if (v < -0.5f)
+        {
+            this.transform.Translate(Vector3.forward * v * (moveScalar * .1f) * Time.deltaTime);
+        }
+        
+        
     }
 
     void Turn(float h)
