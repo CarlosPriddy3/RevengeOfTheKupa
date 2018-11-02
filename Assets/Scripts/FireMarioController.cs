@@ -106,6 +106,6 @@ public class FireMarioController : MonoBehaviour
         Debug.Log("Shoot Fireball");
         GameObject instance = Instantiate(fireball);
         instance.transform.position = gameObject.transform.position;
-        instance.GetComponent<Rigidbody>().AddForce(target.normalized * 100, ForceMode.Impulse);
+        instance.GetComponent<Rigidbody>().AddForce((target.normalized * 100) + (Vector3.down * 40), ForceMode.Impulse);
     }
 }

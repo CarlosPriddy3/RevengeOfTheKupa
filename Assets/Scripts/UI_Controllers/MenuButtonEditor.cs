@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using UnityEditor;
 using UnityEngine.UI;
 
@@ -12,3 +13,4 @@ public class MenuButtonEditor : Editor
 		DrawDefaultInspector();
 	}
 }
+#endif

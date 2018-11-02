@@ -11,7 +11,7 @@ public class PlayerMove : MonoBehaviour {
     public float GravityStrength = -60f;
     public float shootStrength = 1000f;
     public float dynFric = 0.1f;
-    public float shellBounce = 3f;
+    public float shellBounce = 1f;
     public float stopSpinVel = 2f;
     public bool isGrounded;
     public bool isSpinning;
