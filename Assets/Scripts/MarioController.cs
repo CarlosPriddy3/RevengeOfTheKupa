@@ -10,11 +10,12 @@ public class MarioController : MonoBehaviour {
     public enum AIState
     {
         Patrol,
-        Chase
+        Chase,
+        Stunned
     };
 
     public AIState aiState;
-
+    
     public GameObject[] waypoints;
     public int currWaypoint;
     public NavMeshAgent agent;
@@ -22,10 +23,13 @@ public class MarioController : MonoBehaviour {
 
     public GameObject movingTarget;
     public VelocityReporter movingTargetScript;
+    public float stunDuration = 3f;
+    private float stunnedTimer;
 
     // Use this for initialization
     void Start () {
         aiState = AIState.Patrol;
+        stunnedTimer = 0f;
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
         currWaypoint = -1;
@@ -69,6 +73,23 @@ public class MarioController : MonoBehaviour {
                         }
                     }
                     break;
+                case AIState.Stunned:
+                    stunnedTimer += Time.deltaTime;
+                    if (stunnedTimer > stunDuration)
+                    {
+                        agent.enabled = true;
+                        this.GetComponent<MarioAttack>().enabled = true;
+                        float dist2 = (movingTarget.transform.position - agent.transform.position).magnitude;
+                        anim.SetBool("NotStunned", true);
+                        if (dist2 < 50f)
+                        {
+                            aiState = AIState.Chase;
+                        } else
+                        {
+                            aiState = AIState.Patrol;
+                        }
+                    }
+                    break;
             }
         }
     }
@@ -79,5 +100,16 @@ public class MarioController : MonoBehaviour {
         }
         currWaypoint = (currWaypoint + 1) % waypoints.Length;
         agent.SetDestination(waypoints[currWaypoint].transform.position);
+    }
+
+    public void Stun()
+    {
+        agent.enabled = false;
+        aiState = AIState.Stunned;
+        anim.Play("MarioDizzy");
+        stunnedTimer = 0f;
+        anim.SetBool("NotStunned", false);
+        this.GetComponent<MarioAttack>().enabled = false;
+        
     }
 }
