@@ -28,7 +28,7 @@ public class MarioAttack : MonoBehaviour {
         {
             if (kupa.GetComponent<PlayerMove>().kupaState == KupaState.Spinning && (kupaVel > 5f))
             {
-                Destroy(this.gameObject);
+                this.GetComponent<MarioController>().Stun();
             } else
             {
                 BackToMainMenu();
