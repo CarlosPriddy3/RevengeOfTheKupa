@@ -20,7 +20,6 @@ public class Fireball : MonoBehaviour {
     {
         if (collision.transform.tag == "Kupa")
         {
-            Debug.Log("Fireball hit player");
             Destroy(collision.gameObject);
             BackToMainMenu();
         }

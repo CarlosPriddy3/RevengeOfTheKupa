@@ -8,6 +8,9 @@ public class MarioAttack : MonoBehaviour {
     public float zAdjust = 1.8f;
     public float distanceToKupa;
     public float vertAdjust = 3f;
+    private Vector3 kupaPos;
+    private float kupaVel;
+    private KupaState kupaState;
     /*private void OnCollisionEnter(Collision col)
     {
         if (col.gameObject.tag == "Kupa") {
@@ -19,14 +22,26 @@ public class MarioAttack : MonoBehaviour {
     private void FixedUpdate()
     {
         GameObject kupa = GameObject.FindGameObjectWithTag("Kupa");
-        distanceToKupa = Vector3.Distance(kupa.transform.position, this.transform.position + (this.transform.forward * zAdjust) + (this.transform.up * vertAdjust));
-        Debug.DrawRay(transform.position + (this.transform.forward * zAdjust) + (this.transform.up * vertAdjust), (kupa.transform.position - (this.transform.position + (this.transform.forward * zAdjust) + (this.transform.up * vertAdjust))).normalized * attackDis, Color.red);
-        Debug.DrawRay(transform.position + (this.transform.forward * zAdjust) + (this.transform.up * vertAdjust), new Vector3(0, 1, 0) * 10f, Color.blue);
-        KupaState kupaState = kupa.GetComponent<PlayerMove>().kupaState;
-        float kupaVel = kupa.GetComponent<PlayerMove>().velocityMag;
-        if (kupa != null && (Vector3.Distance(kupa.transform.position , this.transform.position + (this.transform.forward * zAdjust) + (this.transform.up * vertAdjust)) < attackDis))
+        if (kupa != null) {
+            distanceToKupa = Vector3.Distance(kupa.transform.position, this.transform.position + (this.transform.forward * zAdjust) + (this.transform.up * vertAdjust));
+            kupaPos = kupa.transform.position;
+            kupaVel = kupa.GetComponent<PlayerMove>().velocityMag;
+            kupaState = kupa.GetComponent<PlayerMove>().kupaState;
+        } else
         {
-            if (kupa.GetComponent<PlayerMove>().kupaState == KupaState.Spinning && (kupaVel > 5f))
+            distanceToKupa = -1;
+            kupaPos = new Vector3(0, 0, 0);
+            kupaVel = 0f;
+            kupaState = KupaState.NotSpinning;
+        }
+        
+        Debug.DrawRay(transform.position + (this.transform.forward * zAdjust) + (this.transform.up * vertAdjust), (kupaPos - (this.transform.position + (this.transform.forward * zAdjust) + (this.transform.up * vertAdjust))).normalized * attackDis, Color.red);
+        Debug.DrawRay(transform.position + (this.transform.forward * zAdjust) + (this.transform.up * vertAdjust), new Vector3(0, 1, 0) * 10f, Color.blue);
+       
+        
+        if (kupa != null && (Vector3.Distance(kupaPos , this.transform.position + (this.transform.forward * zAdjust) + (this.transform.up * vertAdjust)) < attackDis))
+        {
+            if (kupaState == KupaState.Spinning && (kupaVel > 5f))
             {
                 this.GetComponent<MarioController>().Stun();
             } else

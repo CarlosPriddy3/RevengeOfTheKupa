@@ -11,18 +11,26 @@ public class FireMarioController : MonoBehaviour
     public enum AIState
     {
         Patrol,
-        Chase
+        Chase,
+        Stunned
     };
 
     public AIState aiState;
 
     public GameObject[] waypoints;
     public int currWaypoint;
-    public NavMeshAgent agent;
-    public Animator anim;
-
-    public GameObject movingTarget;
+    private NavMeshAgent agent;
+    private Animator anim;
+    private Vector3 kupaVel;
+    public float minLook = .1f;
+    public float maxLook = 4f;
+    public float stunDuration = 3f;
+    private float stunnedTimer;
+    private NavMeshHit hit;
+    private GameObject movingTarget;
     public VelocityReporter movingTargetScript;
+    private Vector3 targetPos;
+    private float disToTarget;
 
     public GameObject fireball;     // SET IN INSPECTOR
     private int timer = 0;
@@ -30,13 +38,14 @@ public class FireMarioController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        movingTarget = GameObject.FindGameObjectWithTag("Kupa");
         aiState = AIState.Patrol;
+        stunnedTimer = 0f;
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
         currWaypoint = -1;
         setNextWaypoint();
-
-        movingTargetScript = movingTarget.GetComponent<VelocityReporter>();
+        kupaVel = movingTarget.GetComponent<PlayerMove>().velocity;
     }
 
     // Update is called once per frame
@@ -44,38 +53,50 @@ public class FireMarioController : MonoBehaviour
     {
         if (!GameState.paused)
         {
+            if (movingTarget != null)
+            {
+                kupaVel = movingTarget.GetComponent<PlayerMove>().velocity - (new Vector3(0, movingTarget.GetComponent<PlayerMove>().velocity.y, 0));
+                targetPos = movingTarget.transform.position - (new Vector3(0, movingTarget.transform.position.y, 0));
+                disToTarget = Vector3.Magnitude(targetPos - this.transform.position);
+            }
+            else
+            {
+                kupaVel = new Vector3(0, 0, 0);
+                targetPos = new Vector3(0, 0, 0);
+                disToTarget = 0f;
+            }
             switch (aiState)
             {
+
                 case AIState.Patrol:
-                    Debug.Log("Patrol");
                     if (!agent.pathPending && agent.remainingDistance == 0 && movingTarget != null)
                     {
-                        float dist1 = (movingTarget.transform.position - transform.position).magnitude;
-                        //Debug.Log(dist1);
-                        if (dist1 <= 50) // agent close enough to Koopa, chase Koopa
-                        {
-                            shootFireball(movingTarget.transform.position - transform.position);
-                            aiState = AIState.Chase;
-                            break;
-                        }
                         setNextWaypoint();
+                    }
+                    if (disToTarget <= 50) // agent close enough to Koopa, chase Koopa
+                    {
+                        shootFireball(movingTarget.transform.position - transform.position);
+                        aiState = AIState.Chase;
+                        break;
                     }
                     break;
 
                 case AIState.Chase:
-                    Debug.Log("Chase");
                     if (movingTarget != null)
                     {
-                        float dist2 = (movingTarget.transform.position - agent.transform.position).magnitude;
-                        float lookAheadT = dist2 / agent.speed;
-                        Vector3 futureTarget = movingTarget.transform.position + lookAheadT * movingTargetScript.velocity;
-                        agent.SetDestination(futureTarget);
-
-                        if (dist2 > 50) // agent far enough from Koopa, go back to patrolling
+                        float lookAhead = Mathf.Clamp(disToTarget, minLook, maxLook) / agent.speed;
+                        Vector3 dest = targetPos + (lookAhead * kupaVel);
+                        bool blocked = NavMesh.Raycast(targetPos, dest, out hit, NavMesh.AllAreas);
+                        Debug.DrawLine(transform.position, dest, blocked ? Color.red : Color.green);
+                        if (blocked)
                         {
-                            Debug.Log("Hello?");
-                            aiState = AIState.Patrol;
-                            setNextWaypoint();
+                            Vector3 tempDest = hit.position + (targetPos - hit.position).normalized * 1.3f;
+                            agent.SetDestination(tempDest);
+                            Debug.DrawRay((hit.position + (targetPos - hit.position).normalized), Vector3.up, Color.blue);
+                        }
+                        else
+                        {
+                            agent.SetDestination(dest);
                         }
 
                         timer++;
@@ -83,6 +104,24 @@ public class FireMarioController : MonoBehaviour
                         {
                             shootFireball(movingTarget.transform.position - transform.position);
                             timer = 0;
+                        }
+                    }
+                    break;
+                case AIState.Stunned:
+                    stunnedTimer += Time.deltaTime;
+                    if (stunnedTimer > stunDuration)
+                    {
+                        agent.enabled = true;
+                        this.GetComponent<MarioAttack>().enabled = true;
+                        float dist2 = (movingTarget.transform.position - agent.transform.position).magnitude;
+                        anim.SetBool("NotStunned", true);
+                        if (dist2 < 50f)
+                        {
+                            aiState = AIState.Chase;
+                        }
+                        else
+                        {
+                            aiState = AIState.Patrol;
                         }
                     }
                     break;
@@ -102,10 +141,19 @@ public class FireMarioController : MonoBehaviour
 
     private void shootFireball(Vector3 target)
     {
-        // change to object pooling later?
-        Debug.Log("Shoot Fireball");
         GameObject instance = Instantiate(fireball);
-        instance.transform.position = gameObject.transform.position;
-        instance.GetComponent<Rigidbody>().AddForce((target.normalized * 70) + (Vector3.down * 60), ForceMode.Impulse);
+        instance.transform.position = gameObject.transform.position + (gameObject.transform.forward * 2);
+        instance.GetComponent<Rigidbody>().AddForce((target.normalized * 160) + (Vector3.down * 100), ForceMode.Impulse);
+    }
+
+    public void Stun()
+    {
+        agent.enabled = false;
+        aiState = AIState.Stunned;
+        anim.Play("MarioDizzy");
+        stunnedTimer = 0f;
+        anim.SetBool("NotStunned", false);
+        this.GetComponent<MarioAttack>().enabled = false;
+
     }
 }

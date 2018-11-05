@@ -28,6 +28,8 @@ public class MarioController : MonoBehaviour {
     public float minLook = .1f;
     public float maxLook = 4f;
     private NavMeshHit hit;
+    private float disToTarget;
+    private Vector3 targetPos;
 
     // Use this for initialization
     void Start () {
@@ -46,38 +48,41 @@ public class MarioController : MonoBehaviour {
     void Update () {
         if (!GameState.paused)
         {
+            if (movingTarget != null)
+            {
+                kupaVel = movingTarget.GetComponent<PlayerMove>().velocity - (new Vector3(0, movingTarget.GetComponent<PlayerMove>().velocity.y, 0));
+                targetPos = movingTarget.transform.position - (new Vector3(0, movingTarget.transform.position.y, 0));
+                disToTarget = Vector3.Magnitude(targetPos - this.transform.position);
+            } else
+            {
+                kupaVel = new Vector3(0, 0, 0);
+                targetPos = new Vector3(0, 0, 0);
+                disToTarget = 0f;
+            }
+            
+
             switch (aiState)
             {
                 case AIState.Patrol:
-                    float dist1 = (movingTarget.transform.position - agent.transform.position).magnitude;
-                    if (!agent.pathPending && agent.remainingDistance == 0 && movingTarget != null) {                          
-                        setNextWaypoint();
-                    }
-                    if (dist1 <= 50) // agent close enough to Koopa, chase Koopa
+                    if (movingTarget != null)
                     {
-                        aiState = AIState.Chase;
-                        break;
+                        if (!agent.pathPending && agent.remainingDistance == 0 && movingTarget != null)
+                        {
+                            setNextWaypoint();
+                        }
+                        if (disToTarget <= 50) // agent close enough to Koopa, chase Koopa
+                        {
+                            aiState = AIState.Chase;
+                            break;
+                        }
                     }
+                    
                     break;
 
                 case AIState.Chase:
                     if(movingTarget != null)
                     {
-                        /*
-                        float dist2 = (movingTarget.transform.position - agent.transform.position).magnitude;
-                        float speed = (agent.speed == 0) ? 1 : agent.speed;
-                        float lookAheadT = dist2 / agent.speed;
-                        Vector3 futureTarget = movingTarget.transform.position + lookAheadT * kupaVel;
-                        agent.SetDestination(futureTarget);
-
-                        if (dist2 > 50) // agent far enough from Koopa, go back to patrolling
-                        {
-                            aiState = AIState.Patrol;
-                            setNextWaypoint();
-                        }*/
-                        kupaVel = movingTarget.GetComponent<PlayerMove>().velocity;
-                        Vector3 targetPos = movingTarget.transform.position;
-                        float disToTarget = Vector3.Magnitude(targetPos - this.transform.position);
+                        
                         float lookAhead = Mathf.Clamp(disToTarget, minLook, maxLook) / agent.speed;
                         Vector3 dest = targetPos + (lookAhead * kupaVel);
                         bool blocked = NavMesh.Raycast(targetPos, dest, out hit, NavMesh.AllAreas);
