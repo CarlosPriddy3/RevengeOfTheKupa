@@ -639,7 +639,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!95 &95307102532456678
 Animator:
@@ -675,10 +675,9 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   currWaypoint: 0
-  agent: {fileID: 195345615570418964}
-  anim: {fileID: 0}
-  movingTarget: {fileID: 0}
-  movingTargetScript: {fileID: 0}
+  stunDuration: 3
+  minLook: 0.1
+  maxLook: 4
 --- !u!114 &114924247598805198
 MonoBehaviour:
   m_ObjectHideFlags: 1

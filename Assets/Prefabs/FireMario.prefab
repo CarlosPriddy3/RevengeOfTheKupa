@@ -639,7 +639,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!95 &95731052753553148
 Animator:
@@ -692,7 +692,8 @@ MonoBehaviour:
   currWaypoint: 0
   agent: {fileID: 195389936725430710}
   anim: {fileID: 0}
-  movingTarget: {fileID: 0}
+  movingTarget: {fileID: 1937549990124148, guid: 83cfb5d6a1e94474e95152b364273ccc,
+    type: 2}
   movingTargetScript: {fileID: 0}
   fireball: {fileID: 1000211792952930, guid: 00aa43b77ffca5f4baa4d54b3a086f5a, type: 2}
 --- !u!136 &136132146773065106

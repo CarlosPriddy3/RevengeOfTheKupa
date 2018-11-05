@@ -18,16 +18,20 @@ public class MarioController : MonoBehaviour {
     
     public GameObject[] waypoints;
     public int currWaypoint;
-    public NavMeshAgent agent;
-    public Animator anim;
+    private NavMeshAgent agent;
+    private Animator anim;
 
-    public GameObject movingTarget;
-    public VelocityReporter movingTargetScript;
+    private GameObject movingTarget;
+    private Vector3 kupaVel;
     public float stunDuration = 3f;
     private float stunnedTimer;
+    public float minLook = .1f;
+    public float maxLook = 4f;
+    private NavMeshHit hit;
 
     // Use this for initialization
     void Start () {
+        movingTarget = GameObject.FindGameObjectWithTag("Kupa");
         aiState = AIState.Patrol;
         stunnedTimer = 0f;
         agent = GetComponent<NavMeshAgent>();
@@ -35,7 +39,7 @@ public class MarioController : MonoBehaviour {
         currWaypoint = -1;
         setNextWaypoint();
 
-        movingTargetScript = movingTarget.GetComponent<VelocityReporter>();
+        kupaVel = movingTarget.GetComponent<PlayerMove>().velocity;
     }
 
     // Update is called once per frame
@@ -45,31 +49,48 @@ public class MarioController : MonoBehaviour {
             switch (aiState)
             {
                 case AIState.Patrol:
-                    if (!agent.pathPending && agent.remainingDistance == 0 && movingTarget != null) {
-                        float dist1 = (movingTarget.transform.position - agent.transform.position).magnitude;
-                        if (dist1 <= 50) // agent close enough to Koopa, chase Koopa
-                        {
-                            aiState = AIState.Chase;
-                            break;
-                        }
-
+                    float dist1 = (movingTarget.transform.position - agent.transform.position).magnitude;
+                    if (!agent.pathPending && agent.remainingDistance == 0 && movingTarget != null) {                          
                         setNextWaypoint();
+                    }
+                    if (dist1 <= 50) // agent close enough to Koopa, chase Koopa
+                    {
+                        aiState = AIState.Chase;
+                        break;
                     }
                     break;
 
                 case AIState.Chase:
                     if(movingTarget != null)
                     {
+                        /*
                         float dist2 = (movingTarget.transform.position - agent.transform.position).magnitude;
                         float speed = (agent.speed == 0) ? 1 : agent.speed;
                         float lookAheadT = dist2 / agent.speed;
-                        Vector3 futureTarget = movingTarget.transform.position + lookAheadT * movingTargetScript.velocity;
+                        Vector3 futureTarget = movingTarget.transform.position + lookAheadT * kupaVel;
                         agent.SetDestination(futureTarget);
 
                         if (dist2 > 50) // agent far enough from Koopa, go back to patrolling
                         {
                             aiState = AIState.Patrol;
                             setNextWaypoint();
+                        }*/
+                        kupaVel = movingTarget.GetComponent<PlayerMove>().velocity;
+                        Vector3 targetPos = movingTarget.transform.position;
+                        float disToTarget = Vector3.Magnitude(targetPos - this.transform.position);
+                        float lookAhead = Mathf.Clamp(disToTarget, minLook, maxLook) / agent.speed;
+                        Vector3 dest = targetPos + (lookAhead * kupaVel);
+                        bool blocked = NavMesh.Raycast(targetPos, dest, out hit, NavMesh.AllAreas);
+                        Debug.DrawLine(transform.position, dest, blocked ? Color.red : Color.green);
+                        if (blocked)
+                        {
+                            Vector3 tempDest = hit.position + (targetPos - hit.position).normalized * 1.3f;
+                            agent.SetDestination(tempDest);
+                            Debug.DrawRay((hit.position + (targetPos - hit.position).normalized), Vector3.up, Color.blue);
+                        }
+                        else
+                        {
+                            agent.SetDestination(dest);
                         }
                     }
                     break;
