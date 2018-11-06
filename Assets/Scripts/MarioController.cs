@@ -30,6 +30,7 @@ public class MarioController : MonoBehaviour {
     private NavMeshHit hit;
     private float disToTarget;
     private Vector3 targetPos;
+    public float fieldOfView = 45f;
 
     // Use this for initialization
     void Start () {
@@ -48,6 +49,12 @@ public class MarioController : MonoBehaviour {
     void Update () {
         if (!GameState.paused)
         {
+            Quaternion rightRot = Quaternion.AngleAxis(fieldOfView, Vector3.up);
+            Quaternion leftRot = Quaternion.AngleAxis(-fieldOfView, Vector3.up);
+            Vector3 rightVec = rightRot * transform.forward;
+            Vector3 leftVec = leftRot * transform.forward;
+            Debug.DrawRay(this.transform.position, rightVec * 20f, Color.green);
+            Debug.DrawRay(this.transform.position, leftVec * 20f, Color.green);
             if (movingTarget != null)
             {
                 kupaVel = movingTarget.GetComponent<PlayerMove>().velocity - (new Vector3(0, movingTarget.GetComponent<PlayerMove>().velocity.y, 0));
@@ -70,10 +77,25 @@ public class MarioController : MonoBehaviour {
                         {
                             setNextWaypoint();
                         }
+                        RaycastHit hit;
                         if (disToTarget <= 50) // agent close enough to Koopa, chase Koopa
                         {
-                            aiState = AIState.Chase;
-                            break;
+                            Vector3 adjVect = this.transform.forward * 2 + this.transform.up * 5;
+                            Debug.DrawRay(this.transform.position + adjVect, (movingTarget.transform.position - (this.transform.position + adjVect)).normalized * (disToTarget - 4f), Color.cyan);
+                            bool objectBetween = Physics.Raycast(this.transform.position + adjVect, (movingTarget.transform.position - (this.transform.position + adjVect)).normalized, out hit, disToTarget - 4f) && hit.transform.name != "SupaKupaTrupa";
+                            Vector3 rayDir = (movingTarget.transform.position - (this.transform.position + adjVect)).normalized;
+                            if (Vector3.Angle(this.transform.forward, rayDir) > fieldOfView)
+                            {
+                                objectBetween = true;
+                            }
+                           // Debug.Log(objectBetween);
+                            if (!objectBetween)
+                            {
+                                Debug.Log("IN STATE CHANGE");
+                                aiState = AIState.Chase;
+                                break;
+                            }
+                            
                         }
                     }
                     
@@ -137,5 +159,28 @@ public class MarioController : MonoBehaviour {
         anim.SetBool("NotStunned", false);
         this.GetComponent<MarioAttack>().enabled = false;
         
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Kupa")
+        {
+            foreach (ContactPoint contact in collision.contacts)
+            {
+                string colName = contact.thisCollider.name;
+                switch (colName)
+                {
+                    case "HeadCollider":
+                        Vector3 relativePosition = contact.thisCollider.transform.InverseTransformPoint(contact.point);
+                        if (relativePosition.y > 0 && kupaVel.y <= 0)
+                        {
+                            collision.gameObject.GetComponent<Rigidbody>().AddForce(collision.gameObject.transform.forward * 400 + collision.gameObject.transform.up * 1000);
+                            this.Stun();
+                            
+                        }
+                        break;
+                }
+            }
+        }
     }
 }

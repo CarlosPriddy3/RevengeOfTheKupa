@@ -61,9 +61,11 @@ public class PlayerMove : MonoBehaviour {
         prevPos = this.transform.position;
     }
 
+
     // Update is called once per frame
     void FixedUpdate()
     {
+        
         velocity = (this.transform.position - prevPos) / Time.deltaTime;
         prevPos = this.transform.position;
         velocityMag = velocity.magnitude;
@@ -87,9 +89,25 @@ public class PlayerMove : MonoBehaviour {
                 {
                     anim.applyRootMotion = false;
                 }
-                bool groundClose = Physics.Raycast(transform.position, down, distToGround);
+                /*bool groundClose = Physics.Raycast(transform.position, down, distToGround);
                 isGrounded = Physics.Raycast(transform.position, down, distToGroundForGrounded);
                 anim.SetBool("groundClose", groundClose);
+                anim.SetBool("isGrounded", isGrounded);*/
+                RaycastHit belowHit;
+                bool landableObject = true;
+                bool groundClose = Physics.Raycast(transform.position, down, out belowHit, distToGround);
+                
+                bool onObject = Physics.Raycast(transform.position, down, distToGroundForGrounded);
+                if (belowHit.collider != null)
+                {
+                    Debug.Log(belowHit.collider.gameObject.tag);
+                    landableObject = belowHit.collider.gameObject.tag != "MarioCollider";
+
+                } 
+                
+                isGrounded = onObject && landableObject;
+                anim.SetBool("groundClose", groundClose);
+                anim.SetBool("landableObject", landableObject);
                 anim.SetBool("isGrounded", isGrounded);
                 if (isGrounded && (Input.GetKey(KeyCode.Space) || isGrounded && Input.GetButtonDown("Fire1")))
                 {
@@ -233,4 +251,4 @@ public class PlayerMove : MonoBehaviour {
         //this.transform.position = newRootPosition;
         //this.transform.rotation = newRootRotation;
     }*/
-}
+        }

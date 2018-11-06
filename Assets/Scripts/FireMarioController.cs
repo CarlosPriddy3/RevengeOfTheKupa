@@ -156,4 +156,28 @@ public class FireMarioController : MonoBehaviour
         this.GetComponent<MarioAttack>().enabled = false;
 
     }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Kupa")
+        {
+            foreach (ContactPoint contact in collision.contacts)
+            {
+                string colName = contact.thisCollider.name;
+
+                switch (colName)
+                {
+                    case "HeadCollider":
+                        Vector3 relativePosition = contact.thisCollider.transform.InverseTransformPoint(contact.point);
+                        if (relativePosition.y > 0 && kupaVel.y <= 0)
+                        {
+                            collision.gameObject.GetComponent<Rigidbody>().AddForce(collision.gameObject.transform.forward * 400 + collision.gameObject.transform.up * 1000);
+                            this.Stun();
+
+                        }
+                        break;
+                }
+            }
+        }
+    }
 }
