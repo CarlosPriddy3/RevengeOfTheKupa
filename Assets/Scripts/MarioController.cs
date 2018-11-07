@@ -11,6 +11,7 @@ public class MarioController : MonoBehaviour {
     {
         Patrol,
         Chase,
+        Investigate,
         Stunned
     };
 
@@ -18,7 +19,7 @@ public class MarioController : MonoBehaviour {
     
     public GameObject[] waypoints;
     public int currWaypoint;
-    private NavMeshAgent agent;
+    public NavMeshAgent agent;
     private Animator anim;
 
     private GameObject movingTarget;
@@ -31,6 +32,13 @@ public class MarioController : MonoBehaviour {
     private float disToTarget;
     private Vector3 targetPos;
     public float fieldOfView = 45f;
+    //Fire Mario Specific
+    public GameObject fireball; // SET IN INSPECTOR
+    public float fireballCD = 100f;
+    private int timer;
+    public int searchTimer;
+    public int searchTime = 99999999;
+    public GameObject[] investigationPoints;
 
     // Use this for initialization
     void Start () {
@@ -40,7 +48,9 @@ public class MarioController : MonoBehaviour {
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
         currWaypoint = -1;
-        setNextWaypoint();
+        setNextWaypoint(waypoints);
+        timer = 0;
+        searchTimer = 0;
 
         kupaVel = movingTarget.GetComponent<PlayerMove>().velocity;
     }
@@ -49,12 +59,7 @@ public class MarioController : MonoBehaviour {
     void Update () {
         if (!GameState.paused)
         {
-            Quaternion rightRot = Quaternion.AngleAxis(fieldOfView, Vector3.up);
-            Quaternion leftRot = Quaternion.AngleAxis(-fieldOfView, Vector3.up);
-            Vector3 rightVec = rightRot * transform.forward;
-            Vector3 leftVec = leftRot * transform.forward;
-            Debug.DrawRay(this.transform.position, rightVec * 20f, Color.green);
-            Debug.DrawRay(this.transform.position, leftVec * 20f, Color.green);
+            
             if (movingTarget != null)
             {
                 kupaVel = movingTarget.GetComponent<PlayerMove>().velocity - (new Vector3(0, movingTarget.GetComponent<PlayerMove>().velocity.y, 0));
@@ -66,45 +71,55 @@ public class MarioController : MonoBehaviour {
                 targetPos = new Vector3(0, 0, 0);
                 disToTarget = 0f;
             }
-            
+
 
             switch (aiState)
             {
                 case AIState.Patrol:
+                    //Line of Sight Debug Rays
+                    Quaternion rightRot = Quaternion.AngleAxis(fieldOfView, Vector3.up);
+                    Quaternion leftRot = Quaternion.AngleAxis(-fieldOfView, Vector3.up);
+                    Vector3 rightVec = rightRot * transform.forward;
+                    Vector3 leftVec = leftRot * transform.forward;
+                    Debug.DrawRay(this.transform.position, rightVec * 20f, Color.green);
+                    Debug.DrawRay(this.transform.position, leftVec * 20f, Color.green);
+
                     if (movingTarget != null)
                     {
                         if (!agent.pathPending && agent.remainingDistance == 0 && movingTarget != null)
                         {
-                            setNextWaypoint();
+                            setNextWaypoint(waypoints);
                         }
                         RaycastHit hit;
                         if (disToTarget <= 50) // agent close enough to Koopa, chase Koopa
                         {
-                            Vector3 adjVect = this.transform.forward * 2 + this.transform.up * 5;
-                            Debug.DrawRay(this.transform.position + adjVect, (movingTarget.transform.position - (this.transform.position + adjVect)).normalized * (disToTarget - 4f), Color.cyan);
-                            bool objectBetween = Physics.Raycast(this.transform.position + adjVect, (movingTarget.transform.position - (this.transform.position + adjVect)).normalized, out hit, disToTarget - 4f) && hit.transform.name != "SupaKupaTrupa";
-                            Vector3 rayDir = (movingTarget.transform.position - (this.transform.position + adjVect)).normalized;
-                            if (Vector3.Angle(this.transform.forward, rayDir) > fieldOfView)
+                            if (canSeeKupa())
                             {
-                                objectBetween = true;
-                            }
-                           // Debug.Log(objectBetween);
-                            if (!objectBetween)
-                            {
-                                Debug.Log("IN STATE CHANGE");
+                                Debug.Log(this.name + " CHASING " + movingTarget.name);
+                                if (this.name == "FireMario")
+                                {
+                                    shootFireball();
+                                }
                                 aiState = AIState.Chase;
                                 break;
                             }
-                            
+
                         }
                     }
-                    
+
                     break;
 
                 case AIState.Chase:
-                    if(movingTarget != null)
+                    if (movingTarget != null)
                     {
-                        
+                        if (disToTarget > 50)
+                        {
+                            aiState = AIState.Patrol;
+                        }
+                        if (!canSeeKupa())
+                        {
+                            InstantiateInvestigateParams(movingTarget.transform.position);
+                        }
                         float lookAhead = Mathf.Clamp(disToTarget, minLook, maxLook) / agent.speed;
                         Vector3 dest = targetPos + (lookAhead * kupaVel);
                         bool blocked = NavMesh.Raycast(targetPos, dest, out hit, NavMesh.AllAreas);
@@ -119,6 +134,15 @@ public class MarioController : MonoBehaviour {
                         {
                             agent.SetDestination(dest);
                         }
+                        if (this.name == "FireMario")
+                        {
+                            timer++;
+                            if (timer > fireballCD)
+                            {
+                                shootFireball();
+                                timer = 0;
+                            }
+                        }  
                     }
                     break;
                 case AIState.Stunned:
@@ -131,18 +155,59 @@ public class MarioController : MonoBehaviour {
                         anim.SetBool("NotStunned", true);
                         if (dist2 < 50f)
                         {
-                            aiState = AIState.Chase;
+                            if (canSeeKupa())
+                            {
+                                Debug.Log(this.name + " CHASING " + movingTarget.name);
+                                aiState = AIState.Chase;
+                            } else
+                            {
+                                InstantiateInvestigateParams(this.transform.position);
+                                aiState = AIState.Investigate;
+                            }       
                         } else
                         {
                             aiState = AIState.Patrol;
                         }
                     }
                     break;
+                case AIState.Investigate:
+                    searchTimer++;
+                    
+                    
+                    if (searchTimer > searchTime)
+                    {
+                        Debug.Log("TIME UP COULDNT FIND");
+                        clearInvestigationPoints();
+                        aiState = AIState.Patrol;
+                        break;
+                    }
+
+                    if (!agent.pathPending && agent.remainingDistance == 0 && movingTarget != null)
+                    {
+                        setNextWaypoint(investigationPoints);
+                    }
+                    
+                    if (disToTarget <= 50) // agent close enough to Koopa, chase Koopa
+                    {
+                        if (canSeeKupa())
+                        {
+                            Debug.Log(this.name + " CHASING " + movingTarget.name);
+                            if (this.name == "FireMario")
+                            {
+                                shootFireball();
+                            }
+                            clearInvestigationPoints();
+                            aiState = AIState.Chase;
+                            break;
+                        }
+
+                    }
+                    break;
             }
         }
     }
 
-    private void setNextWaypoint() {
+    private void setNextWaypoint(GameObject[] waypoints) {
         if (waypoints.Length == 0) {
             return;
         }
@@ -161,6 +226,80 @@ public class MarioController : MonoBehaviour {
         
     }
 
+    private bool canSeeKupa()
+    {
+        RaycastHit hit;
+        Vector3 adjVect = this.transform.forward * 2 + this.transform.up * 5;
+        Debug.DrawRay(this.transform.position + adjVect, (movingTarget.transform.position - (this.transform.position + adjVect)).normalized * (disToTarget - 4f), Color.cyan);
+        bool objectBetween = Physics.Raycast(this.transform.position + adjVect, (movingTarget.transform.position - (this.transform.position + adjVect)).normalized, out hit, disToTarget - 4f) && hit.transform.name != "SupaKupaTrupa";
+        Vector3 rayDir = (movingTarget.transform.position - (this.transform.position + adjVect)).normalized;
+        if (Vector3.Angle(this.transform.forward, rayDir) > fieldOfView)
+        {
+            objectBetween = true;
+        }
+        return !objectBetween;
+    }
+    private void shootFireball()
+    {
+        /*float lookAhead = Mathf.Clamp(disToTarget, minLook, maxLook) / agent.speed;
+        Vector3 target = targetPos + (lookAhead * kupaVel);
+        bool blocked = NavMesh.Raycast(targetPos, target, out hit, NavMesh.AllAreas);
+        Debug.DrawLine(transform.position, target, blocked ? Color.red : Color.green);
+        if (blocked)
+        {
+            Vector3 tempDest = hit.position + (targetPos - hit.position).normalized * 1.3f;
+            target = tempDest;
+            Debug.DrawRay((hit.position + (targetPos - hit.position).normalized), Vector3.up, Color.blue);
+        }*/
+
+        GameObject instance = Instantiate(fireball);
+        instance.transform.position = gameObject.transform.position + (gameObject.transform.forward * 5) + (gameObject.transform.up * 5);
+        instance.GetComponent<Rigidbody>().AddForce((this.transform.forward.normalized * 60) + (Vector3.down * 170 / disToTarget), ForceMode.Impulse);
+    }
+
+    //Helper Methods for Investigation of Sound
+    public void InstantiateInvestigateParams(Vector3 location)
+    {
+        searchTimer = 0;
+        currWaypoint = 0;
+        generateSearchPoints(location);
+        agent.SetDestination(investigationPoints[0].transform.position);
+        aiState = AIState.Investigate;
+    }
+
+    private void generateSearchPoints(Vector3 location)
+    {
+        GameObject[] searchPoints = new GameObject[5];
+        //Initial search at location
+        GameObject firstWayP = new GameObject();
+        firstWayP.transform.position = location;
+        searchPoints[0] = firstWayP;
+        for (int i = 1; i < searchPoints.Length; i++)
+        {
+            GameObject newWayp = new GameObject();
+            newWayp.transform.position = location + new Vector3(Random.Range(0f, 10f), 0f, Random.Range(0f, 10f));
+            int counter = 0;
+            NavMeshHit hit;
+            while (NavMesh.Raycast(this.transform.position, location, out hit, NavMesh.AllAreas))
+            {
+                newWayp.transform.position = location + new Vector3(Random.Range(0f, 10f + counter), 0f, Random.Range(0f, 10f + counter));
+                counter++;
+            }
+            searchPoints[i] = newWayp;
+            Debug.Log(newWayp.transform.position);
+        }
+        this.investigationPoints = searchPoints;
+    }
+
+    public void clearInvestigationPoints()
+    {
+        foreach (GameObject point in investigationPoints)
+        {
+            Destroy(point);
+        }
+    }
+
+    //Head collision checker
     void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "Kupa")
