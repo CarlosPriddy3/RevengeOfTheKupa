@@ -30,6 +30,7 @@ public class PlayerMove : MonoBehaviour {
     private GameObject kupaArrow;
     public KupaState kupaState;
     private Color defaultArrowColor;
+    private float forwardSpeedLimit;
     
     
 	// Use this for initialization
@@ -55,6 +56,8 @@ public class PlayerMove : MonoBehaviour {
         kupaArrow = GameObject.FindGameObjectWithTag("KupaArrow");
         kupaArrow.SetActive(false);
         defaultArrowColor =  kupaArrow.GetComponent<Renderer>().material.GetColor("_Color");
+
+        forwardSpeedLimit = 0.5f;
     }
     private void Start()
     {
@@ -192,16 +195,39 @@ public class PlayerMove : MonoBehaviour {
         float velz = Input.GetAxis("Vertical");
         anim.SetFloat("velz", velz);
         float airRes = 1f;
+        
+        if (Input.GetKeyUp(KeyCode.Alpha1))
+            forwardSpeedLimit = 0.1f;
+        else if (Input.GetKeyUp(KeyCode.Alpha2))
+            forwardSpeedLimit = 0.2f;
+        else if (Input.GetKeyUp(KeyCode.Alpha3))
+            forwardSpeedLimit = 0.3f;
+        else if (Input.GetKeyUp(KeyCode.Alpha4))
+            forwardSpeedLimit = 0.4f;
+        else if (Input.GetKeyUp(KeyCode.Alpha5))
+            forwardSpeedLimit = 0.5f;
+        else if (Input.GetKeyUp(KeyCode.Alpha6))
+            forwardSpeedLimit = 0.6f;
+        else if (Input.GetKeyUp(KeyCode.Alpha7))
+            forwardSpeedLimit = 0.7f;
+        else if (Input.GetKeyUp(KeyCode.Alpha8))
+            forwardSpeedLimit = 0.8f;
+        else if (Input.GetKeyUp(KeyCode.Alpha9))
+            forwardSpeedLimit = 0.9f;
+        else if (Input.GetKeyUp(KeyCode.Alpha0))
+            forwardSpeedLimit = 1.0f;
         if (!isGrounded)
         {
             airRes = 0.5f;
         }
+        float forward = velz * moveScalar * airRes * forwardSpeedLimit * Time.deltaTime * 2;
+        anim.SetFloat("velz", forward);
         if (v > 0.5f)
         {
-            this.transform.Translate(Vector3.forward * v * moveScalar * airRes * Time.deltaTime);
+            this.transform.Translate(Vector3.forward * velz * moveScalar * airRes  * forwardSpeedLimit * Time.deltaTime);
         } else if (v < -0.5f)
         {
-            this.transform.Translate(Vector3.forward * v * (moveScalar * .1f) * Time.deltaTime);
+            this.transform.Translate(Vector3.forward * velz * forwardSpeedLimit * (moveScalar * .1f) * Time.deltaTime);
         }
         
         

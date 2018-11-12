@@ -34,10 +34,11 @@ public class MarioController : MonoBehaviour {
     public float fieldOfView = 45f;
     //Fire Mario Specific
     public GameObject fireball; // SET IN INSPECTOR
-    public float fireballCD = 100f;
+    public float fireballCD = 300f;
+    public int fireBallMaxRandom = 120;
     private int timer;
     public int searchTimer;
-    public int searchTime = 99999999;
+    public int searchTime = 3000;
     public GameObject[] investigationPoints;
 
     // Use this for initialization
@@ -112,13 +113,16 @@ public class MarioController : MonoBehaviour {
                 case AIState.Chase:
                     if (movingTarget != null)
                     {
+                        Debug.Log(timer);
                         if (disToTarget > 50)
                         {
                             aiState = AIState.Patrol;
                         }
+                        Debug.Log("CAN SEE KUPA" + canSeeKupa());
                         if (!canSeeKupa())
                         {
                             InstantiateInvestigateParams(movingTarget.transform.position);
+                            break;
                         }
                         float lookAhead = Mathf.Clamp(disToTarget, minLook, maxLook) / agent.speed;
                         Vector3 dest = targetPos + (lookAhead * kupaVel);
@@ -140,7 +144,7 @@ public class MarioController : MonoBehaviour {
                             if (timer > fireballCD)
                             {
                                 shootFireball();
-                                timer = 0;
+                                timer = Random.Range(0, fireBallMaxRandom);
                             }
                         }  
                     }
