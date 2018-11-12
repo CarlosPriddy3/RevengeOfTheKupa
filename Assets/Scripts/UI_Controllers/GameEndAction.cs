@@ -4,16 +4,16 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 /// <summary>
-/// Encapsulates an action to perform once timer has reached zero.
+/// Encapsulates an action to perform when reaching a game ending state.
 /// </summary>
-public class TimerAction : MonoBehaviour
+public class GameEndAction : MonoBehaviour
 {
 	public string end_scene_name;
 
 	/// <summary>
 	/// The action to perform.
 	/// </summary>
-	public void onTimerEnd()
+	public void onLoss()
 	{
 		SceneManager.LoadSceneAsync(end_scene_name);
 		GameState.state = State.LOSS;

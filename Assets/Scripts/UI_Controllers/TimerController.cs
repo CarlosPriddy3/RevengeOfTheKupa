@@ -10,7 +10,7 @@ public class TimerController : MonoBehaviour {
 
 	public Text countdown_text;
 	public int max_time;
-	public TimerAction action;
+	public GameEndAction action;
 
 	private int curr_time;
 
@@ -36,7 +36,7 @@ public class TimerController : MonoBehaviour {
 			yield return new WaitForSeconds(1.0f);
 			curr_time--;
 		}
-		action.onTimerEnd();
+		action.onLoss();
 	}
 
 	/// <summary>
