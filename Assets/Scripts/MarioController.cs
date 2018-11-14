@@ -113,7 +113,6 @@ public class MarioController : MonoBehaviour {
                 case AIState.Chase:
                     if (movingTarget != null)
                     {
-                        Debug.Log(timer);
                         if (disToTarget > 50)
                         {
                             aiState = AIState.Patrol;
@@ -200,7 +199,7 @@ public class MarioController : MonoBehaviour {
                             {
                                 shootFireball();
                             }
-                            clearInvestigationPoints();
+                            
                             aiState = AIState.Chase;
                             break;
                         }
@@ -264,6 +263,7 @@ public class MarioController : MonoBehaviour {
     //Helper Methods for Investigation of Sound
     public void InstantiateInvestigateParams(Vector3 location)
     {
+        clearInvestigationPoints();
         searchTimer = 0;
         currWaypoint = 0;
         generateSearchPoints(location);
@@ -290,7 +290,6 @@ public class MarioController : MonoBehaviour {
                 counter++;
             }
             searchPoints[i] = newWayp;
-            Debug.Log(newWayp.transform.position);
         }
         this.investigationPoints = searchPoints;
     }

@@ -31,8 +31,14 @@ public class PlayerMove : MonoBehaviour {
     public KupaState kupaState;
     private Color defaultArrowColor;
     private float forwardSpeedLimit;
-    
-    
+    public AudioSource leftFootStep;
+    public AudioSource rightFootStep;
+    public AudioSource kupaJump;
+    public AudioSource spinSound;
+    public AudioSource slowSpinSound;
+    public AudioSource slowestSpinSound;
+    public AudioSource shellTakeoffSound;
+    private float soundTimer;
 	// Use this for initialization
 	void Awake () {
         anim = this.gameObject.GetComponent<Animator>();
@@ -56,7 +62,9 @@ public class PlayerMove : MonoBehaviour {
         kupaArrow = GameObject.FindGameObjectWithTag("KupaArrow");
         kupaArrow.SetActive(false);
         defaultArrowColor =  kupaArrow.GetComponent<Renderer>().material.GetColor("_Color");
-
+        
+        AddEvent(3, 0.13f, "playKupaJump", 0);
+        soundTimer = 0f;
         forwardSpeedLimit = 0.5f;
     }
     private void Start()
@@ -103,7 +111,6 @@ public class PlayerMove : MonoBehaviour {
                 bool onObject = Physics.Raycast(transform.position, down, distToGroundForGrounded);
                 if (belowHit.collider != null)
                 {
-                    Debug.Log(belowHit.collider.gameObject.tag);
                     landableObject = belowHit.collider.gameObject.tag != "MarioCollider";
 
                 } 
@@ -125,6 +132,7 @@ public class PlayerMove : MonoBehaviour {
                 {
                     kupaState = KupaState.Spinning;
                     anim.Play("DropIntoShell");
+                    playSlowSpinSound();
                     anim.SetBool("isSpinning", true);
                     hasShot = false;
                     spinPowerTimer = 0f;
@@ -134,7 +142,12 @@ public class PlayerMove : MonoBehaviour {
             case KupaState.Spinning:
                 Color lerpedColor = Color.Lerp(defaultArrowColor, Color.red, spinPowerTimer / 5f);
                 kupaArrow.GetComponent<Renderer>().material.SetColor("_Color", lerpedColor);
-
+                soundTimer += Time.deltaTime;
+                if (soundTimer > .778f)
+                {
+                    playSpinSound();
+                    soundTimer = 0;
+                }
                 //Limit Spin Power
                 if (spinPowerTimer <= 5f)
                 {
@@ -144,7 +157,6 @@ public class PlayerMove : MonoBehaviour {
                 //Ability to turn in shell form
                 Turn(h);
                 shooting = velocity.magnitude > stopSpinVel;
-                Debug.Log("SHOOTING " + shooting);
                 if ((!hasShot && !shooting && isGrounded && (Input.GetButton("Fire3"))))
                 {
                     kupaArrow.SetActive(true);
@@ -152,7 +164,7 @@ public class PlayerMove : MonoBehaviour {
                     if ((!hasShot && !shooting && isGrounded && !(Input.GetButton("Fire3"))))
                 {
                     //Shoot Forward
-                    Debug.Log("SHOOT");
+                    playShellTakeoffSound();
                     this.gameObject.GetComponent<CapsuleCollider>().material.dynamicFriction = dynFric;
                     this.gameObject.GetComponent<CapsuleCollider>().material.bounciness = shellBounce;
                     rb.AddForce(this.gameObject.transform.forward * shootStrength * spinPowerTimer);
@@ -167,6 +179,7 @@ public class PlayerMove : MonoBehaviour {
                     kupaState = KupaState.NotSpinning;
                     anim.SetBool("isSpinning", false);
                     kupaArrow.GetComponent<Renderer>().material.SetColor("_Color", defaultArrowColor);
+                    stopSound();
                 }
                 if (isGrounded && (Input.GetKey(KeyCode.Space) || isGrounded && Input.GetButtonDown("Fire1")))
                 {
@@ -175,6 +188,7 @@ public class PlayerMove : MonoBehaviour {
                     anim.SetBool("isSpinning", false);
                     kupaArrow.SetActive(false);
                     kupaArrow.GetComponent<Renderer>().material.SetColor("_Color", defaultArrowColor);
+                    stopSound();
                 }
                 break;
         }
@@ -250,31 +264,50 @@ public class PlayerMove : MonoBehaviour {
             anim.SetBool("isWalking", walking);
         }   
     }
-
-   /* void OnAnimatorMove()
+    void stopSound()
     {
-        Debug.Log("IN ONANIMATORMOVE");
-        Vector3 newRootPosition;
-        Quaternion newRootRotation;
+        spinSound.Stop();
+        slowSpinSound.Stop();
+        slowestSpinSound.Stop();
+    }
+    void playLeftFootStep()
+    {
+        leftFootStep.Play();
+    }
+    void playRightFootStep()
+    {
+        rightFootStep.Play();
+    }
+    void playKupaJump()
+    {
+        Debug.Log("IN ANIMATION EVENT");
+        kupaJump.Play();
+    }
+    void playSpinSound()
+    {
+        spinSound.Play();
+    }
+    void playSlowSpinSound()
+    {
+        slowSpinSound.Play();
+    }
+    void playSlowestSpinSound()
+    {
+        slowestSpinSound.Play();
+    }
+    void playShellTakeoffSound()
+    {
+        shellTakeoffSound.Play();
+    }
 
-        if (this.gameObject.GetComponent<JumpListener>().isGrounded)
-        {
-            //use root motion as is if on the ground		
-            newRootPosition = anim.rootPosition;
-        }
-        else
-        {
-            //Simple trick to keep model from climbing other rigidbodies that aren't the ground
-            newRootPosition = new Vector3(anim.rootPosition.x, this.transform.position.y, anim.rootPosition.z);
-        }
-
-        //use rotational root motion as is
-        newRootRotation = anim.rootRotation;
-
-        //TODO Here, you could scale the difference in position and rotation to make the character go faster or slower
-        this.transform.position = Vector3.LerpUnclamped(this.transform.position, newRootPosition, moveScalar);
-        this.transform.rotation = Quaternion.LerpUnclamped(this.transform.rotation, newRootRotation, turnScalar);
-        //this.transform.position = newRootPosition;
-        //this.transform.rotation = newRootRotation;
-    }*/
-        }
+    //Used to add animation events to this animator
+    void AddEvent(int Clip, float time, string functionName, float floatParameter)
+    {
+        AnimationEvent animationEvent = new AnimationEvent();
+        animationEvent.functionName = functionName;
+        animationEvent.floatParameter = floatParameter;
+        animationEvent.time = time;
+        AnimationClip clip = anim.runtimeAnimatorController.animationClips[Clip];
+        clip.AddEvent(animationEvent);
+    }
+}

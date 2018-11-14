@@ -47,9 +47,7 @@ public class SoundListener : MonoBehaviour {
                     }
                 }
             }
-        }
-        Debug.Log(other.name == "SupaKupaTrupa");
-        
+        }       
         
     }
 }
