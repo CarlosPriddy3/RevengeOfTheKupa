@@ -117,10 +117,9 @@ public class MarioController : MonoBehaviour {
                         {
                             aiState = AIState.Patrol;
                         }
-                        Debug.Log("CAN SEE KUPA" + canSeeKupa());
-                        if (!canSeeKupa())
+                        if (canSeeKupa() == false)
                         {
-                            InstantiateInvestigateParams(movingTarget.transform.position);
+                            InstantiateInvestigateParams(targetPos);
                             break;
                         }
                         float lookAhead = Mathf.Clamp(disToTarget, minLook, maxLook) / agent.speed;
@@ -276,18 +275,17 @@ public class MarioController : MonoBehaviour {
         GameObject[] searchPoints = new GameObject[5];
         //Initial search at location
         GameObject firstWayP = new GameObject();
-        firstWayP.transform.position = location;
+        firstWayP.transform.position = new Vector3(location.x, 0, location.z);
         searchPoints[0] = firstWayP;
         for (int i = 1; i < searchPoints.Length; i++)
         {
             GameObject newWayp = new GameObject();
-            newWayp.transform.position = location + new Vector3(Random.Range(0f, 10f), 0f, Random.Range(0f, 10f));
+            newWayp.transform.position = location + new Vector3(Random.Range(0f, 20f), 0f, Random.Range(0f, 20f));
             int counter = 0;
             NavMeshHit hit;
-            while (NavMesh.Raycast(this.transform.position, location, out hit, NavMesh.AllAreas))
+            while (!NavMesh.Raycast(location, newWayp.transform.position, out hit, NavMesh.AllAreas))
             {
-                newWayp.transform.position = location + new Vector3(Random.Range(0f, 10f + counter), 0f, Random.Range(0f, 10f + counter));
-                counter++;
+                newWayp.transform.position = location + new Vector3(Random.Range(0f, 20f), 0f, Random.Range(0f, 20f));
             }
             searchPoints[i] = newWayp;
         }
