@@ -72,6 +72,10 @@ public class PlayerMove : MonoBehaviour {
         prevPos = this.transform.position;
     }
 
+    public bool getSpinning()
+    {
+        return isSpinning;
+    }
 
     // Update is called once per frame
     void FixedUpdate()
@@ -89,6 +93,8 @@ public class PlayerMove : MonoBehaviour {
         switch (kupaState)
         {
             case KupaState.NotSpinning:
+                isSpinning = false;
+
                 this.gameObject.GetComponent<CapsuleCollider>().material.dynamicFriction = 0.6f; // default friction;
                 this.gameObject.GetComponent<CapsuleCollider>().material.bounciness = 0f; // default bounciness;
                 
@@ -140,6 +146,8 @@ public class PlayerMove : MonoBehaviour {
                 }
                 break;
             case KupaState.Spinning:
+                
+
                 Color lerpedColor = Color.Lerp(defaultArrowColor, Color.red, spinPowerTimer / 5f);
                 kupaArrow.GetComponent<Renderer>().material.SetColor("_Color", lerpedColor);
                 soundTimer += Time.deltaTime;
@@ -172,6 +180,7 @@ public class PlayerMove : MonoBehaviour {
                     shooting = true;
                     kupaArrow.SetActive(false);
                     kupaArrow.GetComponent<Renderer>().material.SetColor("_Color", defaultArrowColor);
+                    isSpinning = true;
                 }
                 if (!shooting && hasShot)
                 {
