@@ -142,6 +142,7 @@ public class PlayerMove : MonoBehaviour {
             case KupaState.Spinning:
                 Color lerpedColor = Color.Lerp(defaultArrowColor, Color.red, spinPowerTimer / 5f);
                 kupaArrow.GetComponent<Renderer>().material.SetColor("_Color", lerpedColor);
+                kupaArrow.GetComponent<Renderer>().material.SetColor("_EmissionColor", lerpedColor);
                 soundTimer += Time.deltaTime;
                 if (soundTimer > .778f)
                 {
@@ -172,6 +173,7 @@ public class PlayerMove : MonoBehaviour {
                     shooting = true;
                     kupaArrow.SetActive(false);
                     kupaArrow.GetComponent<Renderer>().material.SetColor("_Color", defaultArrowColor);
+                    kupaArrow.GetComponent<Renderer>().material.SetColor("_EmissionColor", defaultArrowColor);
                 }
                 if (!shooting && hasShot)
                 {
@@ -179,6 +181,7 @@ public class PlayerMove : MonoBehaviour {
                     kupaState = KupaState.NotSpinning;
                     anim.SetBool("isSpinning", false);
                     kupaArrow.GetComponent<Renderer>().material.SetColor("_Color", defaultArrowColor);
+                    kupaArrow.GetComponent<Renderer>().material.SetColor("_EmissionColor", defaultArrowColor);
                     stopSound();
                 }
                 if (isGrounded && (Input.GetKey(KeyCode.Space) || isGrounded && Input.GetButtonDown("Fire1")))
@@ -188,6 +191,7 @@ public class PlayerMove : MonoBehaviour {
                     anim.SetBool("isSpinning", false);
                     kupaArrow.SetActive(false);
                     kupaArrow.GetComponent<Renderer>().material.SetColor("_Color", defaultArrowColor);
+                    kupaArrow.GetComponent<Renderer>().material.SetColor("_EmissionColor", defaultArrowColor);
                     stopSound();
                 }
                 break;
