@@ -15,7 +15,7 @@ public class Destructible : MonoBehaviour {
     // If the player clicks on the object
     void OnCollisionEnter(Collision collision)
     {
-        Debug.Log(collision.transform.GetComponent<PlayerMove>().getSpinning());
+        //Debug.Log(collision.transform.GetComponent<PlayerMove>().getSpinning());
         //bool isSpinning = collision.gameObject.transform.parent.GetComponent<PlayerMove>().getSpinning();
         //Debug.Log(isSpinning);
         if (collision.gameObject.tag == "Kupa" && collision.gameObject.GetComponent<PlayerMove>().getSpinning())
