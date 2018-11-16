@@ -70,9 +70,14 @@ public class PlayerMove : MonoBehaviour {
         soundTimer = 0f;
         forwardSpeedLimit = 0.5f;
     }
+
+    public Canvas getKupaStarledCanvas() {
+        return kupaStartledCanvas;
+    }
     private void Start()
     {
         prevPos = this.transform.position;
+        //kupaStartledCanvas.enabled = false;
     }
 
     public bool getSpinning()

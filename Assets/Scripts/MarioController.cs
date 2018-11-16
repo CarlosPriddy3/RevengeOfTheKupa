@@ -5,7 +5,8 @@ using UnityEngine.AI;
 
 [RequireComponent(typeof(NavMeshAgent))]
 [RequireComponent(typeof(Animator))]
-public class MarioController : MonoBehaviour {
+public class MarioController : MonoBehaviour
+{
 
     public enum AIState
     {
@@ -16,7 +17,7 @@ public class MarioController : MonoBehaviour {
     };
 
     public AIState aiState;
-    
+
     public GameObject[] waypoints;
     public int currWaypoint;
     public NavMeshAgent agent;
@@ -45,7 +46,8 @@ public class MarioController : MonoBehaviour {
     public AudioSource hmmmmClip;
     public Canvas marioStartledCanvas;
 
-    private PlayerMove playerMove;
+    public Canvas kupaStartledCanvas;
+
     // Use this for initialization
     void Start () {
         movingTarget = GameObject.FindGameObjectWithTag("Kupa");
@@ -59,7 +61,7 @@ public class MarioController : MonoBehaviour {
         searchTimer = 0;
 
         marioStartledCanvas.enabled = false;
-        playerMove.kupaStartledCanvas.enabled = false;
+        kupaStartledCanvas.enabled = false;
 
         kupaVel = movingTarget.GetComponent<PlayerMove>().velocity;
     }
@@ -104,9 +106,9 @@ public class MarioController : MonoBehaviour {
                         {
                             if (canSeeKupa())
                             {
-                                marioStartledCanvas.enabled = true;
-                                playerMove.kupaStartledCanvas.enabled = true;
                                 playKupaFoundSound();
+                                marioStartledCanvas.enabled = true;
+                                kupaStartledCanvas.enabled = true;
                                 Debug.Log(this.name + " CHASING " + movingTarget.name);
                                 if (this.name == "FireMario")
                                 {
@@ -127,13 +129,13 @@ public class MarioController : MonoBehaviour {
                         if (disToTarget > 50)
                         {
                             marioStartledCanvas.enabled = false;
-                            playerMove.kupaStartledCanvas.enabled = false;
+                            kupaStartledCanvas.enabled = false;
                             aiState = AIState.Patrol;
                         }
                         if (canSeeKupa() == false)
                         {
                             marioStartledCanvas.enabled = false;
-                            playerMove.kupaStartledCanvas.enabled = false;
+                            kupaStartledCanvas.enabled = false;
                             playInvestigatingSound();
                             InstantiateInvestigateParams(targetPos);
                             break;
@@ -168,7 +170,7 @@ public class MarioController : MonoBehaviour {
                     if (stunnedTimer > stunDuration)
                     {
                         marioStartledCanvas.enabled = false;
-                        playerMove.kupaStartledCanvas.enabled = false;
+                        kupaStartledCanvas.enabled = false;
                         agent.enabled = true;
                         this.GetComponent<MarioAttack>().enabled = true;
                         float dist2 = (movingTarget.transform.position - agent.transform.position).magnitude;
@@ -178,7 +180,7 @@ public class MarioController : MonoBehaviour {
                             if (canSeeKupa())
                             {
                                 marioStartledCanvas.enabled = true;
-                                playerMove.kupaStartledCanvas.enabled = true;
+                                kupaStartledCanvas.enabled = true;
 
                                 Debug.Log(this.name + " CHASING " + movingTarget.name);
                                 aiState = AIState.Chase;
@@ -216,7 +218,7 @@ public class MarioController : MonoBehaviour {
                         if (canSeeKupa())
                         {
                             marioStartledCanvas.enabled = true;
-                            playerMove.kupaStartledCanvas.enabled = true;
+                            kupaStartledCanvas.enabled = true;
                             playKupaFoundSound();
                             Debug.Log(this.name + " CHASING " + movingTarget.name);
                             if (this.name == "FireMario")
