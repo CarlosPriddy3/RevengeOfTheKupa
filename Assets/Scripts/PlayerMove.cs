@@ -39,6 +39,9 @@ public class PlayerMove : MonoBehaviour {
     public AudioSource slowestSpinSound;
     public AudioSource shellTakeoffSound;
     private float soundTimer;
+
+    public Canvas kupaStartledCanvas;
+
 	// Use this for initialization
 	void Awake () {
         anim = this.gameObject.GetComponent<Animator>();

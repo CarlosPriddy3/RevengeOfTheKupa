@@ -41,6 +41,11 @@ public class MarioController : MonoBehaviour {
     public int searchTime = 3000;
     public GameObject[] investigationPoints;
 
+    public AudioSource mammaMiaClip;
+    public AudioSource hmmmmClip;
+    public Canvas marioStartledCanvas;
+
+    private PlayerMove playerMove;
     // Use this for initialization
     void Start () {
         movingTarget = GameObject.FindGameObjectWithTag("Kupa");
@@ -52,6 +57,9 @@ public class MarioController : MonoBehaviour {
         setNextWaypoint(waypoints);
         timer = 0;
         searchTimer = 0;
+
+        marioStartledCanvas.enabled = false;
+        playerMove.kupaStartledCanvas.enabled = false;
 
         kupaVel = movingTarget.GetComponent<PlayerMove>().velocity;
     }
@@ -96,6 +104,9 @@ public class MarioController : MonoBehaviour {
                         {
                             if (canSeeKupa())
                             {
+                                marioStartledCanvas.enabled = true;
+                                playerMove.kupaStartledCanvas.enabled = true;
+                                playKupaFoundSound();
                                 Debug.Log(this.name + " CHASING " + movingTarget.name);
                                 if (this.name == "FireMario")
                                 {
@@ -115,10 +126,15 @@ public class MarioController : MonoBehaviour {
                     {
                         if (disToTarget > 50)
                         {
+                            marioStartledCanvas.enabled = false;
+                            playerMove.kupaStartledCanvas.enabled = false;
                             aiState = AIState.Patrol;
                         }
                         if (canSeeKupa() == false)
                         {
+                            marioStartledCanvas.enabled = false;
+                            playerMove.kupaStartledCanvas.enabled = false;
+                            playInvestigatingSound();
                             InstantiateInvestigateParams(targetPos);
                             break;
                         }
@@ -151,6 +167,8 @@ public class MarioController : MonoBehaviour {
                     stunnedTimer += Time.deltaTime;
                     if (stunnedTimer > stunDuration)
                     {
+                        marioStartledCanvas.enabled = false;
+                        playerMove.kupaStartledCanvas.enabled = false;
                         agent.enabled = true;
                         this.GetComponent<MarioAttack>().enabled = true;
                         float dist2 = (movingTarget.transform.position - agent.transform.position).magnitude;
@@ -159,10 +177,14 @@ public class MarioController : MonoBehaviour {
                         {
                             if (canSeeKupa())
                             {
+                                marioStartledCanvas.enabled = true;
+                                playerMove.kupaStartledCanvas.enabled = true;
+
                                 Debug.Log(this.name + " CHASING " + movingTarget.name);
                                 aiState = AIState.Chase;
                             } else
                             {
+                                playInvestigatingSound();
                                 InstantiateInvestigateParams(this.transform.position);
                                 aiState = AIState.Investigate;
                             }       
@@ -193,6 +215,9 @@ public class MarioController : MonoBehaviour {
                     {
                         if (canSeeKupa())
                         {
+                            marioStartledCanvas.enabled = true;
+                            playerMove.kupaStartledCanvas.enabled = true;
+                            playKupaFoundSound();
                             Debug.Log(this.name + " CHASING " + movingTarget.name);
                             if (this.name == "FireMario")
                             {
@@ -207,6 +232,14 @@ public class MarioController : MonoBehaviour {
                     break;
             }
         }
+    }
+
+    private void playKupaFoundSound() {
+        mammaMiaClip.Play();
+    }
+
+    private void playInvestigatingSound() {
+        hmmmmClip.Play();
     }
 
     private void setNextWaypoint(GameObject[] waypoints) {
