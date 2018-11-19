@@ -256,13 +256,17 @@ public class PlayerMove : MonoBehaviour {
             airRes = 0.5f;
         }
         float forward = velz * moveScalar * airRes * forwardSpeedLimit * Time.deltaTime * 2;
-        anim.SetFloat("velz", forward);
+        if (v > 0)
+        {
+            anim.SetFloat("velz", forward);
+        }
+        
         if (v > 0.5f)
         {
             this.transform.Translate(Vector3.forward * velz * moveScalar * airRes  * forwardSpeedLimit * Time.deltaTime);
         } else if (v < -0.5f)
         {
-            this.transform.Translate(Vector3.forward * velz * forwardSpeedLimit * (moveScalar * .1f) * Time.deltaTime);
+            this.transform.Translate(Vector3.forward * velz * (moveScalar * .1f) * Time.deltaTime);
         }
         
         
