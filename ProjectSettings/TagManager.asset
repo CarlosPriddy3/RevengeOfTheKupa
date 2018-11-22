@@ -12,6 +12,7 @@ TagManager:
   - Mario
   - KupaArrow
   - MarioCollider
+  - Crate
   layers:
   - Default
   - TransparentFX
