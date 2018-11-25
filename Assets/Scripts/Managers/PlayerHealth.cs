@@ -13,7 +13,7 @@ public class PlayerHealth : MonoBehaviour {
     public int timer;
 
     //Animator anim;
-    //AudioSource playerAudio;
+    public AudioSource injuredAudio;
     //PlayerMovement playerMovement;
     //PlayerShooting playerShooting;
     //bool isDead;
@@ -29,6 +29,7 @@ public class PlayerHealth : MonoBehaviour {
         lifeController = GameObject.FindGameObjectWithTag("LifeController").GetComponent<LifeController>();
         cooldownThreshold = 200;
         timer = 0;
+        injuredAudio = GetComponent<AudioSource>();
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -38,6 +39,7 @@ public class PlayerHealth : MonoBehaviour {
             Debug.Log("COOLDOWN START");
             lifeController.loseLife();
             isCoolDown = true;
+            injuredAudio.Play();
         }
     }
 
