@@ -13,6 +13,7 @@ TagManager:
   - KupaArrow
   - MarioCollider
   - Crate
+  - LifeController
   layers:
   - Default
   - TransparentFX

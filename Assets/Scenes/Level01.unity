@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1080,6 +1080,11 @@ CapsuleCollider:
   m_Height: 1.1504544
   m_Direction: 1
   m_Center: {x: 0, y: 0.5767378, z: 0}
+--- !u!223 &173965794 stripped
+Canvas:
+  m_CorrespondingSourceObject: {fileID: 223305351489509118, guid: 83cfb5d6a1e94474e95152b364273ccc,
+    type: 2}
+  m_PrefabInternal: {fileID: 1904256381}
 --- !u!1 &209923625 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: 83d46ac0c67523c4ebd01568aa8c9930,
@@ -5772,6 +5777,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.9281755, y: 0.918368, z: 0.7969703}
   m_Center: {x: 0, y: -0.2625178, z: -0.021223277}
+--- !u!1 &1020558599 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1937549990124148, guid: 83cfb5d6a1e94474e95152b364273ccc,
+    type: 2}
+  m_PrefabInternal: {fileID: 1904256381}
+--- !u!114 &1020558609
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1020558599}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c0b59170a7c4474599c73ebdc4fa764, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1029863621
 Prefab:
   m_ObjectHideFlags: 0
@@ -6378,7 +6399,7 @@ GameObject:
   - component: {fileID: 1113965786}
   m_Layer: 0
   m_Name: LifeController
-  m_TagString: Untagged
+  m_TagString: LifeController
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6598,21 +6619,16 @@ Prefab:
       propertyPath: m_RootOrder
       value: 19
       objectReference: {fileID: 0}
-    - target: {fileID: 82770627799143296, guid: ce796d11985754e63ab2cf46af760234,
-        type: 2}
-      propertyPath: m_PlayOnAwake
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 82623793306240612, guid: ce796d11985754e63ab2cf46af760234,
-        type: 2}
-      propertyPath: m_PlayOnAwake
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 114157559300994950, guid: ce796d11985754e63ab2cf46af760234,
         type: 2}
       propertyPath: waypoints.Array.data[0]
       value: 
       objectReference: {fileID: 96159905}
+    - target: {fileID: 114157559300994950, guid: ce796d11985754e63ab2cf46af760234,
+        type: 2}
+      propertyPath: kupaStartledCanvas
+      value: 
+      objectReference: {fileID: 173965794}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ce796d11985754e63ab2cf46af760234, type: 2}
   m_IsPrefabAsset: 0

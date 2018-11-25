@@ -46,7 +46,7 @@ public class MarioAttack : MonoBehaviour {
                 this.GetComponent<MarioController>().Stun();
             } else
             {
-                BackToMainMenu();
+                //BackToMainMenu();
             }
         }
     }

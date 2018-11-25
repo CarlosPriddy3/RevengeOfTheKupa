@@ -17,6 +17,7 @@ public class LifeController : MonoBehaviour
 	void Start ()
 	{
 		num_lives = hearts.Count;
+        Debug.Log(num_lives);
 	}
 
 	/// <summary>
@@ -24,13 +25,16 @@ public class LifeController : MonoBehaviour
 	/// </summary>
 	public void loseLife()
 	{
+        Debug.Log("LOSE LIFE");
 		if (num_lives > 0)
 		{
+            Debug.Log("IF");
 			num_lives--;
 			hearts[num_lives].SetActive(false);
 		}
 		if (num_lives == 0)
 		{
+            Debug.Log("ELSE");
 			action.onLoss();
 		}
 	}
