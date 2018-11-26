@@ -12,7 +12,7 @@ public class MarioAttack : MonoBehaviour {
     private float kupaVel;
     private KupaState kupaState;
 
-    public LifeController lc;
+    private LifeController lc;
     public AudioSource injuredAudio;
     public float cooldown_time;
     private bool cooldown = false;
@@ -25,6 +25,10 @@ public class MarioAttack : MonoBehaviour {
             BackToMainMenu();
         }
     }*/
+    private void Start()
+    {
+        lc = GameObject.FindGameObjectWithTag("LifeController").GetComponent<LifeController>();
+    }
 
     private void FixedUpdate()
     {

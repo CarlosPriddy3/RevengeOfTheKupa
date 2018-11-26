@@ -44,9 +44,10 @@ public class MarioController : MonoBehaviour
 
     public AudioSource mammaMiaClip;
     public AudioSource hmmmmClip;
-    public Canvas marioStartledCanvas;
 
-    public Canvas kupaStartledCanvas;
+    private Canvas marioStartledCanvas;
+
+    private Canvas kupaStartledCanvas;
 
     // Use this for initialization
     void Start () {
@@ -59,7 +60,8 @@ public class MarioController : MonoBehaviour
         setNextWaypoint(waypoints);
         timer = 0;
         searchTimer = 0;
-
+        kupaStartledCanvas = GameObject.FindGameObjectWithTag("KupaStartledCanvas").GetComponent<Canvas>();
+        marioStartledCanvas = this.GetComponentInChildren<Canvas>();
         marioStartledCanvas.enabled = false;
         kupaStartledCanvas.enabled = false;
 
