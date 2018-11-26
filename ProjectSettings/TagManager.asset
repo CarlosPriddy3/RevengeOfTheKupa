@@ -14,6 +14,7 @@ TagManager:
   - MarioCollider
   - Crate
   - LifeController
+  - BreakableWall
   layers:
   - Default
   - TransparentFX
@@ -25,7 +26,7 @@ TagManager:
   - 
   - KupaObject
   - KupaParts
-  - 
+  - BreakableWall
   - 
   - 
   - 
