@@ -68,7 +68,7 @@ public class PlayerMove : MonoBehaviour {
         
         AddEvent(3, 0.13f, "playKupaJump", 0);
         soundTimer = 0f;
-        forwardSpeedLimit = 0.5f;
+        forwardSpeedLimit = 1f;
     }
 
     public Canvas getKupaStarledCanvas() {
