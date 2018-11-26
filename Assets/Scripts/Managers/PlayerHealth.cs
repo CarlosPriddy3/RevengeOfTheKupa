@@ -26,22 +26,22 @@ public class PlayerHealth : MonoBehaviour {
         //playerMovement = GetComponent<PlayerMovement>();
         //playerShooting = GetComponentInChildren<PlayerShooting>();
         //currentHealth = startingHealth;
-        lifeController = GameObject.FindGameObjectWithTag("LifeController").GetComponent<LifeController>();
+        // lifeController = GameObject.FindGameObjectWithTag("LifeController").GetComponent<LifeController>();
         cooldownThreshold = 200;
         timer = 0;
         injuredAudio = GetComponent<AudioSource>();
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.tag == "Mario" && !isCoolDown)
-        {
-            Debug.Log("COOLDOWN START");
-            lifeController.loseLife();
-            isCoolDown = true;
-            injuredAudio.Play();
-        }
-    }
+    // private void OnCollisionEnter(Collision collision)
+    // {
+    //     if (collision.gameObject.tag == "Mario" && !isCoolDown)
+    //     {
+    //         Debug.Log("COOLDOWN START");
+    //         lifeController.loseLife();
+    //         isCoolDown = true;
+    //         injuredAudio.Play();
+    //     }
+    // }
 
     void Update()
     {
@@ -74,7 +74,7 @@ public class PlayerHealth : MonoBehaviour {
     //    currentHealth -= amount;
 
     //    //healthSlider.value = currentHealth;
-        
+
     //    if (currentHealth <= 0 && !isDead)
     //    {
     //        Death();

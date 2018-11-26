@@ -11,6 +11,13 @@ public class MarioAttack : MonoBehaviour {
     private Vector3 kupaPos;
     private float kupaVel;
     private KupaState kupaState;
+
+    public LifeController lc;
+    public AudioSource injuredAudio;
+    public float cooldown_time;
+    private bool cooldown = false;
+    private float cooldown_timer;
+
     /*private void OnCollisionEnter(Collision col)
     {
         if (col.gameObject.tag == "Kupa") {
@@ -34,19 +41,39 @@ public class MarioAttack : MonoBehaviour {
             kupaVel = 0f;
             kupaState = KupaState.NotSpinning;
         }
-        
+
         Debug.DrawRay(transform.position + (this.transform.forward * zAdjust) + (this.transform.up * vertAdjust), (kupaPos - (this.transform.position + (this.transform.forward * zAdjust) + (this.transform.up * vertAdjust))).normalized * attackDis, Color.red);
         Debug.DrawRay(transform.position + (this.transform.forward * zAdjust) + (this.transform.up * vertAdjust), new Vector3(0, 1, 0) * 10f, Color.blue);
-       
-        
+
+
         if (kupa != null && (Vector3.Distance(kupaPos , this.transform.position + (this.transform.forward * zAdjust) + (this.transform.up * vertAdjust)) < attackDis))
         {
             if (kupaState == KupaState.Spinning && (kupaVel > 5f))
             {
                 this.GetComponent<MarioController>().Stun();
-            } else
+            }
+            else
             {
-                //BackToMainMenu();
+                if (!cooldown)
+                {
+                    lc.loseLife();
+                    injuredAudio.Play();
+                    cooldown = true;
+                    cooldown_timer = cooldown_time;
+                }
+            }
+        }
+    }
+
+    void Update()
+    {
+        if (cooldown)
+        {
+            cooldown_timer -= Time.deltaTime;
+            if (cooldown_timer < 0)
+            {
+                cooldown = false;
+                cooldown_timer = 0;
             }
         }
     }

@@ -6728,6 +6728,16 @@ Prefab:
       propertyPath: kupaStartledCanvas
       value: 
       objectReference: {fileID: 173965794}
+    - target: {fileID: 114069131775679692, guid: ce796d11985754e63ab2cf46af760234,
+        type: 2}
+      propertyPath: lc
+      value: 
+      objectReference: {fileID: 1113965786}
+    - target: {fileID: 114069131775679692, guid: ce796d11985754e63ab2cf46af760234,
+        type: 2}
+      propertyPath: cooldown_time
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ce796d11985754e63ab2cf46af760234, type: 2}
   m_IsPrefabAsset: 0
