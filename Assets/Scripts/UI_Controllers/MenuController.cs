@@ -11,6 +11,7 @@ public class MenuController : MonoBehaviour {
 
 	public string title_scene_name;
 	public string play_scene_name;
+    public string tutorial_scene_name;
 	public string end_scene_name;
 	public string credits_scene_name;
 
@@ -55,14 +56,22 @@ public class MenuController : MonoBehaviour {
 		GameState.state = State.START;
 	}
 
-	/// <summary>
-	/// Takes to the game loss screen.
-	/// </summary>
-	public void loseGame()
-	{
-		SceneManager.LoadSceneAsync(end_scene_name);
-		GameState.state = State.LOSS;
-	}
+    /// <summary>
+    /// Takes to the tutorial scene.
+    /// </summary>
+    public void toTutorial()
+    {
+        SceneManager.LoadSceneAsync(tutorial_scene_name);
+    }
+
+    /// <summary>
+    /// Takes to the game loss screen.
+    /// </summary>
+    public void loseGame()
+    {
+        SceneManager.LoadSceneAsync(end_scene_name);
+        GameState.state = State.LOSS;
+    }
 
 	/// <summary>
 	/// Go to the game win screen.
