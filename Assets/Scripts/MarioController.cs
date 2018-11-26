@@ -208,7 +208,7 @@ public class MarioController : MonoBehaviour
                         break;
                     }
 
-                    if (!agent.pathPending && agent.remainingDistance == 0 && movingTarget != null)
+                    if (!agent.pathPending && agent.remainingDistance < 2 && movingTarget != null)
                     {
                         setNextWaypoint(investigationPoints);
                     }
@@ -307,6 +307,7 @@ public class MarioController : MonoBehaviour
 
     private void generateSearchPoints(Vector3 location)
     {
+        Vector3 xzLocation = new Vector3(location.x, 0, location.z);
         GameObject[] searchPoints = new GameObject[5];
         //Initial search at location
         GameObject firstWayP = new GameObject();
@@ -315,12 +316,18 @@ public class MarioController : MonoBehaviour
         for (int i = 1; i < searchPoints.Length; i++)
         {
             GameObject newWayp = new GameObject();
-            newWayp.transform.position = location + new Vector3(Random.Range(0f, 20f), 0f, Random.Range(0f, 20f));
+            newWayp.transform.position = xzLocation + new Vector3(Random.Range(0f, 20f), 0f, Random.Range(0f, 20f));
             int counter = 0;
             NavMeshHit hit;
-            while (!NavMesh.Raycast(location, newWayp.transform.position, out hit, NavMesh.AllAreas))
+            int whileCounter = 0;
+            RaycastHit physicsHit;
+            bool objectBetween = Physics.Raycast(xzLocation, (newWayp.transform.position - xzLocation).normalized, out physicsHit) && physicsHit.transform.name != "SupaKupaTrupa";
+            while (!NavMesh.Raycast(xzLocation, newWayp.transform.position, out hit, NavMesh.AllAreas) && !objectBetween && whileCounter < 50)
             {
-                newWayp.transform.position = location + new Vector3(Random.Range(0f, 20f), 0f, Random.Range(0f, 20f));
+                newWayp.transform.position = xzLocation + new Vector3(Random.Range(0f, 20f), 0f, Random.Range(0f, 20f));
+                objectBetween = Physics.Raycast(xzLocation, (newWayp.transform.position - xzLocation).normalized, out physicsHit) && physicsHit.transform.name != "SupaKupaTrupa";
+                whileCounter++;
+                Debug.Log(whileCounter + "WHILECOUNTER");
             }
             searchPoints[i] = newWayp;
         }
