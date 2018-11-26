@@ -4,9 +4,14 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class Fireball : MonoBehaviour {
-
+    private LifeController lc;
+    public AudioSource injuredAudio;
     private int timer = 0;
 
+    private void Start()
+    {
+        lc = GameObject.FindGameObjectWithTag("LifeController").GetComponent<LifeController>();
+    }
     private void Update()
     {
         timer++;
@@ -20,8 +25,8 @@ public class Fireball : MonoBehaviour {
     {
         if (collision.transform.tag == "Kupa")
         {
-            Destroy(collision.gameObject);
-            BackToMainMenu();
+            lc.loseLife();
+            injuredAudio.Play();
         }
     }
 

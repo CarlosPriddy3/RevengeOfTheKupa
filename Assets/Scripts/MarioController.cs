@@ -156,7 +156,7 @@ public class MarioController : MonoBehaviour
                         {
                             agent.SetDestination(dest);
                         }
-                        if (this.name == "FireMario")
+                        if (this.tag == "FireMario")
                         {
                             timer++;
                             if (timer > fireballCD)
@@ -223,7 +223,9 @@ public class MarioController : MonoBehaviour
                             kupaStartledCanvas.enabled = true;
                             playKupaFoundSound();
                             Debug.Log(this.name + " CHASING " + movingTarget.name);
-                            if (this.name == "FireMario")
+                            Debug.Log(this.tag + " THIS.TAG ");
+                            Debug.Log(this.transform.tag + " THIS.transform.tag");
+                            if (this.tag == "FireMario")
                             {
                                 shootFireball();
                             }
@@ -269,13 +271,21 @@ public class MarioController : MonoBehaviour
     {
         RaycastHit hit;
         Vector3 adjVect = this.transform.forward * 2 + this.transform.up * 5;
-        Debug.DrawRay(this.transform.position + adjVect, (movingTarget.transform.position - (this.transform.position + adjVect)).normalized * (disToTarget - 4f), Color.cyan);
-        bool objectBetween = Physics.Raycast(this.transform.position + adjVect, (movingTarget.transform.position - (this.transform.position + adjVect)).normalized, out hit, disToTarget - 4f) && hit.transform.name != "SupaKupaTrupa";
-        Vector3 rayDir = (movingTarget.transform.position - (this.transform.position + adjVect)).normalized;
-        if (Vector3.Angle(this.transform.forward, rayDir) > fieldOfView)
+        bool objectBetween;
+        if (movingTarget != null)
+        {
+            Debug.DrawRay(this.transform.position + adjVect, (movingTarget.transform.position - (this.transform.position + adjVect)).normalized * (disToTarget - 4f), Color.cyan);
+            objectBetween = Physics.Raycast(this.transform.position + adjVect, (movingTarget.transform.position - (this.transform.position + adjVect)).normalized, out hit, disToTarget - 4f) && hit.transform.name != "SupaKupaTrupa";
+            Vector3 rayDir = (movingTarget.transform.position - (this.transform.position + adjVect)).normalized;
+            if (Vector3.Angle(this.transform.forward, rayDir) > fieldOfView)
+            {
+                objectBetween = true;
+            }
+        } else
         {
             objectBetween = true;
         }
+        
         return !objectBetween;
     }
     private void shootFireball()
