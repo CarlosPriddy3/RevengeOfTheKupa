@@ -5,6 +5,7 @@ using UnityEngine;
 public class TriggerTutorial : Tutorial {
 
     private bool isCurrentTutorial = false;
+    private int count = 0;
 
     public Transform HitTransform;
 
@@ -13,10 +14,10 @@ public class TriggerTutorial : Tutorial {
         isCurrentTutorial = true;
     }
 
-    public void OnCollisionEnter(Collision collision)
+    public void OnTriggerEnter(Collider c)
     {
-        Debug.Log(collision.gameObject.GetComponent<Destructible>().isDestroyed);
-        if (collision.gameObject.tag == "Crate" && collision.gameObject.GetComponent<Destructible>().isDestroyed)
+        count++;
+        if (count == 1)
         {
             TutorialManager.Instance.CompletedTutorial();
             isCurrentTutorial = false;

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class TutorialManager : MonoBehaviour {
 
@@ -53,6 +54,8 @@ public class TutorialManager : MonoBehaviour {
 
     public void CompletedAllTutorials() {
         expText.text = "You have completed all the tutorials";
+        SceneManager.LoadSceneAsync("Level01");
+        GameState.state = State.PLAY;
     }
 
     public Tutorial GetTutorialByOrder(int Order) {

@@ -6,7 +6,7 @@ public class Tutorial : MonoBehaviour {
 
     public int Order;
 
-    [TextArea(3, 10)]
+    [TextArea(10, 10)]
     public string Explanation;
 
 	void Awake () {

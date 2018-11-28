@@ -8,8 +8,10 @@ public class KeyTutorial : Tutorial {
 
     public override void CheckIfHappening()
     {
-        for (int i = 0; i < Keys.Count; i++) {
-            if (Input.inputString.Contains(Keys[i])) {
+        for (int i = 0; i < Keys.Count; i++)
+        {
+            if (Input.inputString.Contains(Keys[i]) || (Keys[i].Equals("shift") && Input.GetKeyDown(KeyCode.LeftShift)))
+            {
                 Keys.RemoveAt(i);
                 break;
             }
