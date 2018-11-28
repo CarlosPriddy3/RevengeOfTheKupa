@@ -25638,6 +25638,16 @@ Prefab:
       propertyPath: m_LocalPosition.z
       value: -17.8
       objectReference: {fileID: 0}
+    - target: {fileID: 81104685286264520, guid: 83cfb5d6a1e94474e95152b364273ccc,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 81819839665852572, guid: 83cfb5d6a1e94474e95152b364273ccc,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 83cfb5d6a1e94474e95152b364273ccc, type: 2}
   m_IsPrefabAsset: 0
