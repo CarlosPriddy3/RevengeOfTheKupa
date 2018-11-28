@@ -108,7 +108,7 @@ public class PlayerMove : MonoBehaviour {
                 
                 float v = Input.GetAxisRaw("Vertical");
                 Move(v);
-                Turn(h);
+                Turn(h, turnScalar);
                 Animating(v);
                 if (walking)
                 {
@@ -118,30 +118,13 @@ public class PlayerMove : MonoBehaviour {
                 isGrounded = Physics.Raycast(transform.position, down, distToGroundForGrounded);
                 anim.SetBool("groundClose", groundClose);
                 anim.SetBool("isGrounded", isGrounded);*/
-                RaycastHit belowHit;
-                bool landableObject = true;
-                bool groundClose = Physics.Raycast(transform.position, down, out belowHit, distToGround);
                 
-                bool onObject = Physics.Raycast(transform.position, down, distToGroundForGrounded);
-                if (belowHit.collider != null)
+                if (canJump())
                 {
-                    landableObject = belowHit.collider.gameObject.tag != "MarioCollider";
-
-                } 
-                
-                isGrounded = onObject && landableObject;
-                anim.SetBool("groundClose", groundClose);
-                anim.SetBool("landableObject", landableObject);
-                anim.SetBool("isGrounded", isGrounded);
-                if (isGrounded && (Input.GetKey(KeyCode.Space) || isGrounded && Input.GetButtonDown("Fire1")))
-                {
-                    if (jumpTimer > jumpCooldown)
-                    {
-                        Jump();
-                        jumpTimer = 0f;
-                    }
-                    
+                    Jump();
+                    jumpTimer = 0f;
                 }
+                
                 if (isGrounded && (Input.GetKey(KeyCode.LeftShift) || isGrounded && Input.GetButtonDown("Fire3")))
                 {
                     kupaState = KupaState.Spinning;
@@ -156,7 +139,7 @@ public class PlayerMove : MonoBehaviour {
             case KupaState.Spinning:
                 
 
-                Color lerpedColor = Color.Lerp(defaultArrowColor, Color.red, spinPowerTimer / 5f);
+                Color lerpedColor = Color.Lerp(defaultArrowColor, Color.red, spinPowerTimer / 3f);
                 kupaArrow.GetComponent<Renderer>().material.SetColor("_Color", lerpedColor);
                 kupaArrow.GetComponent<Renderer>().material.SetColor("_EmissionColor", lerpedColor);
                 soundTimer += Time.deltaTime;
@@ -166,13 +149,13 @@ public class PlayerMove : MonoBehaviour {
                     soundTimer = 0;
                 }
                 //Limit Spin Power
-                if (spinPowerTimer <= 5f)
+                if (spinPowerTimer <= 3f)
                 {
                     spinPowerTimer += Time.deltaTime;
                 }
 
                 //Ability to turn in shell form
-                Turn(h);
+                Turn(h, turnScalar / 2);
                 shooting = velocity.magnitude > stopSpinVel;
                 if ((!hasShot && !shooting && isGrounded && (Input.GetButton("Fire3"))))
                 {
@@ -184,7 +167,7 @@ public class PlayerMove : MonoBehaviour {
                     playShellTakeoffSound();
                     this.gameObject.GetComponent<CapsuleCollider>().material.dynamicFriction = dynFric;
                     this.gameObject.GetComponent<CapsuleCollider>().material.bounciness = shellBounce;
-                    rb.AddForce(this.gameObject.transform.forward * shootStrength * spinPowerTimer);
+                    rb.AddForce(this.gameObject.transform.forward * shootStrength * spinPowerTimer * 1.75f);
                     hasShot = true;
                     shooting = true;
                     kupaArrow.SetActive(false);
@@ -266,15 +249,15 @@ public class PlayerMove : MonoBehaviour {
             this.transform.Translate(Vector3.forward * velz * moveScalar * airRes  * forwardSpeedLimit * Time.deltaTime);
         } else if (v < -0.5f)
         {
-            this.transform.Translate(Vector3.forward * velz * (moveScalar * .1f) * Time.deltaTime);
+            this.transform.Translate(Vector3.forward * velz * (moveScalar * .6f) * Time.deltaTime);
         }
         
         
     }
 
-    void Turn(float h)
+    void Turn(float h, float scalar)
     {
-        this.transform.Rotate(new Vector3(0f, h, 0f) * turnScalar * Time.deltaTime);
+        this.transform.Rotate(new Vector3(0f, h, 0f) * scalar * Time.deltaTime);
         foreach (Transform childTransform in this.gameObject.GetComponentsInChildren<Transform>())
         {
             transform.rotation = this.transform.rotation;
@@ -334,5 +317,49 @@ public class PlayerMove : MonoBehaviour {
         animationEvent.time = time;
         AnimationClip clip = anim.runtimeAnimatorController.animationClips[Clip];
         clip.AddEvent(animationEvent);
+    }
+
+    bool canJump()
+    {
+        Quaternion frontrot = Quaternion.Euler(0, 0, 30);
+        Quaternion leftrot = Quaternion.Euler(-30, 0, 0);
+        Quaternion rightrot = Quaternion.Euler(30, 0, 0);
+        Quaternion backrot = Quaternion.Euler(0, 0, -30);
+        Vector3 frontRayDir = (frontrot * (this.transform.up * -1)).normalized;
+        Vector3 leftRayDir = (leftrot * (this.transform.up * -1)).normalized;
+        Vector3 rightRayDir = (rightrot * (this.transform.up * -1)).normalized;
+        Vector3 backRayDir = (backrot * (this.transform.up * -1)).normalized;
+        Debug.DrawRay(this.transform.position, frontRayDir * 4, Color.red);
+        Debug.DrawRay(this.transform.position, leftRayDir * 4, Color.red);
+        Debug.DrawRay(this.transform.position, rightRayDir * 4, Color.red);
+        Debug.DrawRay(this.transform.position, backRayDir * 4, Color.red);
+        RaycastHit belowHit;
+        bool landableObject = true;
+        bool groundClose = (Physics.Raycast(transform.position, down, out belowHit, distToGround));
+
+        bool onObject = (Physics.Raycast(transform.position, down, distToGroundForGrounded)
+            || Physics.Raycast(transform.position, frontRayDir, 6f)
+            || Physics.Raycast(transform.position, rightRayDir, 6f)
+            || Physics.Raycast(transform.position, leftRayDir, 6f)
+            || Physics.Raycast(transform.position, backRayDir, 6f));
+        if (belowHit.collider != null)
+        {
+            landableObject = belowHit.collider.gameObject.tag != "MarioCollider";
+
+        }
+
+        isGrounded = onObject && landableObject;
+        anim.SetBool("groundClose", groundClose);
+        anim.SetBool("landableObject", landableObject);
+        anim.SetBool("isGrounded", isGrounded);
+        if (isGrounded && (Input.GetKey(KeyCode.Space) || isGrounded && Input.GetButtonDown("Fire1")))
+        {
+            if (jumpTimer > jumpCooldown)
+            {
+                return true;
+            }
+
+        }
+        return false;
     }
 }

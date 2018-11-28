@@ -16,6 +16,7 @@ TagManager:
   - LifeController
   - BreakableWall
   - KupaStartledCanvas
+  - Container
   layers:
   - Default
   - TransparentFX

@@ -334,9 +334,9 @@ public class MarioController : MonoBehaviour
             int whileCounter = 0;
             RaycastHit physicsHit;
             bool objectBetween = Physics.Raycast(xzLocation, (newWayp.transform.position - xzLocation).normalized, out physicsHit) && physicsHit.transform.name != "SupaKupaTrupa";
-            while (!NavMesh.Raycast(xzLocation, newWayp.transform.position, out hit, NavMesh.AllAreas) && !objectBetween && whileCounter < 50)
+            while (NavMesh.Raycast(xzLocation, newWayp.transform.position, out hit, NavMesh.AllAreas) && !objectBetween && whileCounter < 50)
             {
-                newWayp.transform.position = xzLocation + new Vector3(Random.Range(0f, 20f), 0f, Random.Range(0f, 20f));
+                newWayp.transform.position = xzLocation + new Vector3(Random.Range(0f, 40f), 0f, Random.Range(0f, 40f));
                 objectBetween = Physics.Raycast(xzLocation, (newWayp.transform.position - xzLocation).normalized, out physicsHit) && physicsHit.transform.name != "SupaKupaTrupa";
                 whileCounter++;
                 Debug.Log(whileCounter + "WHILECOUNTER");
