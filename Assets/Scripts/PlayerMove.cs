@@ -321,10 +321,10 @@ public class PlayerMove : MonoBehaviour {
 
     bool canJump()
     {
-        Quaternion frontrot = Quaternion.Euler(0, 0, 30);
-        Quaternion leftrot = Quaternion.Euler(-30, 0, 0);
-        Quaternion rightrot = Quaternion.Euler(30, 0, 0);
-        Quaternion backrot = Quaternion.Euler(0, 0, -30);
+        Quaternion frontrot = Quaternion.Euler(0, 0, 15);
+        Quaternion leftrot = Quaternion.Euler(-15, 0, 0);
+        Quaternion rightrot = Quaternion.Euler(15, 0, 0);
+        Quaternion backrot = Quaternion.Euler(0, 0, -15);
         Vector3 frontRayDir = (frontrot * (this.transform.up * -1)).normalized;
         Vector3 leftRayDir = (leftrot * (this.transform.up * -1)).normalized;
         Vector3 rightRayDir = (rightrot * (this.transform.up * -1)).normalized;

@@ -1,0 +1,97 @@
+fileFormatVersion: 2
+guid: 46bf05f068cff7e498cb32a4926ebab6
+timeCreated: 1534918291
+licenseType: Store
+ModelImporter:
+  serializedVersion: 18
+  fileIDToRecycleName:
+    100000: Arm
+    100002: Bulb
+    100004: Bulb Holder
+    100006: Bulb Holder Top
+    100008: Lamp Shade
+    100010: //RootNode
+    100012: Wall Mount
+    400000: Arm
+    400002: Bulb
+    400004: Bulb Holder
+    400006: Bulb Holder Top
+    400008: Lamp Shade
+    400010: //RootNode
+    400012: Wall Mount
+    2300000: Arm
+    2300002: Bulb
+    2300004: Bulb Holder
+    2300006: Bulb Holder Top
+    2300008: Lamp Shade
+    2300010: Wall Mount
+    3300000: Arm
+    3300002: Bulb
+    3300004: Bulb Holder
+    3300006: Bulb Holder Top
+    3300008: Lamp Shade
+    3300010: Wall Mount
+    4300000: Lamp Shade
+    4300002: Bulb
+    4300004: Bulb Holder
+    4300006: Bulb Holder Top
+    4300008: Arm
+    4300010: Wall Mount
+  materials:
+    importMaterials: 0
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

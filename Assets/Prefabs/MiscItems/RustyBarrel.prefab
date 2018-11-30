@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4507662048803918}
   - component: {fileID: 33222344462242212}
   - component: {fileID: 23548819340765442}
+  - component: {fileID: 64126649294596770}
   m_Layer: 0
   m_Name: barrel-2_LOD1
   m_TagString: Untagged
@@ -38,6 +39,7 @@ GameObject:
   - component: {fileID: 4337430337532328}
   - component: {fileID: 33412251745569024}
   - component: {fileID: 23971184753383548}
+  - component: {fileID: 64940576668395064}
   m_Layer: 0
   m_Name: barrel-2_LOD0
   m_TagString: Untagged
@@ -54,7 +56,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4805470071616084}
   - component: {fileID: 205568107979009918}
-  - component: {fileID: 64172429815910962}
   m_Layer: 0
   m_Name: RustyBarrel
   m_TagString: Untagged
@@ -69,7 +70,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1149800812379166}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.0000000012418, z: 0.60008}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4805470071616084}
@@ -82,7 +83,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1126414363921936}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.0000000012418, z: 0.60008}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4805470071616084}
@@ -94,15 +95,15 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1341262822957946}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -53.45, y: -68.4125, z: -39.63}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: -176.49593, y: -4.9088296e-17, z: -368.9463}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_Children:
   - {fileID: 4337430337532328}
   - {fileID: 4507662048803918}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!23 &23548819340765442
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -187,12 +188,26 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1149800812379166}
   m_Mesh: {fileID: 4300000, guid: 152ddb9e58b436343a781597a367c52f, type: 3}
---- !u!64 &64172429815910962
+--- !u!64 &64126649294596770
 MeshCollider:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1341262822957946}
+  m_GameObject: {fileID: 1126414363921936}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300002, guid: 4b15fdd44cccd314c9b2d7a6984f28e2, type: 3}
+--- !u!64 &64940576668395064
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1149800812379166}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1

@@ -328,19 +328,21 @@ public class MarioController : MonoBehaviour
         for (int i = 1; i < searchPoints.Length; i++)
         {
             GameObject newWayp = new GameObject();
-            newWayp.transform.position = xzLocation + new Vector3(Random.Range(0f, 20f), 0f, Random.Range(0f, 20f));
+            newWayp.transform.position = xzLocation + new Vector3(Random.Range(0f, 40f) - 20, 0f, Random.Range(0f, 40f) - 20);
             int counter = 0;
             NavMeshHit hit;
             int whileCounter = 0;
             RaycastHit physicsHit;
-            bool objectBetween = Physics.Raycast(xzLocation, (newWayp.transform.position - xzLocation).normalized, out physicsHit) && physicsHit.transform.name != "SupaKupaTrupa";
-            while (NavMesh.Raycast(xzLocation, newWayp.transform.position, out hit, NavMesh.AllAreas) && !objectBetween && whileCounter < 50)
+            bool objectBetween = Physics.Raycast(xzLocation + new Vector3(0, 3, 0), (newWayp.transform.position - xzLocation).normalized, out physicsHit) && physicsHit.transform.name != "SupaKupaTrupa";
+            Debug.Log(physicsHit.collider + " Investigation physics hit");
+            while (NavMesh.Raycast(xzLocation, newWayp.transform.position, out hit, NavMesh.AllAreas) && objectBetween && whileCounter < 50)
             {
-                newWayp.transform.position = xzLocation + new Vector3(Random.Range(0f, 40f), 0f, Random.Range(0f, 40f));
-                objectBetween = Physics.Raycast(xzLocation, (newWayp.transform.position - xzLocation).normalized, out physicsHit) && physicsHit.transform.name != "SupaKupaTrupa";
+                newWayp.transform.position = xzLocation + new Vector3(Random.Range(0f, 40f) - 20, 0f, Random.Range(0f, 40f) - 20);
+                objectBetween = Physics.Raycast(xzLocation + new Vector3(0, 3, 0), (newWayp.transform.position - xzLocation).normalized, out physicsHit) && physicsHit.transform.name != "SupaKupaTrupa";
+                Debug.Log(physicsHit.collider + " Investigation physics hit");
                 whileCounter++;
-                Debug.Log(whileCounter + "WHILECOUNTER");
             }
+            Debug.DrawRay(xzLocation + new Vector3(0, 3, 0), (newWayp.transform.position - xzLocation).normalized * 20, Color.black, 300f);
             searchPoints[i] = newWayp;
         }
         this.investigationPoints = searchPoints;
