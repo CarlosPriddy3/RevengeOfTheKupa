@@ -17,7 +17,6 @@ public class LifeController : MonoBehaviour
 	void Start ()
 	{
 		num_lives = hearts.Count;
-        Debug.Log(num_lives);
 	}
 
 	/// <summary>

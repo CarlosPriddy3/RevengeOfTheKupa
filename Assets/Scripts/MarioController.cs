@@ -111,7 +111,6 @@ public class MarioController : MonoBehaviour
                                 playKupaFoundSound();
                                 marioStartledCanvas.enabled = true;
                                 kupaStartledCanvas.enabled = true;
-                                Debug.Log(this.name + " CHASING " + movingTarget.name);
                                 if (this.name == "FireMario")
                                 {
                                     shootFireball();
@@ -222,9 +221,6 @@ public class MarioController : MonoBehaviour
                             marioStartledCanvas.enabled = true;
                             kupaStartledCanvas.enabled = true;
                             playKupaFoundSound();
-                            Debug.Log(this.name + " CHASING " + movingTarget.name);
-                            Debug.Log(this.tag + " THIS.TAG ");
-                            Debug.Log(this.transform.tag + " THIS.transform.tag");
                             if (this.tag == "FireMario")
                             {
                                 shootFireball();
@@ -334,12 +330,10 @@ public class MarioController : MonoBehaviour
             int whileCounter = 0;
             RaycastHit physicsHit;
             bool objectBetween = Physics.Raycast(xzLocation + new Vector3(0, 3, 0), (newWayp.transform.position - xzLocation).normalized, out physicsHit) && physicsHit.transform.name != "SupaKupaTrupa";
-            Debug.Log(physicsHit.collider + " Investigation physics hit");
             while (NavMesh.Raycast(xzLocation, newWayp.transform.position, out hit, NavMesh.AllAreas) && objectBetween && whileCounter < 50)
             {
                 newWayp.transform.position = xzLocation + new Vector3(Random.Range(0f, 40f) - 20, 0f, Random.Range(0f, 40f) - 20);
                 objectBetween = Physics.Raycast(xzLocation + new Vector3(0, 3, 0), (newWayp.transform.position - xzLocation).normalized, out physicsHit) && physicsHit.transform.name != "SupaKupaTrupa";
-                Debug.Log(physicsHit.collider + " Investigation physics hit");
                 whileCounter++;
             }
             Debug.DrawRay(xzLocation + new Vector3(0, 3, 0), (newWayp.transform.position - xzLocation).normalized * 20, Color.black, 300f);

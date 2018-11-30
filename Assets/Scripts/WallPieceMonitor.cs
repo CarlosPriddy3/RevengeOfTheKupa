@@ -24,7 +24,6 @@ public class WallPieceMonitor : MonoBehaviour {
             {
                 foreach (Transform wallPiece in brokenWall.transform)
                 {
-                    Debug.Log(timeManager.time / timeOut);
                     Color color = Color.Lerp(defaultColor, new Color(defaultColor.r, defaultColor.g, defaultColor.b, 0), timeManager.time / timeOut);
                     wallPiece.gameObject.GetComponent<Renderer>().material.color = color;
                 }

@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4392419493226318}
   - component: {fileID: 64927914645551006}
+  - component: {fileID: 208028924640629362}
   m_Layer: 0
   m_Name: PlasticCrate
   m_TagString: Untagged
@@ -50,8 +51,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1452056376082798}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 84.09116, y: -7.1185527, z: 88.23767}
+  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -67.691986, y: 77.93244, z: 53.225464}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_Children:
   - {fileID: 4395067711155948}
@@ -127,3 +128,18 @@ MeshCollider:
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: e57acd6c3cf526849945f3f8a64546ab, type: 3}
+--- !u!208 &208028924640629362
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1452056376082798}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5

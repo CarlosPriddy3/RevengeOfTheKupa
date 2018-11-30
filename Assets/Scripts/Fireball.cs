@@ -27,6 +27,7 @@ public class Fireball : MonoBehaviour {
         {
             lc.loseLife();
             injuredAudio.Play();
+            Destroy(this.gameObject);
         }
     }
 
