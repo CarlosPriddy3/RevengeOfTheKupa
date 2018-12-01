@@ -23,6 +23,8 @@ public class MarioController : MonoBehaviour
     public NavMeshAgent agent;
     private Animator anim;
 
+    public float sightDistance = 70f;
+    public float lookRotSpeed = 200f;
     private GameObject movingTarget;
     private Vector3 kupaVel;
     public float stunDuration = 3f;
@@ -104,7 +106,7 @@ public class MarioController : MonoBehaviour
                             setNextWaypoint(waypoints);
                         }
                         RaycastHit hit;
-                        if (disToTarget <= 50) // agent close enough to Koopa, chase Koopa
+                        if (disToTarget <= sightDistance) // agent close enough to Koopa, chase Koopa
                         {
                             if (canSeeKupa())
                             {
@@ -127,7 +129,7 @@ public class MarioController : MonoBehaviour
                 case AIState.Chase:
                     if (movingTarget != null)
                     {
-                        if (disToTarget > 50)
+                        if (disToTarget > sightDistance)
                         {
                             marioStartledCanvas.enabled = false;
                             kupaStartledCanvas.enabled = false;
@@ -155,7 +157,20 @@ public class MarioController : MonoBehaviour
                         {
                             agent.SetDestination(dest);
                         }
-                        if (this.tag == "FireMario")
+                        
+                        if (this.tag == "StationaryFireMario")
+                        {
+                            Debug.Log("NO NAV PATH FOUND");
+                            //find the vector pointing from our position to the target
+                            Vector3 dir = (targetPos - transform.position).normalized;
+
+                            //create the rotation we need to be in to look at the target
+                            Quaternion lookRot = Quaternion.LookRotation(dir);
+
+                            //rotate us over time according to speed until we are in the required rotation
+                            transform.rotation = Quaternion.Slerp(transform.rotation, lookRot, Time.deltaTime * lookRotSpeed);
+                        }
+                        if (this.tag == "FireMario" || this.tag == "StationaryFireMario")
                         {
                             timer++;
                             if (timer > fireballCD)
@@ -176,7 +191,7 @@ public class MarioController : MonoBehaviour
                         this.GetComponent<MarioAttack>().enabled = true;
                         float dist2 = (movingTarget.transform.position - agent.transform.position).magnitude;
                         anim.SetBool("NotStunned", true);
-                        if (dist2 < 50f)
+                        if (dist2 < sightDistance)
                         {
                             if (canSeeKupa())
                             {
@@ -286,17 +301,6 @@ public class MarioController : MonoBehaviour
     }
     private void shootFireball()
     {
-        /*float lookAhead = Mathf.Clamp(disToTarget, minLook, maxLook) / agent.speed;
-        Vector3 target = targetPos + (lookAhead * kupaVel);
-        bool blocked = NavMesh.Raycast(targetPos, target, out hit, NavMesh.AllAreas);
-        Debug.DrawLine(transform.position, target, blocked ? Color.red : Color.green);
-        if (blocked)
-        {
-            Vector3 tempDest = hit.position + (targetPos - hit.position).normalized * 1.3f;
-            target = tempDest;
-            Debug.DrawRay((hit.position + (targetPos - hit.position).normalized), Vector3.up, Color.blue);
-        }*/
-
         GameObject instance = Instantiate(fireball);
         instance.transform.position = gameObject.transform.position + (gameObject.transform.forward * 5) + (gameObject.transform.up * 5);
         instance.GetComponent<Rigidbody>().AddForce((this.transform.forward.normalized * 60) + (Vector3.down * 170 / disToTarget), ForceMode.Impulse);
@@ -336,7 +340,8 @@ public class MarioController : MonoBehaviour
                 objectBetween = Physics.Raycast(xzLocation + new Vector3(0, 3, 0), (newWayp.transform.position - xzLocation).normalized, out physicsHit) && physicsHit.transform.name != "SupaKupaTrupa";
                 whileCounter++;
             }
-            Debug.DrawRay(xzLocation + new Vector3(0, 3, 0), (newWayp.transform.position - xzLocation).normalized * 20, Color.black, 300f);
+            //Debug for search locations
+           // Debug.DrawRay(xzLocation + new Vector3(0, 3, 0), (newWayp.transform.position - xzLocation).normalized * 20, Color.black, 300f);
             searchPoints[i] = newWayp;
         }
         this.investigationPoints = searchPoints;
@@ -364,6 +369,8 @@ public class MarioController : MonoBehaviour
                         Vector3 relativePosition = contact.thisCollider.transform.InverseTransformPoint(contact.point);
                         if (relativePosition.y > 0 && kupaVel.y <= 0)
                         {
+                            collision.gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
+                            collision.gameObject.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
                             collision.gameObject.GetComponent<Rigidbody>().AddForce(collision.gameObject.transform.forward * 400 + collision.gameObject.transform.up * 1000);
                             this.Stun();
                             

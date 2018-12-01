@@ -145,7 +145,7 @@ GameObject:
   - component: {fileID: 114647697236613784}
   m_Layer: 0
   m_Name: SmallSoundRange
-  m_TagString: Untagged
+  m_TagString: MarioCollider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -313,7 +313,7 @@ GameObject:
   - component: {fileID: 114582880031498826}
   m_Layer: 0
   m_Name: BigSoundRange
-  m_TagString: Untagged
+  m_TagString: MarioCollider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -608,8 +608,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1697457710107558}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -220.53502, y: 0, z: -380}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -50.837234, y: -6.8738823, z: -144.37134}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4540109956266964}
@@ -724,7 +724,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1820584376704288}
   m_LocalRotation: {x: -0.0005425825, y: 0.021144101, z: 0.006917111, w: 0.9997524}
-  m_LocalPosition: {x: -0.00000000426953, y: 0.7292399, z: 0}
+  m_LocalPosition: {x: 0, y: 0.68717843, z: -0.011846473}
   m_LocalScale: {x: 0.99999994, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4805568159580542}
@@ -845,7 +845,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1042481038982636}
-  m_LocalRotation: {x: 0.7181587, y: 0.6217141, z: 0.30402833, w: -0.07270858}
+  m_LocalRotation: {x: -0.73348856, y: -0.57037175, z: -0.35830835, w: 0.09102591}
   m_LocalPosition: {x: 0.00000000745058, y: 0.1451955, z: 0.0000000149012}
   m_LocalScale: {x: 0.99999994, y: 0.99999964, z: 1.0000001}
   m_Children:
@@ -859,8 +859,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1237520963677206}
-  m_LocalRotation: {x: -0.46783262, y: 0.25454676, z: 0.6629578, w: 0.5261421}
-  m_LocalPosition: {x: -0.0000021345909, y: 0.7292564, z: 0.000025436286}
+  m_LocalRotation: {x: -0.36816177, y: 0.09548795, z: 0.71163493, w: 0.5906901}
+  m_LocalPosition: {x: -0.0000043057703, y: 0.729369, z: 0.000082247585}
   m_LocalScale: {x: 0.9999999, y: 0.9999998, z: 1.0000001}
   m_Children:
   - {fileID: 4794046071577152}
@@ -886,8 +886,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1740154040990578}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 18.22699, y: 0, z: 0}
+  m_LocalRotation: {x: 2.7946194e-17, y: 0.45127612, z: -5.525573e-17, w: -0.8923844}
+  m_LocalPosition: {x: 31.947662, y: 0.25, z: 25.71109}
   m_LocalScale: {x: 1.500001, y: 1.5, z: 1.500001}
   m_Children:
   - {fileID: 4580103613733412}
@@ -908,8 +908,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1460637141767310}
-  m_LocalRotation: {x: 0.36504403, y: 0.2312943, z: 0.7117053, w: -0.55382437}
-  m_LocalPosition: {x: -0.00000000426953, y: 0.7292399, z: 0}
+  m_LocalRotation: {x: -0.3640371, y: -0.2228716, z: -0.71532696, w: 0.55327445}
+  m_LocalPosition: {x: 0.00000087119605, y: 0.7293566, z: 0.00003146586}
   m_LocalScale: {x: 0.99999994, y: 1, z: 1.0000001}
   m_Children:
   - {fileID: 4317289250527804}
@@ -1015,7 +1015,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1945336809290426}
-  m_LocalRotation: {x: -0.6033614, y: 0.6490236, z: 0.45241702, w: -0.10021086}
+  m_LocalRotation: {x: 0.6023689, y: -0.64490664, z: -0.46128476, w: 0.091998026}
   m_LocalPosition: {x: 0.00000000745058, y: 0.1451955, z: 0.0000000149012}
   m_LocalScale: {x: 1, y: 0.9999998, z: 1}
   m_Children:
@@ -1461,7 +1461,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackDis: 4.9
   zAdjust: 1.8
-  distanceToKupa: 0
+  distanceToKupa: 24.56167
   vertAdjust: 3
   injuredAudio: {fileID: 82645040998940954}
   cooldown_time: 2
@@ -1509,14 +1509,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0aa5d7e9e3c794425935d1376581bb7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  aiState: 0
+  aiState: 1
   waypoints:
   - {fileID: 1326493711601338}
   - {fileID: 1388894988440406}
   - {fileID: 1586328309525074}
   - {fileID: 1932663713289826}
-  currWaypoint: 0
-  agent: {fileID: 0}
+  currWaypoint: 2
+  agent: {fileID: 195744215910305328}
   stunDuration: 3
   minLook: 0.1
   maxLook: 4
@@ -1524,9 +1524,14 @@ MonoBehaviour:
   fireball: {fileID: 0}
   fireballCD: 300
   fireBallMaxRandom: 120
-  searchTimer: 0
+  searchTimer: 211
   searchTime: 3000
-  investigationPoints: []
+  investigationPoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   mammaMiaClip: {fileID: 82102354914591662}
   hmmmmClip: {fileID: 82177912134362110}
 --- !u!114 &114393858752107824

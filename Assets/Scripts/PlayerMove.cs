@@ -42,10 +42,6 @@ public class PlayerMove : MonoBehaviour {
 
     //Variables for jumping and landable surfaces
     public List<string> badSurfaceTags;
-    private Quaternion frontrot;
-    private Quaternion leftrot;
-    private Quaternion rightrot;
-    private Quaternion backrot;
     private Vector3 frontRayDir;
     private Vector3 leftRayDir;
     private Vector3 rightRayDir;
@@ -87,14 +83,10 @@ public class PlayerMove : MonoBehaviour {
         soundTimer = 0f;
         forwardSpeedLimit = 1f;
 
-        frontrot = Quaternion.Euler(0, 0, 10);
-        leftrot = Quaternion.Euler(-10, 0, 0);
-        rightrot = Quaternion.Euler(10, 0, 0);
-        backrot = Quaternion.Euler(0, 0, -10);
-        frontRayDir = (frontrot * (this.transform.up * -1)).normalized;
-        leftRayDir = (leftrot * (this.transform.up * -1)).normalized;
-        rightRayDir = (rightrot * (this.transform.up * -1)).normalized;
-        backRayDir = (backrot * (this.transform.up * -1)).normalized;
+        frontRayDir = (this.transform.up * -1).normalized;
+        leftRayDir = (this.transform.up * -1).normalized;
+        rightRayDir = (this.transform.up * -1).normalized;
+        backRayDir = (this.transform.up * -1).normalized;
     }
 
     public Canvas getKupaStarledCanvas() {
@@ -340,27 +332,37 @@ public class PlayerMove : MonoBehaviour {
 
     bool canJump()
     {    
-        Debug.DrawRay(this.transform.position, frontRayDir * 4, Color.red);
-        Debug.DrawRay(this.transform.position, leftRayDir * 4, Color.red);
-        Debug.DrawRay(this.transform.position, rightRayDir * 4, Color.red);
-        Debug.DrawRay(this.transform.position, backRayDir * 4, Color.red);
-        
-        bool landableDirectBelow = (Physics.Raycast(transform.position, down, out directBelow, distToGroundForGrounded) && directBelow.collider != null && !badSurfaceTags.Contains(directBelow.collider.gameObject.tag));
-        bool landableLeftBelow = (Physics.Raycast(transform.position, down, out leftBelow, 6f) && leftBelow.collider != null && !badSurfaceTags.Contains(leftBelow.collider.gameObject.tag));
-        bool landableRightBelow = (Physics.Raycast(transform.position, down, out rightBelow, 6f) && rightBelow.collider != null && !badSurfaceTags.Contains(rightBelow.collider.gameObject.tag));
-        bool landableForwardBelow = (Physics.Raycast(transform.position, down, out forwardBelow, 6f) && forwardBelow.collider != null && !badSurfaceTags.Contains(forwardBelow.collider.gameObject.tag));
-        bool landableBackBelow = (Physics.Raycast(transform.position, down, out backBelow, 6f) && backBelow.collider != null && !badSurfaceTags.Contains(backBelow.collider.gameObject.tag));
+        Debug.DrawRay(this.transform.position + this.transform.forward * 1.3f  + this.transform.up * -2.35f, down, Color.red);
+        Debug.DrawRay(this.transform.position + this.transform.forward * 0.65f + this.transform.right * 0.65f + this.transform.up * -2.35f, down, Color.red);
+        Debug.DrawRay(this.transform.position + this.transform.forward * 0.65f + this.transform.right * -0.65f + this.transform.up * -2.35f, down, Color.red);
+        Debug.DrawRay(this.transform.position + this.transform.up * -2.35f, down, Color.red);
+        Vector3 frontGroundRay = (this.transform.position + this.transform.forward * 1.3f + this.transform.up * -2.35f);
+        Vector3 rightGroundRay = (this.transform.position + this.transform.forward * 0.65f + this.transform.right * 0.65f + this.transform.up * -2.35f);
+        Vector3 leftGroundRay = (this.transform.position + this.transform.forward * 0.65f + this.transform.right * -0.65f + this.transform.up * -2.35f);
+        Vector3 backGroundRay = (this.transform.position + this.transform.forward * 0f + this.transform.up * -2.35f);
+
+        bool landableDirectBelow = (Physics.Raycast(transform.position, down, out directBelow, distToGroundForGrounded) && directBelow.collider != null && !badSurfaceTags.Contains(directBelow.collider.tag));
+        bool landableLeftBelow = (Physics.Raycast(leftGroundRay, down, out leftBelow, 1f) && leftBelow.collider != null && !badSurfaceTags.Contains(leftBelow.collider.tag));
+        bool landableRightBelow = (Physics.Raycast(rightGroundRay, down, out rightBelow, 1f) && rightBelow.collider != null && !badSurfaceTags.Contains(rightBelow.collider.tag));
+        bool landableForwardBelow = (Physics.Raycast(frontGroundRay, down, out forwardBelow, 1f) && forwardBelow.collider != null && !badSurfaceTags.Contains(forwardBelow.collider.tag));
+        bool landableBackBelow = (Physics.Raycast(backGroundRay, down, out backBelow, 1f) && backBelow.collider != null && !badSurfaceTags.Contains(backBelow.collider.tag));
         isGrounded = (landableDirectBelow || landableLeftBelow|| landableRightBelow || landableForwardBelow || landableBackBelow);
         bool groundClose = (Physics.Raycast(transform.position, down, out belowHit, distToGround));
-        if (forwardBelow.collider != null)
+        //Collider Check Debugs
+        /*if (forwardBelow.collider != null)
         {
-            Debug.Log(forwardBelow.collider.transform.tag);
-        }
-        bool onObject = (Physics.Raycast(transform.position, down, distToGroundForGrounded)
-            || Physics.Raycast(transform.position, frontRayDir, 6f)
-            || Physics.Raycast(transform.position, rightRayDir, 6f)
-            || Physics.Raycast(transform.position, leftRayDir, 6f)
-            || Physics.Raycast(transform.position, backRayDir, 6f));
+            Debug.Log("NAME: " + forwardBelow.collider.tag);
+            if (forwardBelow.collider.transform.parent != null)
+            {
+                Debug.Log("PARENT NAME: " + forwardBelow.transform.parent.tag);
+            }
+            
+        }*/
+        /*bool onObject = (Physics.Raycast(transform.position, down, distToGroundForGrounded)
+            || Physics.Raycast(this.transform.position + this.transform.forward * 1.3f + this.transform.up * -2.35f, down, out forwardBelow, 1f)
+            || Physics.Raycast(this.transform.position + this.transform.forward * 0.65f + this.transform.right * 0.65f + this.transform.up * -2.35f, down, out rightBelow, 1f)
+            || Physics.Raycast(this.transform.position + this.transform.forward * 0.65f + this.transform.right * -0.65f + this.transform.up * -2.35f, down, 1f)
+            || Physics.Raycast(this.transform.position + this.transform.forward * 0f + this.transform.up * -2.35f, down, 1f));*/
 
         anim.SetBool("groundClose", groundClose);
         anim.SetBool("landableObject", isGrounded);

@@ -18,7 +18,6 @@ public class TriggerStealthLesson : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.tag);
         if (other.tag == "Kupa" && !hasBeenTriggered)
         {
             stealthLessonCanvas.enabled = true;

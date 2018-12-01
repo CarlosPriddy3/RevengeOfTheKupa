@@ -17,6 +17,9 @@ TagManager:
   - BreakableWall
   - KupaStartledCanvas
   - Container
+  - SF_Door
+  - WalkableContainer
+  - StationaryFireMario
   layers:
   - Default
   - TransparentFX

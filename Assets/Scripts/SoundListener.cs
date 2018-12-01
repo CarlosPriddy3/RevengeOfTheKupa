@@ -28,13 +28,10 @@ public class SoundListener : MonoBehaviour {
         {
             if (other.name == "SupaKupaTrupa")
             {
-                Debug.Log(" SMALLSOUND " + smallSound + " BIGSOUND " + bigSound);
-                Debug.Log(kupaControl.velocityMag);
                 if (smallSound)
                 {
                     if (kupaControl.velocityMag > smallSpeedThreshold)
                     {
-                        Debug.Log("INVESTIGATE ");
                         marioController.InstantiateInvestigateParams(kupaTrupa.transform.position);
                     }
                 }
@@ -42,7 +39,6 @@ public class SoundListener : MonoBehaviour {
                 {
                     if (kupaControl.velocityMag > bigSpeedThreshold)
                     {
-                        Debug.Log("INVESTIGATE ");
                         marioController.InstantiateInvestigateParams(kupaTrupa.transform.position);
                     }
                 }
