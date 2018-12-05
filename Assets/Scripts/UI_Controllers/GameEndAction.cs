@@ -10,11 +10,19 @@ public class GameEndAction : MonoBehaviour
 {
 	public string end_scene_name;
 
-	/// <summary>
-	/// The action to perform.
-	/// </summary>
-	public void onLoss()
+    private SoundManager soundManager;
+
+    private void Start()
+    {
+        soundManager = GameObject.FindGameObjectWithTag("SoundManager").GetComponent<SoundManager>();
+    }
+
+    /// <summary>
+    /// The action to perform.
+    /// </summary>
+    public void onLoss()
 	{
+        soundManager.PlayDefeatMusic();
 		SceneManager.LoadSceneAsync(end_scene_name);
 		GameState.state = State.LOSS;
 	}

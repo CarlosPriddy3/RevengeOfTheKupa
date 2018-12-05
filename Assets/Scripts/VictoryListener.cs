@@ -8,10 +8,13 @@ public class VictoryListener : MonoBehaviour {
     public float winDistance = 5f;
     private GameObject kupa;
     private PlayerMove moveScript;
+    private SoundManager soundManager;
+
     // Use this for initialization
     void Start () {
         kupa = GameObject.FindGameObjectWithTag("Kupa");
         moveScript = kupa.GetComponent<PlayerMove>();
+        soundManager = GameObject.FindGameObjectWithTag("SoundManager").GetComponent<SoundManager>();
 	}
 	
 	// Update is called once per frame
@@ -20,6 +23,7 @@ public class VictoryListener : MonoBehaviour {
         
         if (gos.Length > 0 && Vector3.Distance(gos[0].transform.position, this.transform.position) < winDistance && moveScript.kupaState == KupaState.Spinning && moveScript.velocityMag > 3)
         {
+            soundManager.PlayVictoryMusic();
             SceneManager.LoadSceneAsync("GameEnd");
             GameState.state = State.WIN;
 

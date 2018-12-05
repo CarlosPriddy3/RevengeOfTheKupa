@@ -16,11 +16,13 @@ public class MenuController : MonoBehaviour {
 	public string credits_scene_name;
 
 	private PauseButton pauser;
+    private SoundManager soundManager;
 
 	// Get pausing component if it exists.
 	void Start()
 	{
 		pauser = GetComponent<PauseButton>();
+        soundManager = GameObject.FindGameObjectWithTag("SoundManager").GetComponent<SoundManager>();
 	}
 
 	/// <summary>
@@ -32,6 +34,7 @@ public class MenuController : MonoBehaviour {
 		{
 			pauser.unpause();
 		}
+        soundManager.PlayGameMusic();
 		SceneManager.LoadSceneAsync(play_scene_name);
 		GameState.state = State.PLAY;
 	}
@@ -52,6 +55,7 @@ public class MenuController : MonoBehaviour {
 	/// </summary>
 	public void toTitle()
 	{
+        soundManager.PlayMenuMusic();
 		SceneManager.LoadSceneAsync(title_scene_name);
 		GameState.state = State.START;
 	}
@@ -61,6 +65,7 @@ public class MenuController : MonoBehaviour {
     /// </summary>
     public void toTutorial()
     {
+        soundManager.PlayGameMusic();
         SceneManager.LoadSceneAsync(tutorial_scene_name);
     }
 
@@ -69,6 +74,7 @@ public class MenuController : MonoBehaviour {
     /// </summary>
     public void loseGame()
     {
+        soundManager.PlayDefeatMusic();
         SceneManager.LoadSceneAsync(end_scene_name);
         GameState.state = State.LOSS;
     }
@@ -78,6 +84,7 @@ public class MenuController : MonoBehaviour {
 	/// </summary>
 	public void winGame()
 	{
+        soundManager.PlayVictoryMusic();
 		SceneManager.LoadSceneAsync(end_scene_name);
 		GameState.state = State.WIN;
 	}
