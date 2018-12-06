@@ -9,6 +9,7 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class MenuController : MonoBehaviour {
 
+	public string intro_scene_name;
 	public string title_scene_name;
 	public string play_scene_name;
     public string tutorial_scene_name;
@@ -23,6 +24,15 @@ public class MenuController : MonoBehaviour {
 	{
 		pauser = GetComponent<PauseButton>();
         soundManager = GameObject.FindGameObjectWithTag("SoundManager").GetComponent<SoundManager>();
+	}
+
+	/// <summary>
+	/// Starts game, only from start menu.
+	/// </summary>
+	public void startGame()
+	{
+		SelectedStart.isTutorial = false;
+		SceneManager.LoadSceneAsync(intro_scene_name);
 	}
 
 	/// <summary>
@@ -65,8 +75,8 @@ public class MenuController : MonoBehaviour {
     /// </summary>
     public void toTutorial()
     {
-        soundManager.PlayGameMusic();
-        SceneManager.LoadSceneAsync(tutorial_scene_name);
+		SelectedStart.isTutorial = true;
+        SceneManager.LoadSceneAsync(intro_scene_name);
     }
 
     /// <summary>
