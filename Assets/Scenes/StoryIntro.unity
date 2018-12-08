@@ -163,16 +163,16 @@ MonoBehaviour:
   text: {fileID: 1149567586}
   skip_text: {fileID: 1731428913}
   images:
+  - {fileID: 21300000, guid: ac8a4ae66daa8c949887d4fd0c77b226, type: 3}
   - {fileID: 21300000, guid: fd44564a4d7ff034a8a66e5d397e723b, type: 3}
-  - {fileID: 21300000, guid: fd44564a4d7ff034a8a66e5d397e723b, type: 3}
-  - {fileID: 21300000, guid: fd44564a4d7ff034a8a66e5d397e723b, type: 3}
+  - {fileID: 21300000, guid: cacd60bba33d7194ea2a0ab11c5db69d, type: 3}
   texts:
-  - After countless numbers of its fellow comrades were slain, one Kupa decides to
-    take a stand.
+  - Day after day, countless numbers of Kupas fall prey to their greatest enemy. Finally,
+    one Kupa decides it has had enough.
   - "Desperate to avenge its fallen companions, it seeks to put an end to the senseless
     violence and take out the source\u2014Mario."
   - "At last, the Kupa has found the source of Mario's seemingly infinite lives\u2014a
-    cloning factory. Destroy the cloning machine, and victory is all but assured..."
+    cloning factory. Destroy the cloning machine, and vengeance will be in reach..."
   game_scene: Level01Remake
   tutorial_scene: Tutorial
 --- !u!1 &561492121
@@ -392,7 +392,7 @@ MonoBehaviour:
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
-    m_LineSpacing: 1.25
+    m_LineSpacing: 1.4
   m_Text: Placeholder
 --- !u!222 &1149567587
 CanvasRenderer:
