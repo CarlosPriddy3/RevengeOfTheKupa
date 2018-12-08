@@ -29,7 +29,7 @@ public class WallPieceMonitor : MonoBehaviour {
                 }
             }
             
-            if (timeManager.time > timeOut)
+            if (timeManager.time > (timeOut * 2 / 3))
             {    
                 Destroy(brokenWall);
             }
