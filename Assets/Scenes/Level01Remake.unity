@@ -5776,7 +5776,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   title_scene_name: StartMenu
-  play_scene_name: Level01
+  play_scene_name: Level01Remake
   tutorial_scene_name: 
   end_scene_name: GameEnd
   credits_scene_name: 
@@ -31465,6 +31465,48 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 1788190190}
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+--- !u!1001 &1793818663
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4627464357131660, guid: dfd93d03e3564da47b48f19fd5646014, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -47.847652
+      objectReference: {fileID: 0}
+    - target: {fileID: 4627464357131660, guid: dfd93d03e3564da47b48f19fd5646014, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -7.8396873
+      objectReference: {fileID: 0}
+    - target: {fileID: 4627464357131660, guid: dfd93d03e3564da47b48f19fd5646014, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -30.892462
+      objectReference: {fileID: 0}
+    - target: {fileID: 4627464357131660, guid: dfd93d03e3564da47b48f19fd5646014, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4627464357131660, guid: dfd93d03e3564da47b48f19fd5646014, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4627464357131660, guid: dfd93d03e3564da47b48f19fd5646014, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4627464357131660, guid: dfd93d03e3564da47b48f19fd5646014, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4627464357131660, guid: dfd93d03e3564da47b48f19fd5646014, type: 2}
+      propertyPath: m_RootOrder
+      value: 16
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: dfd93d03e3564da47b48f19fd5646014, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1 &1798653884
 GameObject:
   m_ObjectHideFlags: 0
