@@ -352,7 +352,7 @@ Transform:
   m_GameObject: {fileID: 151847650}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2.7, y: -1.2, z: 3.5}
-  m_LocalScale: {x: 10.371007, y: 1, z: 1.2385}
+  m_LocalScale: {x: 10.371007, y: 1, z: 10.532328}
   m_Children: []
   m_Father: {fileID: 1383799563}
   m_RootOrder: 0
@@ -689,6 +689,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114740998798909996, guid: 61312221a8f4f43f895bce34e693bbc5,
+        type: 2}
+      propertyPath: waypoints.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4007972050522902, guid: 61312221a8f4f43f895bce34e693bbc5, type: 2}
       propertyPath: m_LocalPosition.x
       value: -38.119663
@@ -720,6 +725,15 @@ Prefab:
     - target: {fileID: 4007972050522902, guid: 61312221a8f4f43f895bce34e693bbc5, type: 2}
       propertyPath: m_RootOrder
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 195938156296012844, guid: 61312221a8f4f43f895bce34e693bbc5,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1416859829871212, guid: 61312221a8f4f43f895bce34e693bbc5, type: 2}
+      propertyPath: m_TagString
+      value: StationaryMario
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 61312221a8f4f43f895bce34e693bbc5, type: 2}
@@ -1264,6 +1278,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f00225c300ebe074386dcf9a4c49ea97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  intro_scene_name: 
   title_scene_name: StartMenu
   play_scene_name: Level01
   tutorial_scene_name: Tutorial
@@ -2451,6 +2466,49 @@ MonoBehaviour:
   Order: 3
   Explanation: Break the wall and stand on the gold platform to finish tutorial.
   HitTransform: {fileID: 0}
+--- !u!1 &1615874465
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1615874467}
+  - component: {fileID: 1615874466}
+  m_Layer: 0
+  m_Name: WallManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1615874466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1615874465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd274831647e1234b93f19582a2aa9f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeOut: 5
+  startDisappear: 2
+  rusty1: {fileID: 2100000, guid: 5df1687bc4a1c6040a123e5309208d0d, type: 2}
+--- !u!4 &1615874467
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1615874465}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.5999985, y: 10.200001, z: -33.2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 22
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1783390250
 GameObject:
   m_ObjectHideFlags: 0

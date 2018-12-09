@@ -97,11 +97,11 @@ public class CutsceneController : MonoBehaviour
 		soundManager.PlayGameMusic();
 		if (SelectedStart.isTutorial)
 		{
-			SceneManager.LoadSceneAsync(tutorial_scene);
+			SceneManager.LoadScene(tutorial_scene);
 		}
 		else
 		{
-			SceneManager.LoadSceneAsync(game_scene);
+			SceneManager.LoadScene(game_scene);
 		}
 		ended = true;
 	}

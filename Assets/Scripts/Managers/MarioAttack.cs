@@ -27,7 +27,11 @@ public class MarioAttack : MonoBehaviour {
     }*/
     private void Start()
     {
-        lc = GameObject.FindGameObjectWithTag("LifeController").GetComponent<LifeController>();
+        if (GameObject.FindGameObjectWithTag("LifeController") != null)
+        {
+            lc = GameObject.FindGameObjectWithTag("LifeController").GetComponent<LifeController>();
+        }
+        
     }
 
     private void FixedUpdate()
