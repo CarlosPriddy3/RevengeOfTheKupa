@@ -154,7 +154,7 @@ public class MarioController : MonoBehaviour
 
                             marioStartledCanvas.enabled = false;
                             kupaStartledCanvas.enabled = false;
-                            if (marioCounter == 1)
+                            if (marioCounter == 0)
                             {
                                 playInvestigatingSound();
                             }
