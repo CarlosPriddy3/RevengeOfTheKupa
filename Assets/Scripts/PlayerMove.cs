@@ -101,7 +101,7 @@ public class PlayerMove : MonoBehaviour {
         kupaArrow.SetActive(false);
         defaultArrowColor =  kupaArrow.GetComponent<Renderer>().material.GetColor("_Color");
         
-        AddEvent(3, 0.13f, "playKupaJump", 0);
+        //AddEvent(2, 0.05f, "playKupaJump", 0);
         soundTimer = 0f;
         forwardSpeedLimit = 1f;
 
@@ -167,6 +167,7 @@ public class PlayerMove : MonoBehaviour {
                 
                 if (canJump())
                 {
+                    playKupaJump();
                     Jump();
                     jumpTimer = 0f;
                 }
@@ -218,7 +219,6 @@ public class PlayerMove : MonoBehaviour {
                     //Shoot Forward
                     staminaBar.value -= 20f;
                     staminaText.text = "Stamina: " + ((int)staminaBar.value).ToString();
-                    playShellTakeoffSound();
                     this.gameObject.GetComponent<CapsuleCollider>().material.dynamicFriction = dynFric;
                     this.gameObject.GetComponent<CapsuleCollider>().material.bounciness = shellBounce;
                     if (spinPowerTimer < 1f)
@@ -346,18 +346,24 @@ public class PlayerMove : MonoBehaviour {
     }
     void playKupaJump()
     {
+        kupaJump.Stop();
         kupaJump.Play();
     }
     void playSpinSound()
     {
+        slowestSpinSound.Stop();
+        slowSpinSound.Stop();
+        spinSound.Stop();
         spinSound.Play();
     }
     void playSlowSpinSound()
     {
+        slowSpinSound.Stop();
         slowSpinSound.Play();
     }
     void playSlowestSpinSound()
     {
+        slowestSpinSound.Stop();
         slowestSpinSound.Play();
     }
     void playShellTakeoffSound()

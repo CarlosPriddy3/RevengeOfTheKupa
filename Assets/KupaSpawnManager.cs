@@ -22,7 +22,7 @@ public class KupaSpawnManager : MonoBehaviour {
                     Vector3 pos = spManager.getSavePointPosition();
                     float x = pos.x;
                     float z = pos.z;
-                    kupa.transform.position = new Vector3(x, 0, z);
+                    kupa.transform.position = new Vector3(x, 1, z);
                 }
             }
             else
