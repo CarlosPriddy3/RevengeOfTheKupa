@@ -724,8 +724,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1149014425213224}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 28.98238, y: -4.879097, z: 1.7082748}
-  m_LocalScale: {x: 1.500001, y: 1.5, z: 1.500001}
+  m_LocalPosition: {x: 68, y: -6.8738823, z: 256}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 4768270562413354}
   - {fileID: 4055737109188092}
@@ -1289,8 +1289,12 @@ MonoBehaviour:
   zAdjust: 1.8
   distanceToKupa: 0
   vertAdjust: 3
+  kupaVel: 0
   injuredAudio: {fileID: 82133109841637756}
   cooldown_time: 2
+  damageImage: {fileID: 0}
+  flashSpeed: 8
+  flashColour: {r: 1, g: 0, b: 0, a: 0.1}
 --- !u!114 &114157559300994950
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1303,13 +1307,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   aiState: 0
-  waypoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  waypoints: []
   currWaypoint: 0
   agent: {fileID: 0}
+  sightDistance: 70
+  lookRotSpeed: 200
   stunDuration: 3
   minLook: 0.1
   maxLook: 4

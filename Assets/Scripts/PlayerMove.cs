@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 
 public class PlayerMove : MonoBehaviour {
@@ -39,6 +40,12 @@ public class PlayerMove : MonoBehaviour {
     public AudioSource slowestSpinSound;
     public AudioSource shellTakeoffSound;
     private float soundTimer;
+
+    //flash
+    public Slider staminaBar;
+    public Image sliderFillImage;
+    
+    public Text staminaText;
 
     //Variables for jumping and landable surfaces
     public List<string> badSurfaceTags;
@@ -119,6 +126,11 @@ public class PlayerMove : MonoBehaviour {
         switch (kupaState)
         {
             case KupaState.NotSpinning:
+                if (staminaBar.value < 100)
+                {
+                    staminaBar.value += Time.deltaTime;
+                }
+                
                 isSpinning = false;
 
                 this.gameObject.GetComponent<CapsuleCollider>().material.dynamicFriction = 0.6f; // default friction;
@@ -182,6 +194,7 @@ public class PlayerMove : MonoBehaviour {
                     if ((!hasShot && !shooting && isGrounded && !(Input.GetButton("Fire3"))))
                 {
                     //Shoot Forward
+                    staminaBar.value -= 20f;
                     playShellTakeoffSound();
                     this.gameObject.GetComponent<CapsuleCollider>().material.dynamicFriction = dynFric;
                     this.gameObject.GetComponent<CapsuleCollider>().material.bounciness = shellBounce;
@@ -222,6 +235,7 @@ public class PlayerMove : MonoBehaviour {
 
     void Jump()
     {
+        staminaBar.value -= 10f;
         anim.Play("Launch");
         anim.applyRootMotion = false;
         Debug.DrawRay(this.transform.position, velocity * 10, Color.red);

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class MarioAttack : MonoBehaviour {
@@ -9,14 +10,19 @@ public class MarioAttack : MonoBehaviour {
     public float distanceToKupa;
     public float vertAdjust = 3f;
     private Vector3 kupaPos;
-    private float kupaVel;
+    public float kupaVel;
     private KupaState kupaState;
 
     private LifeController lc;
+  
     public AudioSource injuredAudio;
     public float cooldown_time;
     private bool cooldown = false;
     private float cooldown_timer;
+
+    private Image damageImage;
+    public float flashSpeed = 2f;
+    public Color flashColour = new Color(1f, 0f, 0f, 1f);
 
     /*private void OnCollisionEnter(Collision col)
     {
@@ -30,6 +36,10 @@ public class MarioAttack : MonoBehaviour {
         if (GameObject.FindGameObjectWithTag("LifeController") != null)
         {
             lc = GameObject.FindGameObjectWithTag("LifeController").GetComponent<LifeController>();
+        }
+        if (GameObject.FindGameObjectWithTag("DamageImage") != null)
+        {
+            damageImage = GameObject.FindGameObjectWithTag("DamageImage").GetComponent<Image>();
         }
         
     }
@@ -49,6 +59,7 @@ public class MarioAttack : MonoBehaviour {
             kupaVel = 0f;
             kupaState = KupaState.NotSpinning;
         }
+        damageImage.color = Color.Lerp(damageImage.color, Color.clear, Time.deltaTime * 3f);
 
         Debug.DrawRay(transform.position + (this.transform.forward * zAdjust) + (this.transform.up * vertAdjust), (kupaPos - (this.transform.position + (this.transform.forward * zAdjust) + (this.transform.up * vertAdjust))).normalized * attackDis, Color.red);
         Debug.DrawRay(transform.position + (this.transform.forward * zAdjust) + (this.transform.up * vertAdjust), new Vector3(0, 1, 0) * 10f, Color.blue);
@@ -59,11 +70,16 @@ public class MarioAttack : MonoBehaviour {
             if (kupaState == KupaState.Spinning && (kupaVel > 5f))
             {
                 this.GetComponent<MarioController>().Stun();
+                Rigidbody rb = kupa.GetComponent<Rigidbody>();
+                rb.velocity = Vector3.zero;
+                rb.angularVelocity = Vector3.zero;
+                rb.AddForce(kupa.transform.forward * -1200f);
             }
             else
             {
                 if (!cooldown)
                 {
+                    damageImage.color = flashColour;
                     lc.loseLife();
                     injuredAudio.Play();
                     cooldown = true;
