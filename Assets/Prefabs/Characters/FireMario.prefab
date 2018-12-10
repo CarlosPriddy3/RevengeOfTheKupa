@@ -69,6 +69,8 @@ GameObject:
   - component: {fileID: 223964237923537414}
   - component: {fileID: 114979834419714100}
   - component: {fileID: 114902368871857726}
+  - component: {fileID: 222652862176752608}
+  - component: {fileID: 114386545231672386}
   m_Layer: 0
   m_Name: MarioStartledCanvas (1)
   m_TagString: Untagged
@@ -444,7 +446,7 @@ GameObject:
   - component: {fileID: 114417967842611346}
   m_Layer: 0
   m_Name: FireMario
-  m_TagString: FireMario
+  m_TagString: StationaryFireMario
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -875,8 +877,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1890155369395954}
-  m_LocalRotation: {x: 0, y: 0.7071068, z: -0, w: -0.7071068}
-  m_LocalPosition: {x: 24.18238, y: -4.879097, z: 70.10828}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 135.89778, y: -7.95805, z: 290.42865}
   m_LocalScale: {x: 1.500001, y: 1.5, z: 1.500001}
   m_Children:
   - {fileID: 4633041690249236}
@@ -890,7 +892,7 @@ Transform:
   - {fileID: 224250018981385832}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 270, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4820168342265260
 Transform:
   m_ObjectHideFlags: 1
@@ -1289,8 +1291,41 @@ MonoBehaviour:
   zAdjust: 1.8
   distanceToKupa: 0
   vertAdjust: 3
-  injuredAudio: {fileID: 82080221937719030}
-  cooldown_time: 2
+  injuredAudio: {fileID: 0}
+  cooldown_time: 0
+--- !u!114 &114386545231672386
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1155184223664186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 110
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 0
+    m_MaxSize: 110
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: '!'
 --- !u!114 &114417967842611346
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1306,6 +1341,8 @@ MonoBehaviour:
   waypoints: []
   currWaypoint: 0
   agent: {fileID: 0}
+  sightDistance: 70
+  lookRotSpeed: 200
   stunDuration: 3
   minLook: 0.1
   maxLook: 4
@@ -1318,6 +1355,8 @@ MonoBehaviour:
   investigationPoints: []
   mammaMiaClip: {fileID: 82912273411074092}
   hmmmmClip: {fileID: 82039551939315234}
+  marioStartledCanvas: {fileID: 0}
+  kupaStartledCanvas: {fileID: 0}
 --- !u!114 &114589550472663128
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1370,7 +1409,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1361814247308146}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
@@ -1561,6 +1600,13 @@ CanvasRenderer:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1361814247308146}
+  m_CullTransparentMesh: 0
+--- !u!222 &222652862176752608
+CanvasRenderer:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1155184223664186}
   m_CullTransparentMesh: 0
 --- !u!223 &223964237923537414
 Canvas:

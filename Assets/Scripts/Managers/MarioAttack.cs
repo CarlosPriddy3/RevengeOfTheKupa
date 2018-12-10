@@ -58,7 +58,7 @@ public class MarioAttack : MonoBehaviour {
             }
             else
             {
-                if (!cooldown)
+                if (!cooldown || (kupaState == KupaState.Spinning && (kupaVel < 5f)))
                 {
                     lc.loseLife();
                     injuredAudio.Play();

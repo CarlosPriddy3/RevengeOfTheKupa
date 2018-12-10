@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -140,7 +140,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3f873eb27fd0bb49a97728084bfe63a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  end_scene_name: GameEnd
 --- !u!4 &1642006
 Transform:
   m_ObjectHideFlags: 0
@@ -2238,7 +2237,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3f873eb27fd0bb49a97728084bfe63a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  end_scene_name: GameEnd
 --- !u!1 &215285222
 GameObject:
   m_ObjectHideFlags: 0
@@ -4099,11 +4097,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f00225c300ebe074386dcf9a4c49ea97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  intro_scene_name: 
   title_scene_name: StartMenu
   play_scene_name: Level01
   tutorial_scene_name: 
   end_scene_name: GameEnd
   credits_scene_name: 
+  standard_menu: {fileID: 0}
+  controls_menu: {fileID: 0}
 --- !u!1001 &400563380
 Prefab:
   m_ObjectHideFlags: 0
@@ -4594,7 +4595,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3f873eb27fd0bb49a97728084bfe63a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  end_scene_name: GameEnd
 --- !u!1 &435129924
 GameObject:
   m_ObjectHideFlags: 0
@@ -5447,7 +5447,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4802625905521718, guid: d76d61634fb9d62469f2adf3e97535bd, type: 2}
       propertyPath: m_RootOrder
-      value: 31
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 4802625905521718, guid: d76d61634fb9d62469f2adf3e97535bd, type: 2}
       propertyPath: m_LocalScale.z
@@ -5770,7 +5770,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3f873eb27fd0bb49a97728084bfe63a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  end_scene_name: GameEnd
 --- !u!1001 &472182871
 Prefab:
   m_ObjectHideFlags: 0
@@ -8267,7 +8266,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3f873eb27fd0bb49a97728084bfe63a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  end_scene_name: GameEnd
 --- !u!4 &664154999 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4521442242921198, guid: 9f77130251cd18c40bcc360b8ba73504,
@@ -12680,7 +12678,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3f873eb27fd0bb49a97728084bfe63a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  end_scene_name: GameEnd
 --- !u!1 &1071950640
 GameObject:
   m_ObjectHideFlags: 0
@@ -12708,6 +12705,34 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1994177317}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1077371350
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 524123541}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1077371351}
+  m_Layer: 0
+  m_Name: Missing Prefab
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1077371351
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 524123541}
+  m_GameObject: {fileID: 1077371350}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 32
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1079955746
 Prefab:
@@ -14514,7 +14539,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3f873eb27fd0bb49a97728084bfe63a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  end_scene_name: GameEnd
 --- !u!1 &1180552646
 GameObject:
   m_ObjectHideFlags: 0
@@ -14904,7 +14928,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4627464357131660, guid: dfd93d03e3564da47b48f19fd5646014, type: 2}
       propertyPath: m_RootOrder
-      value: 32
+      value: 31
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dfd93d03e3564da47b48f19fd5646014, type: 2}
@@ -16273,7 +16297,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3f873eb27fd0bb49a97728084bfe63a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  end_scene_name: GameEnd
 --- !u!1001 &1285521031
 Prefab:
   m_ObjectHideFlags: 0
@@ -18157,7 +18180,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3f873eb27fd0bb49a97728084bfe63a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  end_scene_name: GameEnd
 --- !u!1 &1408193937
 GameObject:
   m_ObjectHideFlags: 0
@@ -18449,7 +18471,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3f873eb27fd0bb49a97728084bfe63a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  end_scene_name: GameEnd
 --- !u!1 &1413820757 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100002, guid: 29a064010e21e4f46b0e4a95c5915d86,
@@ -26010,6 +26031,10 @@ Prefab:
     - target: {fileID: 81819839665852572, guid: 83cfb5d6a1e94474e95152b364273ccc,
         type: 2}
       propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1798830999861054, guid: 83cfb5d6a1e94474e95152b364273ccc, type: 2}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
