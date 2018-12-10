@@ -185,6 +185,10 @@ public class PlayerMove : MonoBehaviour {
                     playShellTakeoffSound();
                     this.gameObject.GetComponent<CapsuleCollider>().material.dynamicFriction = dynFric;
                     this.gameObject.GetComponent<CapsuleCollider>().material.bounciness = shellBounce;
+                    if (spinPowerTimer < 1f)
+                    {
+                        spinPowerTimer = 1f;
+                    }
                     rb.AddForce(this.gameObject.transform.forward * shootStrength * spinPowerTimer * 1.75f);
                     hasShot = true;
                     shooting = true;
@@ -221,7 +225,12 @@ public class PlayerMove : MonoBehaviour {
         anim.Play("Launch");
         anim.applyRootMotion = false;
         Debug.DrawRay(this.transform.position, velocity * 10, Color.red);
-        rb.AddForce((velocity * 10) + new Vector3(0, JumpHeight, 0));
+        float velX = velocity.x;
+        float velZ = velocity.z;
+        Vector3 xzVel = new Vector3(velX, 0, velZ);
+        rb.velocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+        rb.AddForce((xzVel * 10) + new Vector3(0, JumpHeight, 0));
         isGrounded = false;
         anim.SetBool("isGrounded", false);
     }
