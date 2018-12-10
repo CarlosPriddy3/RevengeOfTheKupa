@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(NavMeshAgent))]
 [RequireComponent(typeof(Animator))]
@@ -47,9 +48,10 @@ public class MarioController : MonoBehaviour
     public AudioSource mammaMiaClip;
     public AudioSource hmmmmClip;
 
-    private Canvas marioStartledCanvas;
-
-    private Canvas kupaStartledCanvas;
+    public Canvas marioStartledCanvas;
+    public Canvas kupaStartledCanvas;
+    private Text kupaStartledText;
+    private static int marioCounter = 0;
 
     // Use this for initialization
     void Start () {
@@ -62,10 +64,11 @@ public class MarioController : MonoBehaviour
         setNextWaypoint(waypoints);
         timer = 0;
         searchTimer = 0;
-        kupaStartledCanvas = GameObject.FindGameObjectWithTag("KupaStartledCanvas").GetComponent<Canvas>();
+        //kupaStartledCanvas = GameObject.FindGameObjectWithTag("KupaStartledCanvas").GetComponent<Canvas>();
         marioStartledCanvas = this.GetComponentInChildren<Canvas>();
         marioStartledCanvas.enabled = false;
         kupaStartledCanvas.enabled = false;
+        kupaStartledText = kupaStartledCanvas.GetComponent<Text>();
 
         kupaVel = movingTarget.GetComponent<PlayerMove>().velocity;
     }
@@ -110,8 +113,14 @@ public class MarioController : MonoBehaviour
                         {
                             if (canSeeKupa())
                             {
-                                playKupaFoundSound();
+                                marioCounter++;
+                                Debug.Log("Patrol: " + marioCounter);
+                                if (marioCounter == 1)
+                                {
+                                    playKupaFoundSound();
+                                }
                                 marioStartledCanvas.enabled = true;
+                                kupaStartledText.text = getExclamationStr();
                                 kupaStartledCanvas.enabled = true;
                                 if (this.name == "FireMario")
                                 {
@@ -131,15 +140,24 @@ public class MarioController : MonoBehaviour
                     {
                         if (disToTarget > sightDistance)
                         {
+                            marioCounter--;
+                            Debug.Log("Chase to Patrol: " + marioCounter);
+
                             marioStartledCanvas.enabled = false;
                             kupaStartledCanvas.enabled = false;
                             aiState = AIState.Patrol;
                         }
                         if (canSeeKupa() == false)
                         {
+                            marioCounter--;
+                            Debug.Log("Chase to Investigate: " + marioCounter);
+
                             marioStartledCanvas.enabled = false;
                             kupaStartledCanvas.enabled = false;
-                            playInvestigatingSound();
+                            if (marioCounter == 1)
+                            {
+                                playInvestigatingSound();
+                            }
                             InstantiateInvestigateParams(targetPos);
                             break;
                         }
@@ -185,6 +203,9 @@ public class MarioController : MonoBehaviour
                     stunnedTimer += Time.deltaTime;
                     if (stunnedTimer > stunDuration)
                     {
+                        marioCounter--;
+                        Debug.Log("Stunned: " + marioCounter);
+
                         marioStartledCanvas.enabled = false;
                         kupaStartledCanvas.enabled = false;
                         agent.enabled = true;
@@ -195,14 +216,21 @@ public class MarioController : MonoBehaviour
                         {
                             if (canSeeKupa())
                             {
+                                marioCounter++;
+                                Debug.Log("Stunned to Chase: " + marioCounter);
+
                                 marioStartledCanvas.enabled = true;
+                                kupaStartledText.text = getExclamationStr();
                                 kupaStartledCanvas.enabled = true;
 
                                 Debug.Log(this.name + " CHASING " + movingTarget.name);
                                 aiState = AIState.Chase;
                             } else
                             {
-                                playInvestigatingSound();
+                                if (marioCounter == 1)
+                                {
+                                    playInvestigatingSound();
+                                }
                                 InstantiateInvestigateParams(this.transform.position);
                                 aiState = AIState.Investigate;
                             }       
@@ -233,9 +261,16 @@ public class MarioController : MonoBehaviour
                     {
                         if (canSeeKupa())
                         {
+                            marioCounter++;
+                            Debug.Log("Investigate to Chase: " + marioCounter);
+
+                            if (marioCounter == 1)
+                            {
+                                playKupaFoundSound();
+                            }
                             marioStartledCanvas.enabled = true;
+                            kupaStartledText.text = getExclamationStr();
                             kupaStartledCanvas.enabled = true;
-                            playKupaFoundSound();
                             if (this.tag == "FireMario")
                             {
                                 shootFireball();
@@ -249,6 +284,16 @@ public class MarioController : MonoBehaviour
                     break;
             }
         }
+    }
+
+    private string getExclamationStr()
+    {
+        string exclamationStr = "";
+        for (int i = 0; i < marioCounter; i++)
+        {
+            exclamationStr += "!";
+        }
+        return exclamationStr;
     }
 
     private void playKupaFoundSound() {

@@ -302,6 +302,8 @@ GameObject:
   - component: {fileID: 223342186097097480}
   - component: {fileID: 114720228626416064}
   - component: {fileID: 114485865623883168}
+  - component: {fileID: 222151676093316166}
+  - component: {fileID: 114441513432978128}
   m_Layer: 0
   m_Name: MarioStartledCanvas
   m_TagString: Untagged
@@ -341,7 +343,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1644814220670774
 GameObject:
   m_ObjectHideFlags: 0
@@ -724,8 +726,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1149014425213224}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 28.98238, y: -4.879097, z: 1.7082748}
-  m_LocalScale: {x: 1.500001, y: 1.5, z: 1.500001}
+  m_LocalPosition: {x: -5, y: -6.8738823, z: 137}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 4768270562413354}
   - {fileID: 4055737109188092}
@@ -1289,8 +1291,8 @@ MonoBehaviour:
   zAdjust: 1.8
   distanceToKupa: 0
   vertAdjust: 3
-  injuredAudio: {fileID: 82133109841637756}
-  cooldown_time: 2
+  injuredAudio: {fileID: 0}
+  cooldown_time: 0
 --- !u!114 &114157559300994950
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1303,13 +1305,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   aiState: 0
-  waypoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  waypoints: []
   currWaypoint: 0
   agent: {fileID: 0}
+  sightDistance: 70
+  lookRotSpeed: 200
   stunDuration: 3
   minLook: 0.1
   maxLook: 4
@@ -1322,6 +1322,8 @@ MonoBehaviour:
   investigationPoints: []
   mammaMiaClip: {fileID: 82623793306240612}
   hmmmmClip: {fileID: 82770627799143296}
+  marioStartledCanvas: {fileID: 223342186097097480}
+  kupaStartledCanvas: {fileID: 0}
 --- !u!114 &114358649578795704
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1370,6 +1372,39 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: '!!!'
+--- !u!114 &114441513432978128
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1499409013875878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 110
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 0
+    m_MaxSize: 300
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: '!'
 --- !u!114 &114485865623883168
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1565,6 +1600,13 @@ CanvasRenderer:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1593731404981440}
+  m_CullTransparentMesh: 0
+--- !u!222 &222151676093316166
+CanvasRenderer:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1499409013875878}
   m_CullTransparentMesh: 0
 --- !u!223 &223342186097097480
 Canvas:

@@ -531,6 +531,8 @@ GameObject:
   - component: {fileID: 223305351489509118}
   - component: {fileID: 114600223690919910}
   - component: {fileID: 114685495665505554}
+  - component: {fileID: 222887319437132122}
+  - component: {fileID: 114158965513239726}
   m_Layer: 0
   m_Name: KupaStartledCanvas
   m_TagString: KupaStartledCanvas
@@ -584,7 +586,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1876626029124400
 GameObject:
   m_ObjectHideFlags: 1
@@ -660,7 +662,6 @@ GameObject:
   - component: {fileID: 114477357901289972}
   - component: {fileID: 114272949718451248}
   - component: {fileID: 81179778631380546}
-  - component: {fileID: 114504572485355808}
   - component: {fileID: 64924572709995972}
   - component: {fileID: 114488516317195074}
   m_Layer: 0
@@ -954,13 +955,13 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1969369664036362}
-  m_LocalRotation: {x: 0.19476, y: -0, z: -0.00000002235174, w: 0.98085093}
-  m_LocalPosition: {x: -1.1, y: 25.79, z: -33.78}
+  m_LocalRotation: {x: 0.23448941, y: -0, z: -0.000000022351742, w: 0.97211874}
+  m_LocalPosition: {x: -1.1, y: 23, z: -17.8}
   m_LocalScale: {x: 1.4285713, y: 1.4285713, z: 1.4285713}
   m_Children: []
   m_Father: {fileID: 4988198608823210}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 22.461, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 27.123001, y: 0, z: 0}
 --- !u!4 &4531648284265792
 Transform:
   m_ObjectHideFlags: 1
@@ -1505,7 +1506,7 @@ AudioListener:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1453795737917788}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!81 &81179778631380546
 AudioListener:
   m_ObjectHideFlags: 1
@@ -1519,7 +1520,7 @@ AudioListener:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1969369664036362}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!82 &82361210843966912
 AudioSource:
   m_ObjectHideFlags: 1
@@ -2210,6 +2211,39 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114158965513239726
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1771162605966606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 150
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 0
+    m_MaxSize: 150
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: '!'
 --- !u!114 &114272949718451248
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2246,6 +2280,9 @@ MonoBehaviour:
   slowSpinSound: {fileID: 82940491052908782}
   slowestSpinSound: {fileID: 82538703801693448}
   shellTakeoffSound: {fileID: 82361210843966912}
+  badSurfaceTags:
+  - MarioCollider
+  - Container
   kupaStartledCanvas: {fileID: 223305351489509118}
 --- !u!114 &114464152472715572
 MonoBehaviour:
@@ -2326,86 +2363,6 @@ MonoBehaviour:
       keyToRotate: mouse 0
     followPlayer:
       displacementSpeed: 3
-      customLookAt: 0
-      spinSpeedCustomLookAt: 15
-      ignoreCollision: 0
-    orbital:
-      sensibility: 0.8
-      speedScrool: 1
-      speedYAxis: 0.5
-      minDistance: 5
-      maxDistance: 50
-      minAngleY: 0
-      maxAngleY: 80
-      ignoreCollision: 0
-      rotateWhenClick: 0
-      keyToRotate: mouse 0
-    OrbitalThatFollows:
-      displacementSpeed: 5
-      customLookAt: 0
-      spinSpeedCustomLookAt: 15
-      sensibility: 0.8
-      speedScrool: 1
-      speedYAxis: 0.5
-      minDistance: 5
-      maxDistance: 50
-      ResetControlType: 0
-      resetKey: 122
-      timeToReset: 8
-      minAngleY: 0
-      maxAngleY: 80
-      ignoreCollision: 0
-      rotateWhenClick: 0
-      keyToRotate: mouse 0
-    ETS_StyleCamera:
-      sensibilityX: 10
-      sensibilityY: 10
-      ETS_CameraShift: 1
-      maxScroolZoom: 30
-      speedScroolZoom: 0.5
-      rotateWhenClick: 0
-      keyToRotate: mouse 0
-    FlyCamera:
-      horizontalMove: Horizontal
-      verticalMove: Vertical
-      speedKeyCode: 304
-      moveUp: 101
-      moveDown: 113
-      sensibilityX: 10
-      sensibilityY: 10
-      movementSpeed: 20
---- !u!114 &114504572485355808
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1937549990124148}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33c05d7cc08194f468ef623d3dd60f01, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ajustTheLayers: 1
-  cameras:
-  - _camera: {fileID: 0}
-    rotationType: 0
-    volume: 0.672
-  CameraSettings:
-    inputMouseX: Mouse X
-    inputMouseY: Mouse Y
-    inputMouseScrollWheel: Mouse ScrollWheel
-    cameraSwitchKey: 99
-    firstPerson:
-      sensibilityX: 10
-      sensibilityY: 10
-      horizontalAngle: 65
-      verticalAngle: 20
-      maxScroolZoom: 30
-      speedScroolZoom: 0.5
-      rotateWhenClick: 0
-      keyToRotate: mouse 0
-    followPlayer:
-      displacementSpeed: 1
       customLookAt: 0
       spinSpeedCustomLookAt: 15
       ignoreCollision: 0
@@ -2584,6 +2541,13 @@ CanvasRenderer:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1798830999861054}
+  m_CullTransparentMesh: 0
+--- !u!222 &222887319437132122
+CanvasRenderer:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1771162605966606}
   m_CullTransparentMesh: 0
 --- !u!223 &223305351489509118
 Canvas:
