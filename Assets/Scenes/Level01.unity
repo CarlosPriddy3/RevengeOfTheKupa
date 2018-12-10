@@ -1527,6 +1527,16 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 338806014}
   m_CullTransparentMesh: 0
+--- !u!82 &338806017 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 82770627799143296, guid: ce796d11985754e63ab2cf46af760234,
+    type: 2}
+  m_PrefabInternal: {fileID: 338806013}
+--- !u!82 &338806018 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 82623793306240612, guid: ce796d11985754e63ab2cf46af760234,
+    type: 2}
+  m_PrefabInternal: {fileID: 338806013}
 --- !u!1 &339146628
 GameObject:
   m_ObjectHideFlags: 0
@@ -3883,6 +3893,92 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 695835903}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1001 &703548135
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4787877328384318, guid: 96c221fa997a647438187afda79b3c50, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 20.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4787877328384318, guid: 96c221fa997a647438187afda79b3c50, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4787877328384318, guid: 96c221fa997a647438187afda79b3c50, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -57
+      objectReference: {fileID: 0}
+    - target: {fileID: 4787877328384318, guid: 96c221fa997a647438187afda79b3c50, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4787877328384318, guid: 96c221fa997a647438187afda79b3c50, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4787877328384318, guid: 96c221fa997a647438187afda79b3c50, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4787877328384318, guid: 96c221fa997a647438187afda79b3c50, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4787877328384318, guid: 96c221fa997a647438187afda79b3c50, type: 2}
+      propertyPath: m_RootOrder
+      value: 19
+      objectReference: {fileID: 0}
+    - target: {fileID: 114417967842611346, guid: 96c221fa997a647438187afda79b3c50,
+        type: 2}
+      propertyPath: mammaMiaClip
+      value: 
+      objectReference: {fileID: 338806018}
+    - target: {fileID: 114417967842611346, guid: 96c221fa997a647438187afda79b3c50,
+        type: 2}
+      propertyPath: hmmmmClip
+      value: 
+      objectReference: {fileID: 338806017}
+    - target: {fileID: 114417967842611346, guid: 96c221fa997a647438187afda79b3c50,
+        type: 2}
+      propertyPath: marioStartledCanvas
+      value: 
+      objectReference: {fileID: 703548136}
+    - target: {fileID: 114417967842611346, guid: 96c221fa997a647438187afda79b3c50,
+        type: 2}
+      propertyPath: kupaStartledCanvas
+      value: 
+      objectReference: {fileID: 1904256382}
+    - target: {fileID: 224608111879426548, guid: 96c221fa997a647438187afda79b3c50,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224608111879426548, guid: 96c221fa997a647438187afda79b3c50,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 224608111879426548, guid: 96c221fa997a647438187afda79b3c50,
+        type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1890155369395954, guid: 96c221fa997a647438187afda79b3c50, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 96c221fa997a647438187afda79b3c50, type: 2}
+  m_IsPrefabAsset: 0
+--- !u!223 &703548136 stripped
+Canvas:
+  m_CorrespondingSourceObject: {fileID: 223170098795827348, guid: 96c221fa997a647438187afda79b3c50,
+    type: 2}
+  m_PrefabInternal: {fileID: 703548135}
 --- !u!1 &713272103
 GameObject:
   m_ObjectHideFlags: 0
@@ -6649,6 +6745,62 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 29a064010e21e4f46b0e4a95c5915d86,
     type: 3}
   m_PrefabInternal: {fileID: 1338725215}
+--- !u!1001 &1353326975
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4492794489350140, guid: ce796d11985754e63ab2cf46af760234, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 22.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4492794489350140, guid: ce796d11985754e63ab2cf46af760234, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -3.702387e-17
+      objectReference: {fileID: 0}
+    - target: {fileID: 4492794489350140, guid: ce796d11985754e63ab2cf46af760234, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -60.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4492794489350140, guid: ce796d11985754e63ab2cf46af760234, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4492794489350140, guid: ce796d11985754e63ab2cf46af760234, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4492794489350140, guid: ce796d11985754e63ab2cf46af760234, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4492794489350140, guid: ce796d11985754e63ab2cf46af760234, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4492794489350140, guid: ce796d11985754e63ab2cf46af760234, type: 2}
+      propertyPath: m_RootOrder
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 1149014425213224, guid: ce796d11985754e63ab2cf46af760234, type: 2}
+      propertyPath: m_Name
+      value: Mario (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 114157559300994950, guid: ce796d11985754e63ab2cf46af760234,
+        type: 2}
+      propertyPath: waypoints.Array.data[0]
+      value: 
+      objectReference: {fileID: 96159905}
+    - target: {fileID: 114157559300994950, guid: ce796d11985754e63ab2cf46af760234,
+        type: 2}
+      propertyPath: kupaStartledCanvas
+      value: 
+      objectReference: {fileID: 1904256382}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ce796d11985754e63ab2cf46af760234, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1 &1366771294 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100002, guid: 29a064010e21e4f46b0e4a95c5915d86,

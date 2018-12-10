@@ -109,6 +109,7 @@ public class MarioController : MonoBehaviour
                             if (canSeeKupa())
                             {
                                 marioCounter++;
+                                Debug.Log(marioCounter);
                                 if (marioCounter == 1) {
                                     playKupaFoundSound();
                                 }
