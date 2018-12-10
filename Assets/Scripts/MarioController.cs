@@ -49,7 +49,7 @@ public class MarioController : MonoBehaviour
     public AudioSource hmmmmClip;
 
     public Canvas marioStartledCanvas;
-    public Canvas kupaStartledCanvas;
+    private Canvas kupaStartledCanvas;
     private Text kupaStartledText;
     private static int marioCounter = 0;
 
@@ -64,11 +64,16 @@ public class MarioController : MonoBehaviour
         setNextWaypoint(waypoints);
         timer = 0;
         searchTimer = 0;
-        //kupaStartledCanvas = GameObject.FindGameObjectWithTag("KupaStartledCanvas").GetComponent<Canvas>();
+        GameObject kupaStartledCanvasObj = GameObject.FindGameObjectWithTag("KupaStartledCanvas");
+        if (kupaStartledCanvasObj != null)
+        {
+            kupaStartledCanvas = kupaStartledCanvasObj.GetComponent<Canvas>();
+            kupaStartledText = kupaStartledCanvas.GetComponent<Text>();
+        }
         marioStartledCanvas = this.GetComponentInChildren<Canvas>();
         marioStartledCanvas.enabled = false;
         kupaStartledCanvas.enabled = false;
-        kupaStartledText = kupaStartledCanvas.GetComponent<Text>();
+        
 
         kupaVel = movingTarget.GetComponent<PlayerMove>().velocity;
     }
