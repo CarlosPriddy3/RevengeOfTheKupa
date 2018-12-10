@@ -21,6 +21,7 @@ TagManager:
   - WalkableContainer
   - StationaryFireMario
   - SoundManager
+  - ScreenFader
   layers:
   - Default
   - TransparentFX

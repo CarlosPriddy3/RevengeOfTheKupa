@@ -22,8 +22,8 @@ public class EndMenuController : MonoBehaviour
 		switch (GameState.state)
 		{
 			case State.WIN:
-				bg_image.sprite = win_title_image;
-				title_image.sprite = win_background;
+				bg_image.sprite = win_background;
+				title_image.sprite = win_title_image;
 				restart_label.text = "Play Again";
 				break;
 			case State.LOSS:

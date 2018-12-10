@@ -336,7 +336,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   intro_scene_name: 
   title_scene_name: StartMenu
-  play_scene_name: Level01
+  play_scene_name: Level01Remake
   tutorial_scene_name: 
   end_scene_name: GameEnd
   credits_scene_name: 
