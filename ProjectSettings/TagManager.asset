@@ -21,7 +21,13 @@ TagManager:
   - WalkableContainer
   - StationaryFireMario
   - SoundManager
+  - StationaryMario
+  - DamageImage
   - ScreenFader
+  - StaminaBar
+  - StaminaFillBar
+  - StaminaText
+  - SavePointManager
   layers:
   - Default
   - TransparentFX

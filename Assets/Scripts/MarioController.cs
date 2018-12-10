@@ -104,7 +104,7 @@ public class MarioController : MonoBehaviour
 
                     if (movingTarget != null)
                     {
-                        if (!agent.pathPending && agent.remainingDistance == 0 && movingTarget != null)
+                        if ((this.gameObject.tag != "StationaryFireMario") && (this.tag != "StationaryMario") && (!agent.pathPending) && (agent.remainingDistance == 0))
                         {
                             setNextWaypoint(waypoints);
                         }
@@ -147,7 +147,7 @@ public class MarioController : MonoBehaviour
                             kupaStartledCanvas.enabled = false;
                             aiState = AIState.Patrol;
                         }
-                        if (canSeeKupa() == false)
+                        if (canSeeKupa() == false && disToTarget > 10f)
                         {
                             marioCounter--;
                             Debug.Log("Chase to Investigate: " + marioCounter);
@@ -161,22 +161,25 @@ public class MarioController : MonoBehaviour
                             InstantiateInvestigateParams(targetPos);
                             break;
                         }
-                        float lookAhead = Mathf.Clamp(disToTarget, minLook, maxLook) / agent.speed;
-                        Vector3 dest = targetPos + (lookAhead * kupaVel);
-                        bool blocked = NavMesh.Raycast(targetPos, dest, out hit, NavMesh.AllAreas);
-                        Debug.DrawLine(transform.position, dest, blocked ? Color.red : Color.green);
-                        if (blocked)
+                        if (this.gameObject.tag != "StationaryFireMario" && this.tag != "StationaryMario")
                         {
-                            Vector3 tempDest = hit.position + (targetPos - hit.position).normalized * 1.3f;
-                            agent.SetDestination(tempDest);
-                            Debug.DrawRay((hit.position + (targetPos - hit.position).normalized), Vector3.up, Color.blue);
+                            float lookAhead = Mathf.Clamp(disToTarget, minLook, maxLook) / agent.speed;
+                            Vector3 dest = targetPos + (lookAhead * kupaVel);
+                            bool blocked = NavMesh.Raycast(targetPos, dest, out hit, NavMesh.AllAreas);
+                            Debug.DrawLine(transform.position, dest, blocked ? Color.red : Color.green);
+                            if (blocked)
+                            {
+                                Vector3 tempDest = hit.position + (targetPos - hit.position).normalized * 1.3f;
+                                agent.SetDestination(tempDest);
+                                Debug.DrawRay((hit.position + (targetPos - hit.position).normalized), Vector3.up, Color.blue);
+                            }
+                            else
+                            {
+                                agent.SetDestination(dest);
+                            }
                         }
-                        else
-                        {
-                            agent.SetDestination(dest);
-                        }
-                        
-                        if (this.tag == "StationaryFireMario")
+                                                
+                        if (this.tag == "StationaryFireMario" || this.tag == "StationaryMario")
                         {
                             Debug.Log("NO NAV PATH FOUND");
                             //find the vector pointing from our position to the target
@@ -232,7 +235,6 @@ public class MarioController : MonoBehaviour
                                     playInvestigatingSound();
                                 }
                                 InstantiateInvestigateParams(this.transform.position);
-                                aiState = AIState.Investigate;
                             }       
                         } else
                         {
@@ -354,12 +356,19 @@ public class MarioController : MonoBehaviour
     //Helper Methods for Investigation of Sound
     public void InstantiateInvestigateParams(Vector3 location)
     {
-        clearInvestigationPoints();
-        searchTimer = 0;
-        currWaypoint = 0;
-        generateSearchPoints(location);
-        agent.SetDestination(investigationPoints[0].transform.position);
-        aiState = AIState.Investigate;
+        if (this.tag != "StationaryMario" && this.tag != "StationaryFireMario")
+        {
+            clearInvestigationPoints();
+            searchTimer = 0;
+            currWaypoint = 0;
+            generateSearchPoints(location);
+            agent.SetDestination(investigationPoints[0].transform.position);
+            aiState = AIState.Investigate;
+        } else
+        {
+            aiState = AIState.Patrol;
+        }
+        
     }
 
     private void generateSearchPoints(Vector3 location)

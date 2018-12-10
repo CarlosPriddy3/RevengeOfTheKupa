@@ -1,0 +1,222 @@
+fileFormatVersion: 2
+guid: 330877edb805f4349b5dbefa183b9d08
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: Armature
+    100002: //RootNode
+    100004: Bowser_Jr_
+    100006: Camera
+    100008: eff_head
+    100010: eff_head_end
+    100012: eff_hip
+    100014: eff_hip_end
+    100016: kami_jnt
+    100018: kami_jnt_end
+    100020: kosi_jnt
+    100022: kubi_jnt
+    100024: kuchi_jnt
+    100026: kuchi_jnt_end
+    100028: L_asi_jnt
+    100030: L_asi_jnt_end
+    100032: L_hiji_jnt
+    100034: L_kata
+    100036: L_kata_end
+    100038: L_momo_jnt
+    100040: L_sune_jnt
+    100042: L_te_jnt
+    100044: L_tekubi
+    100046: L_tekubi_end
+    100048: L_ude_jnt
+    100050: L_yubi_01A_jnt
+    100052: L_yubi_01A_jnt_end
+    100054: L_yubi_02A_jnt
+    100056: L_yubi_02B_jnt
+    100058: L_yubi_02B_jnt_end
+    100060: L_yubi_04A_jnt
+    100062: L_yubi_04B_jnt
+    100064: L_yubi_04B_jnt_end
+    100066: Lamp
+    100068: mune_jnt
+    100070: R_asi_jnt
+    100072: R_asi_jnt_end
+    100074: R_hiji_jnt
+    100076: R_kata
+    100078: R_kata_end
+    100080: R_momo_jnt
+    100082: R_sune_jnt
+    100084: R_te_jnt
+    100086: R_tekubi
+    100088: R_tekubi_end
+    100090: R_ude_jnt
+    100092: R_yubi_01A_jnt
+    100094: R_yubi_01A_jnt_end
+    100096: R_yubi_02A_jnt
+    100098: R_yubi_02B_jnt
+    100100: R_yubi_02B_jnt_end
+    100102: R_yubi_04A_jnt
+    100104: R_yubi_04B_jnt
+    100106: R_yubi_04B_jnt_end
+    100108: root
+    100110: sippo_jnt
+    100112: sippo_jnt_end
+    100114: trans
+    100116: trans_end
+    400000: Armature
+    400002: //RootNode
+    400004: Bowser_Jr_
+    400006: Camera
+    400008: eff_head
+    400010: eff_head_end
+    400012: eff_hip
+    400014: eff_hip_end
+    400016: kami_jnt
+    400018: kami_jnt_end
+    400020: kosi_jnt
+    400022: kubi_jnt
+    400024: kuchi_jnt
+    400026: kuchi_jnt_end
+    400028: L_asi_jnt
+    400030: L_asi_jnt_end
+    400032: L_hiji_jnt
+    400034: L_kata
+    400036: L_kata_end
+    400038: L_momo_jnt
+    400040: L_sune_jnt
+    400042: L_te_jnt
+    400044: L_tekubi
+    400046: L_tekubi_end
+    400048: L_ude_jnt
+    400050: L_yubi_01A_jnt
+    400052: L_yubi_01A_jnt_end
+    400054: L_yubi_02A_jnt
+    400056: L_yubi_02B_jnt
+    400058: L_yubi_02B_jnt_end
+    400060: L_yubi_04A_jnt
+    400062: L_yubi_04B_jnt
+    400064: L_yubi_04B_jnt_end
+    400066: Lamp
+    400068: mune_jnt
+    400070: R_asi_jnt
+    400072: R_asi_jnt_end
+    400074: R_hiji_jnt
+    400076: R_kata
+    400078: R_kata_end
+    400080: R_momo_jnt
+    400082: R_sune_jnt
+    400084: R_te_jnt
+    400086: R_tekubi
+    400088: R_tekubi_end
+    400090: R_ude_jnt
+    400092: R_yubi_01A_jnt
+    400094: R_yubi_01A_jnt_end
+    400096: R_yubi_02A_jnt
+    400098: R_yubi_02B_jnt
+    400100: R_yubi_02B_jnt_end
+    400102: R_yubi_04A_jnt
+    400104: R_yubi_04B_jnt
+    400106: R_yubi_04B_jnt_end
+    400108: root
+    400110: sippo_jnt
+    400112: sippo_jnt_end
+    400114: trans
+    400116: trans_end
+    2000000: Camera
+    2100000: Material__146
+    2100002: Material__147
+    4300000: Bowser_Jr_
+    9500000: //RootNode
+    10800000: Lamp
+    13700000: Bowser_Jr_
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material__146
+    second: {fileID: 2100000, guid: 44fce78174323c649b03a08f4a4b2e64, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material__147
+    second: {fileID: 2100000, guid: 65f411e7430b23f4b885b2aa7395b030, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 0
+    importLights: 0
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 0.01
+    hasPreviousCalculatedGlobalScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -46,4 +46,9 @@ public class LifeController : MonoBehaviour
 			num_lives++;
 		}
 	}
+
+    public int getNumLives()
+    {
+        return num_lives;
+    }
 }

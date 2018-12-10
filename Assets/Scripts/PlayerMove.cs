@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 
 public class PlayerMove : MonoBehaviour {
@@ -40,6 +41,11 @@ public class PlayerMove : MonoBehaviour {
     public AudioSource shellTakeoffSound;
     private float soundTimer;
 
+    //Stamina
+    private Slider staminaBar;
+    private Image sliderFillImage;
+    private Text staminaText;
+
     //Variables for jumping and landable surfaces
     public List<string> badSurfaceTags;
     private Vector3 frontRayDir;
@@ -59,6 +65,22 @@ public class PlayerMove : MonoBehaviour {
 	void Awake () {
         anim = this.gameObject.GetComponent<Animator>();
         rb = this.GetComponent<Rigidbody>();
+
+        GameObject staminaBarObject = GameObject.FindGameObjectWithTag("StaminaBar");
+        GameObject staminaFillBarObject = GameObject.FindGameObjectWithTag("StaminaFillBar");
+        GameObject staminaTextObject = GameObject.FindGameObjectWithTag("StaminaText");
+        if (staminaBarObject != null)
+        {
+            staminaBar = staminaBarObject.GetComponent<Slider>();
+        }
+        if (staminaFillBarObject != null)
+        {
+            sliderFillImage = staminaFillBarObject.GetComponent<Image>();
+        }
+        if (staminaTextObject != null)
+        {
+            staminaText = staminaTextObject.GetComponent<Text>();
+        }
         
         
         Vector3 gravityS = new Vector3(0, GravityStrength, 0);
@@ -119,6 +141,12 @@ public class PlayerMove : MonoBehaviour {
         switch (kupaState)
         {
             case KupaState.NotSpinning:
+                if (staminaBar.value < 100)
+                {
+                    staminaBar.value += Time.deltaTime * 5;
+                    staminaText.text = "Stamina: " + ((int)staminaBar.value).ToString();
+                }
+                
                 isSpinning = false;
 
                 this.gameObject.GetComponent<CapsuleCollider>().material.dynamicFriction = 0.6f; // default friction;
@@ -143,7 +171,7 @@ public class PlayerMove : MonoBehaviour {
                     jumpTimer = 0f;
                 }
                 
-                if (isGrounded && (Input.GetKey(KeyCode.LeftShift) || isGrounded && Input.GetButtonDown("Fire3")))
+                if ((staminaBar.value >= 20) && isGrounded && (Input.GetKey(KeyCode.LeftShift) || isGrounded && Input.GetButtonDown("Fire3")))
                 {
                     kupaState = KupaState.Spinning;
                     anim.Play("DropIntoShell");
@@ -152,6 +180,12 @@ public class PlayerMove : MonoBehaviour {
                     hasShot = false;
                     spinPowerTimer = 0f;
                     kupaArrow.SetActive(true);
+                } else if (!isGrounded)
+                {
+                    //No Error message needed
+                } else if (staminaBar.value < 20)
+                {
+                    //Let player know stamina is too low
                 }
                 break;
             case KupaState.Spinning:
@@ -179,12 +213,18 @@ public class PlayerMove : MonoBehaviour {
                 {
                     kupaArrow.SetActive(true);
                 }
-                    if ((!hasShot && !shooting && isGrounded && !(Input.GetButton("Fire3"))))
+                    if (!hasShot && !shooting && isGrounded && !(Input.GetButton("Fire3")))
                 {
                     //Shoot Forward
+                    staminaBar.value -= 20f;
+                    staminaText.text = "Stamina: " + ((int)staminaBar.value).ToString();
                     playShellTakeoffSound();
                     this.gameObject.GetComponent<CapsuleCollider>().material.dynamicFriction = dynFric;
                     this.gameObject.GetComponent<CapsuleCollider>().material.bounciness = shellBounce;
+                    if (spinPowerTimer < 1f)
+                    {
+                        spinPowerTimer = 1f;
+                    }
                     rb.AddForce(this.gameObject.transform.forward * shootStrength * spinPowerTimer * 1.75f);
                     hasShot = true;
                     shooting = true;
@@ -218,10 +258,16 @@ public class PlayerMove : MonoBehaviour {
 
     void Jump()
     {
+        staminaBar.value -= 10f;
         anim.Play("Launch");
         anim.applyRootMotion = false;
         Debug.DrawRay(this.transform.position, velocity * 10, Color.red);
-        rb.AddForce((velocity * 10) + new Vector3(0, JumpHeight, 0));
+        float velX = velocity.x;
+        float velZ = velocity.z;
+        Vector3 xzVel = new Vector3(velX, 0, velZ);
+        rb.velocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+        rb.AddForce((xzVel * 10) + new Vector3(0, JumpHeight, 0));
         isGrounded = false;
         anim.SetBool("isGrounded", false);
     }
@@ -332,6 +378,10 @@ public class PlayerMove : MonoBehaviour {
 
     bool canJump()
     {    
+        if (staminaBar.value < 10)
+        {
+            return false;
+        }
         Debug.DrawRay(this.transform.position + this.transform.forward * 1.3f  + this.transform.up * -2.35f, down, Color.red);
         Debug.DrawRay(this.transform.position + this.transform.forward * 0.65f + this.transform.right * 0.65f + this.transform.up * -2.35f, down, Color.red);
         Debug.DrawRay(this.transform.position + this.transform.forward * 0.65f + this.transform.right * -0.65f + this.transform.up * -2.35f, down, Color.red);
