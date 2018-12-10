@@ -15,14 +15,18 @@ public class MenuController : MonoBehaviour {
     public string tutorial_scene_name;
 	public string end_scene_name;
 	public string credits_scene_name;
+	public GameObject standard_menu;
+	public GameObject controls_menu;
 
 	private PauseButton pauser;
+	private StartMenuController starter;
     private SoundManager soundManager;
 
 	// Get pausing component if it exists.
 	void Start()
 	{
 		pauser = GetComponent<PauseButton>();
+		starter = GetComponent<StartMenuController>();
         soundManager = GameObject.FindGameObjectWithTag("SoundManager").GetComponent<SoundManager>();
 	}
 
@@ -100,11 +104,29 @@ public class MenuController : MonoBehaviour {
 	}
 
 	/// <summary>
-	/// Displays the controls.
+	/// Displays the controls menu.
 	/// </summary>
 	public void viewControls()
 	{
-		Debug.Log("Pressed \"Controls\" button");
+		if (pauser != null)
+		{
+			pauser.setViewingControls(true);
+		}
+		if (starter != null)
+		{
+			starter.setViewingControls(true);
+		}
+		standard_menu.SetActive(false);
+		controls_menu.SetActive(true);
+	}
+
+	/// <summary>
+	/// Views the standard menu.
+	/// </summary>
+	public void viewStandard()
+	{
+		standard_menu.SetActive(true);
+		controls_menu.SetActive(false);
 	}
 
 	/// <summary>
