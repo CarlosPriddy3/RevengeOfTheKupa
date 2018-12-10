@@ -367,7 +367,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   win_title_image: {fileID: 21300000, guid: 134ea4261c12f29439cac985c7929a1b, type: 3}
-  win_background: {fileID: 21300000, guid: 961582717ef8cb44982d379753739320, type: 3}
+  win_background: {fileID: 21300000, guid: 6ed3614b616d05544a6247b8b5fab0fb, type: 3}
   loss_title_image: {fileID: 21300000, guid: abf0a52c16e404a4996de7fbbe1f0a3c, type: 3}
   loss_background: {fileID: 21300000, guid: a2376bbd60ed26e458a15ed60c42ed17, type: 3}
   title_image: {fileID: 1688115177}
@@ -997,7 +997,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 134ea4261c12f29439cac985c7929a1b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: abf0a52c16e404a4996de7fbbe1f0a3c, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
