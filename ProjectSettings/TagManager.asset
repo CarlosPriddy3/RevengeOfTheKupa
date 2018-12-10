@@ -23,6 +23,7 @@ TagManager:
   - SoundManager
   - StationaryMario
   - DamageImage
+  - ScreenFader
   layers:
   - Default
   - TransparentFX

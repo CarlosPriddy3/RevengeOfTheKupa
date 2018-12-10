@@ -8,22 +8,18 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class GameEndAction : MonoBehaviour
 {
-	public string end_scene_name;
+	private Animator fader;
 
-    private SoundManager soundManager;
-
-    private void Start()
-    {
-        soundManager = GameObject.FindGameObjectWithTag("SoundManager").GetComponent<SoundManager>();
-    }
+	void Start()
+	{
+        fader = GameObject.FindGameObjectWithTag("ScreenFader").GetComponent<Animator>();
+	}
 
     /// <summary>
     /// The action to perform.
     /// </summary>
     public void onLoss()
 	{
-        soundManager.PlayDefeatMusic();
-		SceneManager.LoadSceneAsync(end_scene_name);
-		GameState.state = State.LOSS;
+		fader.SetTrigger("lose");
 	}
 }
