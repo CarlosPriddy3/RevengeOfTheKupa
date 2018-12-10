@@ -19,12 +19,14 @@ public class MenuController : MonoBehaviour {
 	public GameObject controls_menu;
 
 	private PauseButton pauser;
+	private StartMenuController starter;
     private SoundManager soundManager;
 
 	// Get pausing component if it exists.
 	void Start()
 	{
 		pauser = GetComponent<PauseButton>();
+		starter = GetComponent<StartMenuController>();
         soundManager = GameObject.FindGameObjectWithTag("SoundManager").GetComponent<SoundManager>();
 	}
 
@@ -109,6 +111,10 @@ public class MenuController : MonoBehaviour {
 		if (pauser != null)
 		{
 			pauser.setViewingControls(true);
+		}
+		if (starter != null)
+		{
+			starter.setViewingControls(true);
 		}
 		standard_menu.SetActive(false);
 		controls_menu.SetActive(true);
