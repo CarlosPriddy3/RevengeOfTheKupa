@@ -1284,6 +1284,8 @@ MonoBehaviour:
   tutorial_scene_name: Tutorial
   end_scene_name: GameEnd
   credits_scene_name: 
+  standard_menu: {fileID: 0}
+  controls_menu: {fileID: 0}
 --- !u!4 &738182593
 Transform:
   m_ObjectHideFlags: 0
@@ -1973,6 +1975,53 @@ MonoBehaviour:
   Order: 1
   Explanation: Use SPACE to jump over the ditch
   HitTransform: {fileID: 0}
+--- !u!1001 &1191013491
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 224565078378869346, guid: 6402e54aab66abd49b81ee9db6a9b76b,
+        type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4383076938056584, guid: 6402e54aab66abd49b81ee9db6a9b76b, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 4383076938056584, guid: 6402e54aab66abd49b81ee9db6a9b76b, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4383076938056584, guid: 6402e54aab66abd49b81ee9db6a9b76b, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4383076938056584, guid: 6402e54aab66abd49b81ee9db6a9b76b, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4383076938056584, guid: 6402e54aab66abd49b81ee9db6a9b76b, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4383076938056584, guid: 6402e54aab66abd49b81ee9db6a9b76b, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4383076938056584, guid: 6402e54aab66abd49b81ee9db6a9b76b, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4383076938056584, guid: 6402e54aab66abd49b81ee9db6a9b76b, type: 2}
+      propertyPath: m_RootOrder
+      value: 23
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 6402e54aab66abd49b81ee9db6a9b76b, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1 &1223295453
 GameObject:
   m_ObjectHideFlags: 0
