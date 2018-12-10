@@ -51,7 +51,7 @@ public class MarioController : MonoBehaviour
     public Canvas marioStartledCanvas;
     private Canvas kupaStartledCanvas;
     private Text kupaStartledText;
-    private static int marioCounter = 0;
+    private static int marioCounter;
 
     // Use this for initialization
     void Start () {
@@ -73,7 +73,7 @@ public class MarioController : MonoBehaviour
         marioStartledCanvas = this.GetComponentInChildren<Canvas>();
         marioStartledCanvas.enabled = false;
         kupaStartledCanvas.enabled = false;
-        
+        marioCounter = 0;
 
         kupaVel = movingTarget.GetComponent<PlayerMove>().velocity;
     }

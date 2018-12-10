@@ -77,7 +77,22 @@ public class MarioAttack : MonoBehaviour {
             }
             else
             {
-                if (!cooldown)
+                if (kupaState == KupaState.NotSpinning && (kupaVel <= 5f) && !cooldown) {
+                    lc.loseLife();
+                    if (lc.getNumLives() > 0)
+                    {
+                        damageImage.color = flashColour;
+                    }
+                    else
+                    {
+                        damageImage.color = Color.red;
+                        damageImage.color = new Color(0, 0, 0, 0.8f);
+                    }
+                    injuredAudio.Play();
+                    cooldown = true;
+                    cooldown_timer = cooldown_time;
+                }
+                else if (!cooldown)
                 {   
                     lc.loseLife();
                     if (lc.getNumLives() > 0)
