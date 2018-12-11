@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1448,6 +1448,7 @@ MonoBehaviour:
   credits_scene_name: 
   standard_menu: {fileID: 0}
   controls_menu: {fileID: 0}
+  credits_menu: {fileID: 0}
 --- !u!4 &738182593
 Transform:
   m_ObjectHideFlags: 0
@@ -1508,6 +1509,14 @@ Prefab:
     - target: {fileID: 4988198608823210, guid: 83cfb5d6a1e94474e95152b364273ccc, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 1.2360001
+      objectReference: {fileID: 0}
+    - target: {fileID: 4483812608915848, guid: 83cfb5d6a1e94474e95152b364273ccc, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 21.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4483812608915848, guid: 83cfb5d6a1e94474e95152b364273ccc, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -40.4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 83cfb5d6a1e94474e95152b364273ccc, type: 2}
@@ -2675,12 +2684,12 @@ Prefab:
     - target: {fileID: 224510166083259138, guid: 6402e54aab66abd49b81ee9db6a9b76b,
         type: 2}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224510166083259138, guid: 6402e54aab66abd49b81ee9db6a9b76b,
         type: 2}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114593546661842360, guid: 6402e54aab66abd49b81ee9db6a9b76b,
         type: 2}
