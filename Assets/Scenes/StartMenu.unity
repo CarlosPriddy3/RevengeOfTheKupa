@@ -1117,7 +1117,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1.3
-  m_Text: Enter your shell and launch yourself forwards by holding down the 'SHIFT'
+  m_Text: Enter your shell and launch yourself forwards by holding down the [SHIFT]
     key and releasing it. Use it to break certain walls and other obstacles
 --- !u!222 &885897485
 CanvasRenderer:
@@ -2425,8 +2425,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1.3
-  m_Text: Move around using either the arrow keys or 'WASD'. Jump using the space
-    bar.
+  m_Text: Move around using either the arrow keys or [WASD]. Jump using [SPACE]
 --- !u!222 &1981038215
 CanvasRenderer:
   m_ObjectHideFlags: 0
