@@ -128,10 +128,11 @@ public class PlayerMove : MonoBehaviour {
     // Update is called once per frame
     void FixedUpdate()
     {
-        
+
         velocity = (this.transform.position - prevPos) / Time.deltaTime;
         prevPos = this.transform.position;
-        velocityMag = new Vector3(velocity.x, 0, velocity.y).magnitude;
+        velocityMag = new Vector3(velocity.x, 0, velocity.z).magnitude;
+
         float h = Input.GetAxisRaw("Horizontal");
         if (jumpTimer < 3f)
         {
