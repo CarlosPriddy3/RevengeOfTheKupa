@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657856, g: 0.49641234, b: 0.57481724, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2684,12 +2684,12 @@ Prefab:
     - target: {fileID: 224510166083259138, guid: 6402e54aab66abd49b81ee9db6a9b76b,
         type: 2}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 224510166083259138, guid: 6402e54aab66abd49b81ee9db6a9b76b,
         type: 2}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114593546661842360, guid: 6402e54aab66abd49b81ee9db6a9b76b,
         type: 2}
@@ -2709,6 +2709,10 @@ Prefab:
     - target: {fileID: 1611036878494924, guid: 6402e54aab66abd49b81ee9db6a9b76b, type: 2}
       propertyPath: m_TagString
       value: Pauser
+      objectReference: {fileID: 0}
+    - target: {fileID: 1422732970343596, guid: 6402e54aab66abd49b81ee9db6a9b76b, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6402e54aab66abd49b81ee9db6a9b76b, type: 2}
