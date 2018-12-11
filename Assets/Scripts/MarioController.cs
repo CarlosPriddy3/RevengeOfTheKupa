@@ -359,7 +359,7 @@ public class MarioController : MonoBehaviour
         
     }
 
-    private bool canSeeKupa()
+    public bool canSeeKupa()
     {
         RaycastHit hit;
         Vector3 adjVect = this.transform.forward * 2 + this.transform.up * 5;

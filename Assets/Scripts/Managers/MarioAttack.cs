@@ -24,6 +24,8 @@ public class MarioAttack : MonoBehaviour {
     public float flashSpeed = 2f;
     public Color flashColour = new Color(1f, 0f, 0f, 1f);
 
+    private MarioController mc;
+
     /*private void OnCollisionEnter(Collision col)
     {
         if (col.gameObject.tag == "Kupa") {
@@ -41,6 +43,7 @@ public class MarioAttack : MonoBehaviour {
         {
             damageImage = GameObject.FindGameObjectWithTag("DamageImage").GetComponent<Image>();
         }
+        mc = this.gameObject.GetComponent<MarioController>();
         
     }
 
@@ -74,7 +77,7 @@ public class MarioAttack : MonoBehaviour {
                 rb.velocity = Vector3.zero;
                 rb.angularVelocity = Vector3.zero;
                 rb.AddForce(kupa.transform.forward * -1200f);
-            } else if (!cooldown)
+            } else if (!cooldown && mc.canSeeKupa())
             {   
                 lc.loseLife();
                 Debug.Log("Lost a life");
