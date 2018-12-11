@@ -10,7 +10,7 @@ public class SoundManager : MonoBehaviour {
     public AudioClip victory;
     public AudioSource efxSource;                   //Drag a reference to the audio source which will play the sound effects.
     public AudioSource musicSource;                 //Drag a reference to the audio source which will play the music.
-    public static SoundManager instance = null;     //Allows other scripts to call functions from SoundManager.             
+    public static SoundManager instance = null;     //Allows other scripts to call functions from SoundManager.
     public float lowPitchRange = .95f;              //The lowest a sound effect will be randomly pitched.
     public float highPitchRange = 1.05f;            //The highest a sound effect will be randomly pitched.
 
@@ -45,7 +45,7 @@ public class SoundManager : MonoBehaviour {
         //StartCoroutine(fadeIn());
         StartCoroutine(fadeMusic(menu, first));
     }
-    
+
     public void PlayGameMusic()
     {
         //StartCoroutine(fadeOut());
@@ -69,7 +69,7 @@ public class SoundManager : MonoBehaviour {
         //StartCoroutine(fadeMusic(defeat, false));
     }
 
-    IEnumerator fadeIn()
+    public IEnumerator fadeIn()
     {
         float t = 0f;
         while (t < 1)
@@ -80,7 +80,7 @@ public class SoundManager : MonoBehaviour {
         }
     }
 
-    IEnumerator fadeOut()
+    public IEnumerator fadeOut()
     {
         float t = 1f;
         while (t > 0)

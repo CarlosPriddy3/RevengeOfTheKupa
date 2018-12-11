@@ -8,11 +8,13 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class GameEndAction : MonoBehaviour
 {
+	private SoundManager soundManager;
 	private Animator fader;
 
 	void Start()
 	{
         fader = GameObject.FindGameObjectWithTag("ScreenFader").GetComponent<Animator>();
+		soundManager = GameObject.FindGameObjectWithTag("SoundManager").GetComponent<SoundManager>();
 	}
 
     /// <summary>
@@ -20,6 +22,7 @@ public class GameEndAction : MonoBehaviour
     /// </summary>
     public void onLoss()
 	{
+		soundManager.fadeOut();
 		fader.SetTrigger("lose");
 	}
 }

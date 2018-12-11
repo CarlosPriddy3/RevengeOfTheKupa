@@ -25,6 +25,7 @@ public class VictoryListener : MonoBehaviour {
 
         if (gos.Length > 0 && Vector3.Distance(gos[0].transform.position, this.transform.position) < winDistance && moveScript.kupaState == KupaState.Spinning && moveScript.velocityMag > 3)
         {
+            soundManager.fadeOut();
             fader.SetTrigger("win");
         }
 

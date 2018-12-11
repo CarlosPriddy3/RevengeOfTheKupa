@@ -49,7 +49,7 @@ public class MenuController : MonoBehaviour {
 		{
 			pauser.unpause();
 		}
-        //soundManager.PlayGameMusic();
+        soundManager.PlayGameMusic();
 		SceneManager.LoadSceneAsync(play_scene_name);
 		GameState.state = State.PLAY;
 	}
