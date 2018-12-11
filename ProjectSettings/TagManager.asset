@@ -30,6 +30,7 @@ TagManager:
   - SavePointManager
   - Pauser
   - CheckpointButton
+  - CheckpointRestart
   layers:
   - Default
   - TransparentFX

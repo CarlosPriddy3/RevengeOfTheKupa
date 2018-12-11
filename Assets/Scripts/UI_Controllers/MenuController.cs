@@ -22,6 +22,7 @@ public class MenuController : MonoBehaviour {
 	private PauseButton pauser;
 	private StartMenuController starter;
     private SoundManager soundManager;
+	private CheckpointRestart restarter;
 
 	// Get pausing component if it exists.
 	void Start()
@@ -29,6 +30,11 @@ public class MenuController : MonoBehaviour {
 		pauser = GetComponent<PauseButton>();
 		starter = GetComponent<StartMenuController>();
         soundManager = GameObject.FindGameObjectWithTag("SoundManager").GetComponent<SoundManager>();
+		GameObject restart_object = GameObject.FindGameObjectWithTag("CheckpointRestart");
+		if (restart_object != null)
+		{
+			restarter = restart_object.GetComponent<CheckpointRestart>();
+		}
 	}
 
 	/// <summary>
@@ -128,6 +134,17 @@ public class MenuController : MonoBehaviour {
 	/// </summary>
 	public void startFromCheckpoint()
 	{
+		if (restarter != null)
+		{
+			Time.timeScale = 1f;
+			soundManager.PlayGameMusic();
+			GameState.state = State.PLAY;
+			restarter.restart();
+		}
+		else
+		{
+			play(true);
+		}
 	}
 
 	/// <summary>
