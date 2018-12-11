@@ -14,6 +14,7 @@ public class SoundManager : MonoBehaviour {
     public float lowPitchRange = .95f;              //The lowest a sound effect will be randomly pitched.
     public float highPitchRange = 1.05f;            //The highest a sound effect will be randomly pitched.
 
+    private IEnumerator coroutine;
 
     void Awake()
     {
@@ -33,19 +34,25 @@ public class SoundManager : MonoBehaviour {
     private void Start()
     {
         musicSource = GetComponent<AudioSource>();
-        PlayMenuMusic();
+        PlayMenuMusic(true);
     }
 
-    public void PlayMenuMusic()
+    public void PlayMenuMusic(bool first)
     {
-        musicSource.clip = menu;
-        musicSource.Play();
+        //StartCoroutine(fadeOut());
+        //musicSource.clip = menu;
+        //musicSource.Play();
+        //StartCoroutine(fadeIn());
+        StartCoroutine(fadeMusic(menu, first));
     }
     
     public void PlayGameMusic()
     {
-        musicSource.clip = ingame;
-        musicSource.Play();
+        //StartCoroutine(fadeOut());
+        //musicSource.clip = ingame;
+        //musicSource.Play();
+        //StartCoroutine(fadeIn());
+        StartCoroutine(fadeMusic(ingame, false));
     }
 
     public void PlayVictoryMusic()
@@ -58,6 +65,55 @@ public class SoundManager : MonoBehaviour {
     {
         musicSource.clip = defeat;
         musicSource.Play();
+    }
+
+    IEnumerator fadeIn()
+    {
+        float t = 0f;
+        while (t < 1)
+        {
+            t += Time.deltaTime;
+            musicSource.volume = t;
+            yield return new WaitForSeconds(0.1f);
+        }
+    }
+
+    IEnumerator fadeOut()
+    {
+        float t = 1f;
+        while (t > 0)
+        {
+            t -= Time.deltaTime;
+            musicSource.volume = t;
+            yield return new WaitForSeconds(0.1f);
+        }
+    }
+
+    IEnumerator fadeMusic(AudioClip musicClip, bool first)
+    {
+        Debug.Log("FADE MUSIC");
+        float t = 1f;
+        if (!first)
+        {
+            while (t > 0)
+            {
+                t -= Time.deltaTime;
+                musicSource.volume = t;
+                yield return new WaitForSeconds(0.05f);
+            }
+        }
+
+        musicSource.clip = musicClip;
+        musicSource.Play();
+
+        t = 0f;
+        while (t < 1)
+        {
+            t += Time.deltaTime;
+            musicSource.volume = t;
+            yield return new WaitForSeconds(0.05f);
+        }
+
     }
 
     //Used to play single sound clips.
