@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class TutorialManager : MonoBehaviour {
 
     public List<Tutorial> Tutorials = new List<Tutorial>();
+    public float delayTime = 1f;
 
     public Text expText;
 
@@ -53,7 +54,12 @@ public class TutorialManager : MonoBehaviour {
     }
 
     public void CompletedAllTutorials() {
-        expText.text = "You have completed all the tutorials";
+        expText.text = "You have completed the tutorial! Now starting game";
+        Invoke("DelayedAction", delayTime);
+
+    }
+
+    public void DelayedAction() {
         SceneManager.LoadSceneAsync("Level01Remake");
         GameState.state = State.PLAY;
     }
