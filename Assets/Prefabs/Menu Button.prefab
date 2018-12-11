@@ -172,7 +172,7 @@ MonoBehaviour:
   icon: {fileID: 114065834594204128}
   def_text_color: {r: 0.961, g: 0.961, b: 0.961, a: 1}
   select_text_color: {r: 0.059, g: 0.059, b: 0.059, a: 1}
-  dis_text_color: {r: 0.4056604, g: 0.4056604, b: 0.4056604, a: 1}
+  dis_text_color: {r: 0.3018868, g: 0.3018868, b: 0.3018868, a: 1}
 --- !u!114 &114614971320927608
 MonoBehaviour:
   m_ObjectHideFlags: 1
