@@ -38241,6 +38241,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 1943091996159348, guid: 8aaf667c8e6470d4d90b9b203ab8d3d8, type: 2}
+      propertyPath: m_TagString
+      value: CheckpointRestart
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8aaf667c8e6470d4d90b9b203ab8d3d8, type: 2}
   m_IsPrefabAsset: 0
