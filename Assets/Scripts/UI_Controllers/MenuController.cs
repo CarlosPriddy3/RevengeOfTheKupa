@@ -17,6 +17,7 @@ public class MenuController : MonoBehaviour {
 	public string credits_scene_name;
 	public GameObject standard_menu;
 	public GameObject controls_menu;
+	public GameObject credits_menu;
 
 	private PauseButton pauser;
 	private StartMenuController starter;
@@ -146,6 +147,7 @@ public class MenuController : MonoBehaviour {
 	{
 		standard_menu.SetActive(true);
 		controls_menu.SetActive(false);
+		credits_menu.SetActive(false);
 	}
 
 	/// <summary>
@@ -153,7 +155,12 @@ public class MenuController : MonoBehaviour {
 	/// </summary>
 	public void viewCredits()
 	{
-		Debug.Log("Pressed \"Credits\" button");
+		if (starter != null)
+		{
+			starter.setViewingControls(true);
+		}
+		standard_menu.SetActive(false);
+		credits_menu.SetActive(true);
 	}
 
 	/// <summary>
