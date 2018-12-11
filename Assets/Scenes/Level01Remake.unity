@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4465798, g: 0.4964143, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657916, g: 0.49641317, b: 0.574817, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -10581,7 +10581,7 @@ GameObject:
   - component: {fileID: 431002282}
   m_Layer: 5
   m_Name: Checkpoint Button
-  m_TagString: Untagged
+  m_TagString: CheckpointButton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10663,6 +10663,7 @@ MonoBehaviour:
   icon: {fileID: 913121239}
   def_text_color: {r: 0.961, g: 0.961, b: 0.961, a: 1}
   select_text_color: {r: 0.059, g: 0.059, b: 0.059, a: 1}
+  dis_text_color: {r: 0.4, g: 0.4, b: 0.4, a: 1}
 --- !u!114 &431002283
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27167,12 +27168,12 @@ Prefab:
     - target: {fileID: 224510166083259138, guid: 6402e54aab66abd49b81ee9db6a9b76b,
         type: 2}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 224510166083259138, guid: 6402e54aab66abd49b81ee9db6a9b76b,
         type: 2}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 224565078378869346, guid: 6402e54aab66abd49b81ee9db6a9b76b,
         type: 2}
@@ -57786,8 +57787,8 @@ Transform:
   - {fileID: 1547003295}
   - {fileID: 1383814150}
   - {fileID: 481825973}
-  - {fileID: 47121488}
   - {fileID: 1658688448}
+  - {fileID: 47121488}
   m_Father: {fileID: 0}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

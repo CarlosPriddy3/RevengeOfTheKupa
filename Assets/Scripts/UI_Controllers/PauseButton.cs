@@ -12,10 +12,20 @@ public class PauseButton : MonoBehaviour {
 	private bool is_controls;
 	private bool is_keydown;
 
+	private SavePointManager spManager;
+	private MenuButton checkpoint_menubutton;
+
 	// Use this for initialization
 	void Start ()
 	{
 		controller = GetComponent<MenuController>();
+		GameObject spManagerObject = GameObject.FindGameObjectWithTag("SavePointManager");
+        if (spManagerObject != null)
+        {
+            spManager = spManagerObject.GetComponent<SavePointManager>();
+        }
+		GameObject checkpoint_button = GameObject.FindGameObjectWithTag("CheckpointButton");
+		checkpoint_menubutton = checkpoint_button.GetComponent<MenuButton>();
 		is_paused = false;
 		is_controls = false;
 		is_keydown = false;
@@ -56,6 +66,10 @@ public class PauseButton : MonoBehaviour {
 
 	public void pause()
 	{
+		if (spManager != null && spManager.getSavePointPosition() == Vector3.zero)
+		{
+			checkpoint_menubutton.disable();
+		}
 		GameState.paused = true;
 		pause_menu.enabled = true;
 		Time.timeScale = 0f;

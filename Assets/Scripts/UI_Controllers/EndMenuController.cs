@@ -21,8 +21,17 @@ public class EndMenuController : MonoBehaviour
 	public GameObject checkpoint_button;
 	public GameObject restart_button;
 
+	private SavePointManager spManager;
+	private MenuButton checkpoint_menubutton;
+
 	void Start()
 	{
+		GameObject spManagerObject = GameObject.FindGameObjectWithTag("SavePointManager");
+        if (spManagerObject != null)
+        {
+            spManager = spManagerObject.GetComponent<SavePointManager>();
+        }
+		checkpoint_menubutton = checkpoint_button.GetComponent<MenuButton>();
 		switch (GameState.state)
 		{
 			case State.WIN:
@@ -33,7 +42,15 @@ public class EndMenuController : MonoBehaviour
 				event_system.SetSelectedGameObject(restart_button);
 				break;
 			case State.LOSS:
-				checkpoint_button.SetActive(true);
+				if (spManager != null && spManager.getSavePointPosition() == Vector3.zero)
+				{
+					checkpoint_menubutton.disable();
+					event_system.SetSelectedGameObject(restart_button);
+				}
+				else
+				{
+					checkpoint_button.SetActive(true);
+				}
 				bg_image.sprite = loss_background;
 				title_image.sprite = loss_title_image;
 				restart_label.text = "Restart Game";
