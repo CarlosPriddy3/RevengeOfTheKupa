@@ -131,7 +131,7 @@ public class PlayerMove : MonoBehaviour {
         
         velocity = (this.transform.position - prevPos) / Time.deltaTime;
         prevPos = this.transform.position;
-        velocityMag = velocity.magnitude;
+        velocityMag = new Vector3(velocity.x, 0, velocity.y).magnitude;
         float h = Input.GetAxisRaw("Horizontal");
         if (jumpTimer < 3f)
         {
@@ -210,6 +210,10 @@ public class PlayerMove : MonoBehaviour {
                 //Ability to turn in shell form
                 Turn(h, turnScalar / 2);
                 shooting = velocity.magnitude > stopSpinVel;
+                if (!hasShot)
+                {
+                    velocityMag = 0f;
+                }
                 if ((!hasShot && !shooting && isGrounded && (Input.GetButton("Fire3"))))
                 {
                     kupaArrow.SetActive(true);

@@ -75,42 +75,25 @@ public class MarioAttack : MonoBehaviour {
                 rb.angularVelocity = Vector3.zero;
                 rb.AddForce(kupa.transform.forward * -1200f);
             }
-            else
-            {
-                if (kupaState == KupaState.Spinning && (kupaVel <= 5f) && !cooldown) {
-                    lc.loseLife();
-                    Debug.Log("Spinning and lost life");
-                    if (lc.getNumLives() > 0)
-                    {
-                        damageImage.color = flashColour;
-                    }
-                    else
-                    {
-                        damageImage.color = Color.red;
-                        damageImage.color = new Color(0, 0, 0, 0.8f);
-                    }
-                    injuredAudio.Play();
-                    cooldown = true;
-                    cooldown_timer = cooldown_time;
+
+            if (!cooldown)
+            {   
+                lc.loseLife();
+                Debug.Log("Lost a life");
+                if (lc.getNumLives() > 0)
+                {
+                    damageImage.color = flashColour;
+                } else
+                {
+                    damageImage.color = Color.red;
+                    damageImage.color = new Color(0, 0, 0, 0.8f);
                 }
-                else if (!cooldown)
-                {   
-                    lc.loseLife();
-                    Debug.Log("Lost a life");
-                    if (lc.getNumLives() > 0)
-                    {
-                        damageImage.color = flashColour;
-                    } else
-                    {
-                        damageImage.color = Color.red;
-                        damageImage.color = new Color(0, 0, 0, 0.8f);
-                    }
-                    injuredAudio.Play();
-                    cooldown = true;
-                    cooldown_timer = cooldown_time;
-                }
-                Debug.Log("You have " + lc.getNumLives() + " lives left");
+                injuredAudio.Play();
+                cooldown = true;
+                cooldown_timer = cooldown_time;
             }
+            Debug.Log("You have " + lc.getNumLives() + " lives left");
+            
         }
     }
 

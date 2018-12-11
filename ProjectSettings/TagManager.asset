@@ -31,6 +31,8 @@ TagManager:
   - Pauser
   - CheckpointButton
   - CheckpointRestart
+  - CheckPointCanvas
+  - GameEndCheckpointText
   layers:
   - Default
   - TransparentFX

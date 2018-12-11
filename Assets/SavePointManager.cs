@@ -37,4 +37,9 @@ public class SavePointManager : MonoBehaviour {
     {
         return pos;
     }
+
+    public void setPos(Vector3 pos)
+    {
+        this.pos = pos;
+    }
 }

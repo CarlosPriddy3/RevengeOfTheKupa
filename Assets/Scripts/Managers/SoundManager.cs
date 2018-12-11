@@ -15,6 +15,7 @@ public class SoundManager : MonoBehaviour {
     public float highPitchRange = 1.05f;            //The highest a sound effect will be randomly pitched.
 
     private IEnumerator coroutine;
+    public float maxVolume = .5f;
 
     void Awake()
     {
@@ -29,12 +30,14 @@ public class SoundManager : MonoBehaviour {
 
         //Set SoundManager to DontDestroyOnLoad so that it won't be destroyed when reloading our scene.
         DontDestroyOnLoad(gameObject);
+        
     }
 
     private void Start()
     {
         musicSource = GetComponent<AudioSource>();
         PlayMenuMusic(true);
+        musicSource.volume = maxVolume;
     }
 
     public void PlayMenuMusic(bool first)
@@ -72,7 +75,7 @@ public class SoundManager : MonoBehaviour {
     public IEnumerator fadeIn()
     {
         float t = 0f;
-        while (t < 1)
+        while (t < maxVolume)
         {
             t += Time.deltaTime;
             musicSource.volume = t;
@@ -82,7 +85,7 @@ public class SoundManager : MonoBehaviour {
 
     public IEnumerator fadeOut()
     {
-        float t = 1f;
+        float t = maxVolume;
         while (t > 0)
         {
             t -= Time.deltaTime;
@@ -94,7 +97,7 @@ public class SoundManager : MonoBehaviour {
     IEnumerator fadeMusic(AudioClip musicClip, bool first)
     {
         //Debug.Log("FADE MUSIC");
-        float t = 1f;
+        float t = maxVolume;
         if (!first)
         {
             while (t > 0)
@@ -109,7 +112,7 @@ public class SoundManager : MonoBehaviour {
         musicSource.Play();
 
         t = 0f;
-        while (t < 1)
+        while (t < maxVolume)
         {
             t += Time.deltaTime;
             musicSource.volume = t;

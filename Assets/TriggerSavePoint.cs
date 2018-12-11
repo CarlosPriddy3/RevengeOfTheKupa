@@ -5,14 +5,21 @@ using UnityEngine;
 public class TriggerSavePoint : MonoBehaviour {
     private SavePointManager spManager;
     private Light spotlight;
+    private Canvas checkPointCanvas;
 	// Use this for initialization
 	void Start () {
         GameObject spManagerObject = GameObject.FindGameObjectWithTag("SavePointManager");
+        GameObject checkpointCanvasObj = GameObject.FindGameObjectWithTag("CheckPointCanvas");
         if (spManagerObject != null)
         {
             spManager = spManagerObject.GetComponent<SavePointManager>();
         }
+        if (checkpointCanvasObj != null)
+        {
+            checkPointCanvas = checkpointCanvasObj.GetComponent<Canvas>();
+        }
         spotlight = this.transform.parent.GetComponentInChildren<Light>();
+        checkPointCanvas.enabled = false;
     }
 	
 	// Update is called once per frame
@@ -32,5 +39,11 @@ public class TriggerSavePoint : MonoBehaviour {
         {
             spManager.setActiveSavePoint(this.transform.parent.gameObject);
         }
+        checkPointCanvas.enabled = true;
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        checkPointCanvas.enabled = false;
     }
 }
