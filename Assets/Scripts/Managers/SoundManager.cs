@@ -59,12 +59,14 @@ public class SoundManager : MonoBehaviour {
     {
         musicSource.clip = victory;
         musicSource.Play();
+        //StartCoroutine(fadeMusic(victory, false));
     }
 
     public void PlayDefeatMusic()
     {
         musicSource.clip = defeat;
         musicSource.Play();
+        //StartCoroutine(fadeMusic(defeat, false));
     }
 
     IEnumerator fadeIn()

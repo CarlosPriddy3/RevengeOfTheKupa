@@ -35,7 +35,8 @@ public class MenuController : MonoBehaviour {
 	/// </summary>
 	public void startGame()
 	{
-		SelectedStart.isTutorial = false;
+        soundManager.PlayGameMusic();
+        SelectedStart.isTutorial = false;
 		SceneManager.LoadSceneAsync(intro_scene_name);
 	}
 
@@ -48,7 +49,7 @@ public class MenuController : MonoBehaviour {
 		{
 			pauser.unpause();
 		}
-        soundManager.PlayGameMusic();
+        //soundManager.PlayGameMusic();
 		SceneManager.LoadSceneAsync(play_scene_name);
 		GameState.state = State.PLAY;
 	}
@@ -125,6 +126,7 @@ public class MenuController : MonoBehaviour {
 	/// </summary>
 	public void viewStandard()
 	{
+        Debug.Log("MENU");
 		standard_menu.SetActive(true);
 		controls_menu.SetActive(false);
 	}
