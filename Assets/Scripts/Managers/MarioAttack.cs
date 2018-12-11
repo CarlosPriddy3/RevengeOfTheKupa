@@ -74,9 +74,7 @@ public class MarioAttack : MonoBehaviour {
                 rb.velocity = Vector3.zero;
                 rb.angularVelocity = Vector3.zero;
                 rb.AddForce(kupa.transform.forward * -1200f);
-            }
-
-            if (!cooldown)
+            } else if (!cooldown)
             {   
                 lc.loseLife();
                 Debug.Log("Lost a life");

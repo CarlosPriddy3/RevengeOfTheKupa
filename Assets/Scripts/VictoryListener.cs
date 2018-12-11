@@ -10,6 +10,7 @@ public class VictoryListener : MonoBehaviour {
     private PlayerMove moveScript;
     private SoundManager soundManager;
     private Animator fader;
+    private float disToKupa;
 
     // Use this for initialization
     void Start () {
@@ -23,11 +24,16 @@ public class VictoryListener : MonoBehaviour {
 	void Update () {
         GameObject[] gos = GameObject.FindGameObjectsWithTag("Kupa");
 
-        if (gos.Length > 0 && Vector3.Distance(gos[0].transform.position, this.transform.position) < winDistance && moveScript.kupaState == KupaState.Spinning && moveScript.velocityMag > 3)
+        disToKupa = (this.transform.position - kupa.transform.position).magnitude;
+
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (disToKupa < winDistance && moveScript.kupaState == KupaState.Spinning && moveScript.velocityMag > 3)
         {
             soundManager.fadeOut();
             fader.SetTrigger("win");
         }
-
     }
 }
