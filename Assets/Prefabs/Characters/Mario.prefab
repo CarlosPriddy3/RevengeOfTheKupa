@@ -1292,7 +1292,8 @@ MonoBehaviour:
   distanceToKupa: 0
   vertAdjust: 3
   kupaVel: 0
-  injuredAudio: {fileID: 0}
+  injuredAudio: {fileID: 82316576980621272, guid: 8927632c1a4d29446beddffd8b5a7d1f,
+    type: 2}
   cooldown_time: 0
   flashSpeed: 2
   flashColour: {r: 1, g: 0, b: 0, a: 1}
@@ -1341,6 +1342,8 @@ MonoBehaviour:
   bigSound: 1
   smallSpeedThreshold: 4
   bigSpeedThreshold: 10
+  loudRange: 10
+  quietRange: 6
 --- !u!114 &114400994770031130
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1459,6 +1462,8 @@ MonoBehaviour:
   bigSound: 0
   smallSpeedThreshold: 4
   bigSpeedThreshold: 10
+  loudRange: 10
+  quietRange: 6
 --- !u!135 &135206954201997424
 SphereCollider:
   m_ObjectHideFlags: 1
