@@ -25,12 +25,14 @@ public class TutorialManager : MonoBehaviour {
     }
 
     private Tutorial currentTutorial;
+    private Animator fader;
 
 	// Use this for initialization
 	void Start () {
+        fader = GameObject.FindGameObjectWithTag("ScreenFader").GetComponent<Animator>();
         SetNextTutorial(0);
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
         if (currentTutorial) {
@@ -60,8 +62,7 @@ public class TutorialManager : MonoBehaviour {
     }
 
     public void DelayedAction() {
-        SceneManager.LoadSceneAsync("Level01Remake");
-        GameState.state = State.PLAY;
+        fader.SetTrigger("start");
     }
 
     public Tutorial GetTutorialByOrder(int Order) {

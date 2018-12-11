@@ -8,7 +8,7 @@ public class PauseButton : MonoBehaviour {
 	public MenuButton first_selection;
 
 	private MenuController controller;
-	private bool is_paused;
+	public bool is_paused;
 	private bool is_controls;
 	private bool is_keydown;
 

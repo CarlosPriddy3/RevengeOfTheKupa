@@ -28,6 +28,7 @@ TagManager:
   - StaminaFillBar
   - StaminaText
   - SavePointManager
+  - Pauser
   layers:
   - Default
   - TransparentFX

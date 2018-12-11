@@ -76,11 +76,25 @@ public class MenuController : MonoBehaviour {
 		GameState.state = State.START;
 	}
 
+	/// <summary>
+	/// Directly starts the tutorial
+	/// </summary>
+	public void startTutorial()
+	{
+		if (pauser != null)
+		{
+			pauser.unpause();
+		}
+        soundManager.PlayGameMusic();
+		SceneManager.LoadScene(tutorial_scene_name);
+	}
+
     /// <summary>
     /// Takes to the tutorial scene.
     /// </summary>
     public void toTutorial()
     {
+ 	    Time.timeScale = 1f;
 		SelectedStart.isTutorial = true;
         SceneManager.LoadSceneAsync(intro_scene_name);
     }
@@ -127,7 +141,6 @@ public class MenuController : MonoBehaviour {
 	/// </summary>
 	public void viewStandard()
 	{
-        Debug.Log("MENU");
 		standard_menu.SetActive(true);
 		controls_menu.SetActive(false);
 	}

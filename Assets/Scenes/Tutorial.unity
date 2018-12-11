@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657856, g: 0.49641234, b: 0.57481724, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2681,6 +2681,25 @@ Prefab:
         type: 2}
       propertyPath: m_AnchorMax.y
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114593546661842360, guid: 6402e54aab66abd49b81ee9db6a9b76b,
+        type: 2}
+      propertyPath: m_Text
+      value: Restart Tutorial
+      objectReference: {fileID: 0}
+    - target: {fileID: 114452690667140984, guid: 6402e54aab66abd49b81ee9db6a9b76b,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: startTutorial
+      objectReference: {fileID: 0}
+    - target: {fileID: 114247602402882772, guid: 6402e54aab66abd49b81ee9db6a9b76b,
+        type: 2}
+      propertyPath: tutorial_scene_name
+      value: Tutorial
+      objectReference: {fileID: 0}
+    - target: {fileID: 1611036878494924, guid: 6402e54aab66abd49b81ee9db6a9b76b, type: 2}
+      propertyPath: m_TagString
+      value: Pauser
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6402e54aab66abd49b81ee9db6a9b76b, type: 2}
