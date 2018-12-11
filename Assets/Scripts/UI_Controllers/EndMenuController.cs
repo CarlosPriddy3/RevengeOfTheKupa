@@ -36,6 +36,7 @@ public class EndMenuController : MonoBehaviour
 		{
 			case State.WIN:
 				checkpoint_button.SetActive(false);
+		        spManager.setPos(Vector3.zero);
 				bg_image.sprite = win_background;
 				title_image.sprite = win_title_image;
 				restart_label.text = "Play Again";
