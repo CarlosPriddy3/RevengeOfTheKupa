@@ -10,6 +10,7 @@ public class LifeController : MonoBehaviour
 	public List<GameObject> hearts;
 	public GameEndAction action;
 	private int num_lives;
+	private Animator fader;
 
 	/// <summary>
 	/// Initializes the starting number of lives.
@@ -17,6 +18,7 @@ public class LifeController : MonoBehaviour
 	void Start ()
 	{
 		num_lives = hearts.Count;
+		fader = GameObject.FindGameObjectWithTag("ScreenFader").GetComponent<Animator>();
 	}
 
 	/// <summary>
@@ -28,6 +30,7 @@ public class LifeController : MonoBehaviour
 		{
 			num_lives--;
 			hearts[num_lives].SetActive(false);
+			fader.SetTrigger("hurt");
 		}
 		if (num_lives == 0)
 		{
@@ -46,4 +49,9 @@ public class LifeController : MonoBehaviour
 			num_lives++;
 		}
 	}
+
+    public int getNumLives()
+    {
+        return num_lives;
+    }
 }

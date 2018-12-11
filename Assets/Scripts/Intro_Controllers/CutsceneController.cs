@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using UnityEditor.Animations;
 
 /// <summary>
 /// Controls the intro cutscene.
@@ -97,11 +96,11 @@ public class CutsceneController : MonoBehaviour
 		soundManager.PlayGameMusic();
 		if (SelectedStart.isTutorial)
 		{
-			SceneManager.LoadSceneAsync(tutorial_scene);
+			SceneManager.LoadScene(tutorial_scene);
 		}
 		else
 		{
-			SceneManager.LoadSceneAsync(game_scene);
+			SceneManager.LoadScene(game_scene);
 		}
 		ended = true;
 	}

@@ -13,6 +13,8 @@ public class SoundListener : MonoBehaviour {
     private bool regularMario;
     private MarioController marioController;
     private GameObject[] investigationPoints;
+    public float loudRange = 10f;
+    public float quietRange = 6f;
 
 	// Use this for initialization
 	void Start () {

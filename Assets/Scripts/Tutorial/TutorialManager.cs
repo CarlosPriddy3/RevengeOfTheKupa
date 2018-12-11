@@ -54,7 +54,7 @@ public class TutorialManager : MonoBehaviour {
 
     public void CompletedAllTutorials() {
         expText.text = "You have completed all the tutorials";
-        SceneManager.LoadSceneAsync("Level01");
+        SceneManager.LoadSceneAsync("Level01Remake");
         GameState.state = State.PLAY;
     }
 

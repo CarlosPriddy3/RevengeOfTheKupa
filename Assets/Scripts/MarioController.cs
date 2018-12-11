@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(NavMeshAgent))]
 [RequireComponent(typeof(Animator))]
@@ -47,9 +48,10 @@ public class MarioController : MonoBehaviour
     public AudioSource mammaMiaClip;
     public AudioSource hmmmmClip;
 
-    private Canvas marioStartledCanvas;
-
+    public Canvas marioStartledCanvas;
     private Canvas kupaStartledCanvas;
+    private Text kupaStartledText;
+    private static int marioCounter;
 
     // Use this for initialization
     void Start () {
@@ -62,10 +64,16 @@ public class MarioController : MonoBehaviour
         setNextWaypoint(waypoints);
         timer = 0;
         searchTimer = 0;
-        kupaStartledCanvas = GameObject.FindGameObjectWithTag("KupaStartledCanvas").GetComponent<Canvas>();
+        GameObject kupaStartledCanvasObj = GameObject.FindGameObjectWithTag("KupaStartledCanvas");
+        if (kupaStartledCanvasObj != null)
+        {
+            kupaStartledCanvas = kupaStartledCanvasObj.GetComponent<Canvas>();
+            kupaStartledText = kupaStartledCanvas.GetComponent<Text>();
+        }
         marioStartledCanvas = this.GetComponentInChildren<Canvas>();
         marioStartledCanvas.enabled = false;
         kupaStartledCanvas.enabled = false;
+        marioCounter = 0;
 
         kupaVel = movingTarget.GetComponent<PlayerMove>().velocity;
     }
@@ -101,7 +109,7 @@ public class MarioController : MonoBehaviour
 
                     if (movingTarget != null)
                     {
-                        if (!agent.pathPending && agent.remainingDistance == 0 && movingTarget != null)
+                        if ((this.gameObject.tag != "StationaryFireMario") && (this.tag != "StationaryMario") && (!agent.pathPending) && (agent.remainingDistance == 0))
                         {
                             setNextWaypoint(waypoints);
                         }
@@ -110,8 +118,14 @@ public class MarioController : MonoBehaviour
                         {
                             if (canSeeKupa())
                             {
-                                playKupaFoundSound();
+                                marioCounter++;
+                                Debug.Log("Patrol: " + marioCounter);
+                                if (marioCounter == 1)
+                                {
+                                    playKupaFoundSound();
+                                }
                                 marioStartledCanvas.enabled = true;
+                                kupaStartledText.text = getExclamationStr();
                                 kupaStartledCanvas.enabled = true;
                                 if (this.name == "FireMario")
                                 {
@@ -131,34 +145,46 @@ public class MarioController : MonoBehaviour
                     {
                         if (disToTarget > sightDistance)
                         {
+                            marioCounter--;
+                            Debug.Log("Chase to Patrol: " + marioCounter);
+
                             marioStartledCanvas.enabled = false;
                             kupaStartledCanvas.enabled = false;
                             aiState = AIState.Patrol;
                         }
-                        if (canSeeKupa() == false)
+                        if (canSeeKupa() == false && disToTarget > 10f)
                         {
+                            marioCounter--;
+                            Debug.Log("Chase to Investigate: " + marioCounter);
+
                             marioStartledCanvas.enabled = false;
                             kupaStartledCanvas.enabled = false;
-                            playInvestigatingSound();
+                            if (marioCounter == 0)
+                            {
+                                playInvestigatingSound();
+                            }
                             InstantiateInvestigateParams(targetPos);
                             break;
                         }
-                        float lookAhead = Mathf.Clamp(disToTarget, minLook, maxLook) / agent.speed;
-                        Vector3 dest = targetPos + (lookAhead * kupaVel);
-                        bool blocked = NavMesh.Raycast(targetPos, dest, out hit, NavMesh.AllAreas);
-                        Debug.DrawLine(transform.position, dest, blocked ? Color.red : Color.green);
-                        if (blocked)
+                        if (this.gameObject.tag != "StationaryFireMario" && this.tag != "StationaryMario")
                         {
-                            Vector3 tempDest = hit.position + (targetPos - hit.position).normalized * 1.3f;
-                            agent.SetDestination(tempDest);
-                            Debug.DrawRay((hit.position + (targetPos - hit.position).normalized), Vector3.up, Color.blue);
+                            float lookAhead = Mathf.Clamp(disToTarget, minLook, maxLook) / agent.speed;
+                            Vector3 dest = targetPos + (lookAhead * kupaVel);
+                            bool blocked = NavMesh.Raycast(targetPos, dest, out hit, NavMesh.AllAreas);
+                            Debug.DrawLine(transform.position, dest, blocked ? Color.red : Color.green);
+                            if (blocked)
+                            {
+                                Vector3 tempDest = hit.position + (targetPos - hit.position).normalized * 1.3f;
+                                agent.SetDestination(tempDest);
+                                Debug.DrawRay((hit.position + (targetPos - hit.position).normalized), Vector3.up, Color.blue);
+                            }
+                            else
+                            {
+                                agent.SetDestination(dest);
+                            }
                         }
-                        else
-                        {
-                            agent.SetDestination(dest);
-                        }
-                        
-                        if (this.tag == "StationaryFireMario")
+                                                
+                        if (this.tag == "StationaryFireMario" || this.tag == "StationaryMario")
                         {
                             Debug.Log("NO NAV PATH FOUND");
                             //find the vector pointing from our position to the target
@@ -185,6 +211,9 @@ public class MarioController : MonoBehaviour
                     stunnedTimer += Time.deltaTime;
                     if (stunnedTimer > stunDuration)
                     {
+                        marioCounter--;
+                        Debug.Log("Stunned: " + marioCounter);
+
                         marioStartledCanvas.enabled = false;
                         kupaStartledCanvas.enabled = false;
                         agent.enabled = true;
@@ -195,16 +224,22 @@ public class MarioController : MonoBehaviour
                         {
                             if (canSeeKupa())
                             {
+                                marioCounter++;
+                                Debug.Log("Stunned to Chase: " + marioCounter);
+
                                 marioStartledCanvas.enabled = true;
+                                kupaStartledText.text = getExclamationStr();
                                 kupaStartledCanvas.enabled = true;
 
                                 Debug.Log(this.name + " CHASING " + movingTarget.name);
                                 aiState = AIState.Chase;
                             } else
                             {
-                                playInvestigatingSound();
+                                if (marioCounter == 1)
+                                {
+                                    playInvestigatingSound();
+                                }
                                 InstantiateInvestigateParams(this.transform.position);
-                                aiState = AIState.Investigate;
                             }       
                         } else
                         {
@@ -233,9 +268,16 @@ public class MarioController : MonoBehaviour
                     {
                         if (canSeeKupa())
                         {
+                            marioCounter++;
+                            Debug.Log("Investigate to Chase: " + marioCounter);
+
+                            if (marioCounter == 1)
+                            {
+                                playKupaFoundSound();
+                            }
                             marioStartledCanvas.enabled = true;
+                            kupaStartledText.text = getExclamationStr();
                             kupaStartledCanvas.enabled = true;
-                            playKupaFoundSound();
                             if (this.tag == "FireMario")
                             {
                                 shootFireball();
@@ -249,6 +291,16 @@ public class MarioController : MonoBehaviour
                     break;
             }
         }
+    }
+
+    private string getExclamationStr()
+    {
+        string exclamationStr = "";
+        for (int i = 0; i < marioCounter; i++)
+        {
+            exclamationStr += "!";
+        }
+        return exclamationStr;
     }
 
     private void playKupaFoundSound() {
@@ -309,12 +361,19 @@ public class MarioController : MonoBehaviour
     //Helper Methods for Investigation of Sound
     public void InstantiateInvestigateParams(Vector3 location)
     {
-        clearInvestigationPoints();
-        searchTimer = 0;
-        currWaypoint = 0;
-        generateSearchPoints(location);
-        agent.SetDestination(investigationPoints[0].transform.position);
-        aiState = AIState.Investigate;
+        if (this.tag != "StationaryMario" && this.tag != "StationaryFireMario")
+        {
+            clearInvestigationPoints();
+            searchTimer = 0;
+            currWaypoint = 0;
+            generateSearchPoints(location);
+            agent.SetDestination(investigationPoints[0].transform.position);
+            aiState = AIState.Investigate;
+        } else
+        {
+            aiState = AIState.Patrol;
+        }
+        
     }
 
     private void generateSearchPoints(Vector3 location)

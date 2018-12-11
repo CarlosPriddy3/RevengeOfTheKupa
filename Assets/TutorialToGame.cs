@@ -13,7 +13,7 @@ public class TutorialToGame : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         if (Input.GetKeyDown(KeyCode.Return)) {
-            SceneManager.LoadSceneAsync("Level01");
+            SceneManager.LoadSceneAsync("Level01Remake");
             GameState.state = State.PLAY;
         }
 	}
