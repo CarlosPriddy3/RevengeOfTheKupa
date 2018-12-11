@@ -21,7 +21,6 @@ public class CutsceneController : MonoBehaviour
 
 	private SoundManager soundManager;
 	private int current;
-	private bool ended;
 
 	// Use this for initialization
 	void Start ()
@@ -36,7 +35,7 @@ public class CutsceneController : MonoBehaviour
 		AnimatorStateInfo state = anim.GetCurrentAnimatorStateInfo(0);
 		if (state.IsName("Blank State"))
 		{
-			if (current >= images.Count && !ended)
+			if (current >= images.Count)
 			{
 				Color transparent = Color.white;
 				transparent.a = 0;
@@ -102,6 +101,5 @@ public class CutsceneController : MonoBehaviour
 		{
 			SceneManager.LoadScene(game_scene);
 		}
-		ended = true;
 	}
 }

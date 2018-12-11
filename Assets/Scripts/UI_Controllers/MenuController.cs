@@ -70,6 +70,7 @@ public class MenuController : MonoBehaviour {
 	/// </summary>
 	public void toTitle()
 	{
+ 	    Time.timeScale = 1f;
         soundManager.PlayMenuMusic(false);
 		SceneManager.LoadSceneAsync(title_scene_name);
 		GameState.state = State.START;
