@@ -38,7 +38,7 @@ public class MenuController : MonoBehaviour {
 	{
         //soundManager.PlayGameMusic();
         SelectedStart.isTutorial = false;
-		SceneManager.LoadSceneAsync(intro_scene_name);
+		SceneManager.LoadScene(intro_scene_name);
 	}
 
 	/// <summary>
@@ -54,8 +54,8 @@ public class MenuController : MonoBehaviour {
         {
             soundManager.PlayGameMusic();
         }
-		SceneManager.LoadSceneAsync(play_scene_name);
 		GameState.state = State.PLAY;
+		SceneManager.LoadScene(play_scene_name);
 	}
 
 	/// <summary>
@@ -76,8 +76,8 @@ public class MenuController : MonoBehaviour {
 	{
  	    Time.timeScale = 1f;
         soundManager.PlayMenuMusic(false);
-		SceneManager.LoadSceneAsync(title_scene_name);
 		GameState.state = State.START;
+		SceneManager.LoadScene(title_scene_name);
 	}
 
 	/// <summary>
@@ -100,7 +100,7 @@ public class MenuController : MonoBehaviour {
     {
  	    Time.timeScale = 1f;
 		SelectedStart.isTutorial = true;
-        SceneManager.LoadSceneAsync(intro_scene_name);
+        SceneManager.LoadScene(intro_scene_name);
     }
 
     /// <summary>
@@ -109,8 +109,8 @@ public class MenuController : MonoBehaviour {
     public void loseGame()
     {
         soundManager.PlayDefeatMusic();
-        SceneManager.LoadSceneAsync(end_scene_name);
         GameState.state = State.LOSS;
+        SceneManager.LoadScene(end_scene_name);
     }
 
 	/// <summary>
@@ -119,8 +119,15 @@ public class MenuController : MonoBehaviour {
 	public void winGame()
 	{
         soundManager.PlayVictoryMusic();
-		SceneManager.LoadSceneAsync(end_scene_name);
 		GameState.state = State.WIN;
+		SceneManager.LoadScene(end_scene_name);
+	}
+
+	/// <summary>
+	/// Restarts the game from the last checkpoint.
+	/// </summary>
+	public void startFromCheckpoint()
+	{
 	}
 
 	/// <summary>
@@ -147,7 +154,10 @@ public class MenuController : MonoBehaviour {
 	{
 		standard_menu.SetActive(true);
 		controls_menu.SetActive(false);
-		credits_menu.SetActive(false);
+		if (credits_menu != null)
+		{
+			credits_menu.SetActive(false);
+		}
 	}
 
 	/// <summary>

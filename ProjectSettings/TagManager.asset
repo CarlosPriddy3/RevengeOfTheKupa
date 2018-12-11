@@ -29,6 +29,7 @@ TagManager:
   - StaminaText
   - SavePointManager
   - Pauser
+  - CheckpointButton
   layers:
   - Default
   - TransparentFX
