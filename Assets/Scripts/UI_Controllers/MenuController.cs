@@ -35,7 +35,7 @@ public class MenuController : MonoBehaviour {
 	/// </summary>
 	public void startGame()
 	{
-        soundManager.PlayGameMusic();
+        //soundManager.PlayGameMusic();
         SelectedStart.isTutorial = false;
 		SceneManager.LoadSceneAsync(intro_scene_name);
 	}
@@ -43,13 +43,16 @@ public class MenuController : MonoBehaviour {
 	/// <summary>
 	/// Starts the actual gameplay.
 	/// </summary>
-	public void play()
+	public void play(bool isRestart)
 	{
 		if (pauser != null)
 		{
 			pauser.unpause();
 		}
-        //soundManager.PlayGameMusic();
+        if (!isRestart)
+        {
+            soundManager.PlayGameMusic();
+        }
 		SceneManager.LoadSceneAsync(play_scene_name);
 		GameState.state = State.PLAY;
 	}
@@ -127,7 +130,7 @@ public class MenuController : MonoBehaviour {
 	/// </summary>
 	public void viewStandard()
 	{
-        Debug.Log("MENU");
+        //Debug.Log("MENU");
 		standard_menu.SetActive(true);
 		controls_menu.SetActive(false);
 	}

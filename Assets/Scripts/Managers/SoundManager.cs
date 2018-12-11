@@ -93,7 +93,7 @@ public class SoundManager : MonoBehaviour {
 
     IEnumerator fadeMusic(AudioClip musicClip, bool first)
     {
-        Debug.Log("FADE MUSIC");
+        //Debug.Log("FADE MUSIC");
         float t = 1f;
         if (!first)
         {
