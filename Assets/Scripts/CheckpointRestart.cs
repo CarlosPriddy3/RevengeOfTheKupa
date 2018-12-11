@@ -10,7 +10,6 @@ using UnityEngine;
 public class CheckpointRestart : MonoBehaviour
 {
     SavePointManager spManager;
-    Text gameEndCPText;
     bool hasCheckpoint;
     // Use this for initialization
     void Start()
@@ -21,18 +20,12 @@ public class CheckpointRestart : MonoBehaviour
         {
             spManager = spManagerObject.GetComponent<SavePointManager>();
         }
-        GameObject gameEndCPTextObj = GameObject.FindGameObjectWithTag("GameEndCheckpointText");
-        if (gameEndCPTextObj != null)
-        {
-            gameEndCPText = gameEndCPTextObj.GetComponent<Text>();
-        }
         hasCheckpoint = true;
         if (spManager != null)
         {
             //No Checkpoint Reached! Grey out option!
-            if (spManager.getSavePointPosition() == Vector3.zero && gameEndCPText != null)
+            if (spManager.getSavePointPosition() == Vector3.zero)
             {
-                gameEndCPText.color = new Color(80, 80, 80);
                 hasCheckpoint = false;
             }
         }
