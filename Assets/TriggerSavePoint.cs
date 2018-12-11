@@ -38,12 +38,16 @@ public class TriggerSavePoint : MonoBehaviour {
         if (other.tag == "Kupa")
         {
             spManager.setActiveSavePoint(this.transform.parent.gameObject);
+            checkPointCanvas.enabled = true;
         }
-        checkPointCanvas.enabled = true;
+        
     }
 
     private void OnTriggerExit(Collider other)
     {
-        checkPointCanvas.enabled = false;
+        if (other.tag == "Kupa")
+        {
+            checkPointCanvas.enabled = false;
+        }
     }
 }
