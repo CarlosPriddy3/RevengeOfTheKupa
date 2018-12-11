@@ -147,20 +147,19 @@ public class MarioController : MonoBehaviour
                         {
                             marioCounter--;
                             Debug.Log("Chase to Patrol: " + marioCounter);
-
-                            marioStartledCanvas.enabled = false;
-                            kupaStartledCanvas.enabled = false;
+                            if (marioCounter == 0) {
+                                marioStartledCanvas.enabled = false;
+                                kupaStartledCanvas.enabled = false;
+                            }
                             aiState = AIState.Patrol;
                         }
                         if (canSeeKupa() == false && disToTarget > 10f)
                         {
                             marioCounter--;
                             Debug.Log("Chase to Investigate: " + marioCounter);
-
-                            marioStartledCanvas.enabled = false;
-                            kupaStartledCanvas.enabled = false;
-                            if (marioCounter == 0)
-                            {
+                            if (marioCounter == 0) {
+                                marioStartledCanvas.enabled = false;
+                                kupaStartledCanvas.enabled = false;
                                 playInvestigatingSound();
                             }
                             InstantiateInvestigateParams(targetPos);
@@ -213,9 +212,10 @@ public class MarioController : MonoBehaviour
                     {
                         marioCounter--;
                         Debug.Log("Stunned: " + marioCounter);
-
-                        marioStartledCanvas.enabled = false;
-                        kupaStartledCanvas.enabled = false;
+                        if (marioCounter == 0) {
+                            marioStartledCanvas.enabled = false;
+                            kupaStartledCanvas.enabled = false;
+                        }
                         agent.enabled = true;
                         this.GetComponent<MarioAttack>().enabled = true;
                         float dist2 = (movingTarget.transform.position - agent.transform.position).magnitude;
@@ -235,7 +235,7 @@ public class MarioController : MonoBehaviour
                                 aiState = AIState.Chase;
                             } else
                             {
-                                if (marioCounter == 1)
+                                if (marioCounter == 0)
                                 {
                                     playInvestigatingSound();
                                 }
@@ -255,6 +255,12 @@ public class MarioController : MonoBehaviour
                     {
                         Debug.Log("TIME UP COULDNT FIND");
                         clearInvestigationPoints();
+                        marioCounter--;
+                        if (marioCounter == 0) {
+                            marioStartledCanvas.enabled = false;
+                            kupaStartledCanvas.enabled = false;
+                        }
+
                         aiState = AIState.Patrol;
                         break;
                     }
