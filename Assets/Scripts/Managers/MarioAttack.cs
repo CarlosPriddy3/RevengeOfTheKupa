@@ -77,8 +77,9 @@ public class MarioAttack : MonoBehaviour {
             }
             else
             {
-                if (kupaState == KupaState.NotSpinning && (kupaVel <= 5f) && !cooldown) {
+                if (kupaState == KupaState.Spinning && (kupaVel <= 5f) && !cooldown) {
                     lc.loseLife();
+                    Debug.Log("Spinning and lost life");
                     if (lc.getNumLives() > 0)
                     {
                         damageImage.color = flashColour;
@@ -95,6 +96,7 @@ public class MarioAttack : MonoBehaviour {
                 else if (!cooldown)
                 {   
                     lc.loseLife();
+                    Debug.Log("Lost a life");
                     if (lc.getNumLives() > 0)
                     {
                         damageImage.color = flashColour;
@@ -107,6 +109,7 @@ public class MarioAttack : MonoBehaviour {
                     cooldown = true;
                     cooldown_timer = cooldown_time;
                 }
+                Debug.Log("You have " + lc.getNumLives() + " lives left");
             }
         }
     }
