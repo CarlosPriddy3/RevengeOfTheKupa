@@ -145,7 +145,10 @@ public class MarioController : MonoBehaviour
                     {
                         if (disToTarget > sightDistance)
                         {
-                            marioCounter--;
+                            if (marioCounter != 0)
+                            {
+                                marioCounter--;
+                            }
                             Debug.Log("Chase to Patrol: " + marioCounter);
                             if (marioCounter == 0) {
                                 marioStartledCanvas.enabled = false;
@@ -155,7 +158,10 @@ public class MarioController : MonoBehaviour
                         }
                         if (canSeeKupa() == false && disToTarget > 10f)
                         {
-                            marioCounter--;
+                            if (marioCounter != 0) 
+                            {
+                                marioCounter--;
+                            }
                             Debug.Log("Chase to Investigate: " + marioCounter);
                             if (marioCounter == 0) {
                                 marioStartledCanvas.enabled = false;
@@ -210,7 +216,10 @@ public class MarioController : MonoBehaviour
                     stunnedTimer += Time.deltaTime;
                     if (stunnedTimer > stunDuration)
                     {
-                        marioCounter--;
+                        if (marioCounter != 0)
+                        {
+                            marioCounter--;
+                        }
                         Debug.Log("Stunned: " + marioCounter);
                         if (marioCounter == 0) {
                             marioStartledCanvas.enabled = false;
@@ -255,7 +264,10 @@ public class MarioController : MonoBehaviour
                     {
                         Debug.Log("TIME UP COULDNT FIND");
                         clearInvestigationPoints();
-                        marioCounter--;
+                        if (marioCounter != 0)
+                        {
+                            marioCounter--;
+                        }
                         if (marioCounter == 0) {
                             marioStartledCanvas.enabled = false;
                             kupaStartledCanvas.enabled = false;
