@@ -32,7 +32,7 @@ public class SoundListener : MonoBehaviour {
             {
                 if (smallSound)
                 {
-                    if (kupaControl.velocityMag > smallSpeedThreshold)
+                    if (kupaControl.velocityMag > 0)
                     {
                         marioController.InstantiateInvestigateParams(kupaTrupa.transform.position);
                     }
