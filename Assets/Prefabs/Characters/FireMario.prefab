@@ -878,8 +878,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1890155369395954}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 95.53334, y: -0.7227783, z: 182.68578}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -13.502213, y: -6.8738823, z: 4.528656}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 4633041690249236}
   - {fileID: 4089454850197178}
@@ -1292,8 +1292,8 @@ MonoBehaviour:
   distanceToKupa: 0
   vertAdjust: 3
   kupaVel: 0
-  injuredAudio: {fileID: 0}
-  cooldown_time: 0
+  injuredAudio: {fileID: 82080221937719030}
+  cooldown_time: 2
   flashSpeed: 2
   flashColour: {r: 1, g: 0, b: 0, a: 1}
 --- !u!114 &114386545231672386
@@ -1374,6 +1374,8 @@ MonoBehaviour:
   bigSound: 0
   smallSpeedThreshold: 4
   bigSpeedThreshold: 10
+  loudRange: 10
+  quietRange: 6
 --- !u!114 &114754073510733512
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1389,6 +1391,8 @@ MonoBehaviour:
   bigSound: 1
   smallSpeedThreshold: 1
   bigSpeedThreshold: 10
+  loudRange: 10
+  quietRange: 6
 --- !u!114 &114902368871857726
 MonoBehaviour:
   m_ObjectHideFlags: 1

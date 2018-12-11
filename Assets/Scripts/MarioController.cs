@@ -95,10 +95,12 @@ public class MarioController : MonoBehaviour
                 disToTarget = 0f;
             }
 
-
+            timer++;
             switch (aiState)
             {
+                
                 case AIState.Patrol:
+                    agent.speed = 9;
                     //Line of Sight Debug Rays
                     Quaternion rightRot = Quaternion.AngleAxis(fieldOfView, Vector3.up);
                     Quaternion leftRot = Quaternion.AngleAxis(-fieldOfView, Vector3.up);
@@ -127,9 +129,13 @@ public class MarioController : MonoBehaviour
                                 marioStartledCanvas.enabled = true;
                                 kupaStartledText.text = getExclamationStr();
                                 kupaStartledCanvas.enabled = true;
-                                if (this.name == "FireMario")
+                                if (this.tag == "FireMario" || this.tag == "StationaryFireMario")
                                 {
-                                    shootFireball();
+                                    if (timer > fireballCD)
+                                    {
+                                        shootFireball();
+                                        timer = Random.Range(0, fireBallMaxRandom);
+                                    }
                                 }
                                 aiState = AIState.Chase;
                                 break;
@@ -141,6 +147,7 @@ public class MarioController : MonoBehaviour
                     break;
 
                 case AIState.Chase:
+                    agent.speed = 15;
                     if (movingTarget != null)
                     {
                         if (disToTarget > sightDistance)
@@ -203,7 +210,6 @@ public class MarioController : MonoBehaviour
                         }
                         if (this.tag == "FireMario" || this.tag == "StationaryFireMario")
                         {
-                            timer++;
                             if (timer > fireballCD)
                             {
                                 shootFireball();
@@ -258,6 +264,7 @@ public class MarioController : MonoBehaviour
                     break;
                 case AIState.Investigate:
                     searchTimer++;
+                    agent.speed = 9;
                     
                     
                     if (searchTimer > searchTime)
@@ -298,7 +305,11 @@ public class MarioController : MonoBehaviour
                             kupaStartledCanvas.enabled = true;
                             if (this.tag == "FireMario")
                             {
-                                shootFireball();
+                                if (timer > fireballCD)
+                                {
+                                    shootFireball();
+                                    timer = Random.Range(0, fireBallMaxRandom);
+                                }
                             }
                             
                             aiState = AIState.Chase;

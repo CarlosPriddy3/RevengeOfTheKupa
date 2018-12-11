@@ -549,7 +549,7 @@ GameObject:
   - component: {fileID: 114928340882356096}
   m_Layer: 0
   m_Name: FireMario
-  m_TagString: FireMario
+  m_TagString: StationaryFireMario
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -687,8 +687,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1997628301437618}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -7.4022217, y: -6.8738823, z: 16.4}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 259.2, y: -6.5, z: -173.3}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 4131766593987954}
@@ -1465,6 +1465,8 @@ MonoBehaviour:
   bigSound: 0
   smallSpeedThreshold: 4
   bigSpeedThreshold: 10
+  loudRange: 10
+  quietRange: 6
 --- !u!114 &114465813096172282
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1481,8 +1483,8 @@ MonoBehaviour:
   distanceToKupa: 0
   vertAdjust: 3
   kupaVel: 0
-  injuredAudio: {fileID: 0}
-  cooldown_time: 0
+  injuredAudio: {fileID: 82140255570538314}
+  cooldown_time: 2
   flashSpeed: 2
   flashColour: {r: 1, g: 0, b: 0, a: 1}
 --- !u!114 &114517277730625236
@@ -1500,6 +1502,8 @@ MonoBehaviour:
   bigSound: 1
   smallSpeedThreshold: 1
   bigSpeedThreshold: 10
+  loudRange: 10
+  quietRange: 6
 --- !u!114 &114735164824800540
 MonoBehaviour:
   m_ObjectHideFlags: 1
