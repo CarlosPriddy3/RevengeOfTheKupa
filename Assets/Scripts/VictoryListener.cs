@@ -22,15 +22,12 @@ public class VictoryListener : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-        GameObject[] gos = GameObject.FindGameObjectsWithTag("Kupa");
-
-        disToKupa = (this.transform.position - kupa.transform.position).magnitude;
 
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (disToKupa < winDistance && moveScript.kupaState == KupaState.Spinning && moveScript.velocityMag > 3)
+        if (moveScript.kupaState == KupaState.Spinning && moveScript.velocityMag > 3)
         {
             soundManager.fadeOut();
             fader.SetTrigger("win");
