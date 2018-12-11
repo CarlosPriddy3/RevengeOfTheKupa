@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4465798, g: 0.4964143, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657916, g: 0.49641317, b: 0.574817, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -22249,6 +22249,17 @@ Prefab:
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114376634700233334, guid: 6402e54aab66abd49b81ee9db6a9b76b,
+        type: 2}
+      propertyPath: m_Text
+      value: Move around using either the arrow keys or [WASD]. Jump using [SPACE]
+      objectReference: {fileID: 0}
+    - target: {fileID: 114910424128085026, guid: 6402e54aab66abd49b81ee9db6a9b76b,
+        type: 2}
+      propertyPath: m_Text
+      value: Enter your shell and launch yourself forwards by holding down the [SHIFT]
+        key and releasing it. Use it to break certain walls and other obstacles
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6402e54aab66abd49b81ee9db6a9b76b, type: 2}
