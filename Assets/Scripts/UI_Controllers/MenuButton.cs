@@ -16,6 +16,7 @@ public class MenuButton : Button
 	// Colors used for displaying selected/non-selected buttons.
 	public Color def_text_color = new Color(0.961f, 0.961f, 0.961f, 1.0f);
 	public Color select_text_color = new Color(0.059f, 0.059f, 0.059f, 1.0f);
+	public Color dis_text_color = new Color(0.4f, 0.4f, 0.4f, 1.0f);
 	private Color no_color = new Color(1f, 1f, 1f, 0f);
 
 	protected override void Start ()
@@ -42,6 +43,24 @@ public class MenuButton : Button
 	public override void OnDeselect(BaseEventData eventData)
 	{
 		setDefaultColors();
+	}
+
+	/// <summary>
+	/// Disables the button and sets its colors to the "disabled" color set.
+	/// </summary>
+	public void disable()
+	{
+		label.color = dis_text_color;
+		icon.color = no_color;
+		ColorBlock block = new ColorBlock();
+		block.disabledColor = no_color;
+		block.highlightedColor = no_color;
+		block.normalColor = no_color;
+		block.pressedColor = no_color;
+		block.colorMultiplier = 1f;
+		block.fadeDuration = 0.1f;
+		colors = block;
+		interactable = false;
 	}
 
 	/// <summary>
