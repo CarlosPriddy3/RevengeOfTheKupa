@@ -18,23 +18,9 @@ public class TutorialToGame : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
 	{
-		if (pauser.is_paused)
+		if (Input.GetKeyDown(KeyCode.Return))
 		{
-			is_paused = true;
-		}
-		else
-		{
-			if (is_paused)
-			{
-				is_paused = false;
-			}
-			else
-			{
-				if (Input.GetKeyDown(KeyCode.Return))
-				{
-		            fader.SetTrigger("start");
-		        }
-			}
+			fader.SetTrigger("start");
 		}
 	}
 }
