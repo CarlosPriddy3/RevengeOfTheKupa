@@ -1,4 +1,4 @@
-# RevengeOfTheKupa
+# Revenge of the Kupa
 
 ---
 Download the game [here](https://drive.google.com/open?id=1DLHgduf7ojGJz8MFc5LFthKOuucvK4q7).
